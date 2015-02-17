@@ -19,10 +19,10 @@ public class GameStateManager {
     }
 
     public void update(float dt) {
-        States.peek().update(dt);
+        states.peek().update(dt);
     }
 
     public void draw() {
-        States.peek().draw();
+        states.peek().draw();
     }
 }
