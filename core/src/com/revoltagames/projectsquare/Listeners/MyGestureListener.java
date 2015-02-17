@@ -35,11 +35,11 @@ public class MyGestureListener implements GestureListener {
             }
         }else{
             if (velocityY>0) {
-                // Deslizar arriba
-                GestureManager.setSwipe(GestureManager.SW_UP);
-            } else if (velocityY<0) {
                 // Deslizar abajo
                 GestureManager.setSwipe(GestureManager.SW_DOWN);
+            } else if (velocityY<0) {
+                // Deslizar arriba
+                GestureManager.setSwipe(GestureManager.SW_UP);
             }
         }
         return true;
