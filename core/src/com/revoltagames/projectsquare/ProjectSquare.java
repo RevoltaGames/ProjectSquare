@@ -4,7 +4,9 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.input.GestureDetector;
 import com.revoltagames.projectsquare.GameStates.Menu;
+import com.revoltagames.projectsquare.Listeners.MyGestureListener;
 import com.revoltagames.projectsquare.Managers.GameStateManager;
 
 public class ProjectSquare extends ApplicationAdapter {
@@ -28,6 +30,8 @@ public class ProjectSquare extends ApplicationAdapter {
 
         gameStateManager = new GameStateManager();
         gameStateManager.setState(new Menu(gameStateManager));
+
+        Gdx.input.setInputProcessor(new GestureDetector(new MyGestureListener()));
     }
 
 	@Override
