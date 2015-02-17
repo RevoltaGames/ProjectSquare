@@ -9,12 +9,20 @@ import java.util.Stack;
 public class GameStateManager {
     private Stack<GameState> states;
 
-    public GameStateManager(GameState firstState) {
+    public GameStateManager() {
         states = new Stack<GameState>();
-        setState(firstState);
+    }
+
+    public void push(GameState state) {
+        states.push(state);
+    }
+
+    public void pop() {
+        states.pop();
     }
 
     public void setState(GameState state) {
+        states.pop();
         states.push(state);
     }
 
