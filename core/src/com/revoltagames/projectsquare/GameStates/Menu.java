@@ -7,7 +7,7 @@ import com.revoltagames.projectsquare.Managers.GameStateManager;
  */
 public class Menu extends GameState {
 
-    protected Menu(GameStateManager gsm) {
+    public Menu(GameStateManager gsm) {
         super(gsm);
     }
 
