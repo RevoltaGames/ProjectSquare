@@ -18,7 +18,7 @@ public class Play extends GameState {
 
     @Override
     public void update(float dt) {
-
+        handleInput();
     }
 
     @Override
@@ -28,7 +28,7 @@ public class Play extends GameState {
 
     @Override
     public void handleInput() {
-
+        
     }
 
     @Override
