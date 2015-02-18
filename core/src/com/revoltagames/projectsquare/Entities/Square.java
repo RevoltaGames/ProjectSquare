@@ -1,6 +1,8 @@
 package com.revoltagames.projectsquare.Entities;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.revoltagames.projectsquare.Managers.ColorManager;
 import com.revoltagames.projectsquare.Managers.GestureManager;
@@ -10,9 +12,13 @@ import com.revoltagames.projectsquare.ProjectSquare;
  * Created by alejandro on 18/02/15.
  */
 public class Square  {
+    public static int squareNumbers = 0;
 
     private int x, y;
     private int dx, dy;
+
+    private int number;
+    private BitmapFont font;
 
     private int size;
 
@@ -26,6 +32,11 @@ public class Square  {
         x = ProjectSquare.WIDTH / 2;
         y = ProjectSquare.HEIGTH / 2;
 
+        number = squareNumbers++;
+        font = new BitmapFont();
+        font.setColor(Color.WHITE);
+        font.scale(3.0f);
+
         dx = dy = 0;
 
         size = ProjectSquare.WIDTH / 3;
@@ -35,13 +46,21 @@ public class Square  {
         color = ColorManager.randomColor(4);
     }
 
-    public void draw(ShapeRenderer shapeR) {
+    public void draw(ShapeRenderer shapeR, SpriteBatch spRenderer) {
+        shapeR.begin(ShapeRenderer.ShapeType.Filled);
         Color oldColor = shapeR.getColor();
         shapeR.setColor(color);
-
         shapeR.rect(x-size/2, y-size/2, size, size);
-
         shapeR.setColor(oldColor);
+        shapeR.end();
+
+        spRenderer.begin();
+        BitmapFont.TextBounds bounds = font.getBounds(Integer.toString(number));
+        font.draw(spRenderer,
+                Integer.toString(number),
+                this.x-bounds.width/2,
+                this.y+bounds.height/2);
+        spRenderer.end();
     }
 
     public void update(float dt, int swipe) {

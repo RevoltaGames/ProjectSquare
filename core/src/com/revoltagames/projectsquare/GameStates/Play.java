@@ -1,5 +1,6 @@
 package com.revoltagames.projectsquare.GameStates;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.revoltagames.projectsquare.Entities.Border;
 import com.revoltagames.projectsquare.Entities.Square;
@@ -17,6 +18,7 @@ public class Play extends GameState {
 
 
     private ShapeRenderer shapeR;
+    private SpriteBatch spriteRenderer;
 
     private List<Square> squares;
     Square swipedSquare;
@@ -34,15 +36,18 @@ public class Play extends GameState {
     @Override
     public void init() {
         shapeR = new ShapeRenderer();
+        spriteRenderer = new SpriteBatch();
         squares = new LinkedList<Square>();
+
+        gameOver = false;
+        Square.squareNumbers = 0;
+
         squares.add(new Square());
         borders = new Border[4];
         borders[GestureManager.SW_LEFT-1] = new Border(0, ColorManager.BLUE);
         borders[GestureManager.SW_RIGHT-1] = new Border(1, ColorManager.GREEN);
         borders[GestureManager.SW_DOWN-1] = new Border(2, ColorManager.YELLOW);
         borders[GestureManager.SW_UP-1] = new Border(3, ColorManager.RED);
-
-        gameOver = false;
 
         GestureManager.clear();
     }
@@ -76,18 +81,13 @@ public class Play extends GameState {
 
     @Override
     public void draw() {
-        shapeR.begin(ShapeRenderer.ShapeType.Filled);
-
         for (Border border: borders) {
             border.draw(shapeR);
         }
 
-        squares.get(0).draw(shapeR);
+        squares.get(0).draw(shapeR, spriteRenderer);
         if (swipedSquare != null)
-            swipedSquare.draw(shapeR);
-
-
-        shapeR.end();
+            swipedSquare.draw(shapeR, spriteRenderer);
     }
 
     @Override

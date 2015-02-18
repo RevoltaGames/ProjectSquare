@@ -46,10 +46,12 @@ public class Border {
     }
 
     public void draw(ShapeRenderer shapeR) {
+        shapeR.begin(ShapeRenderer.ShapeType.Filled);
         Color oldColor = shapeR.getColor();
         shapeR.setColor(color);
         shapeR.rect(x,y,width,heigth);
         shapeR.setColor(oldColor);
+        shapeR.end();
      }
 
     public Color getColor() {
