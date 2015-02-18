@@ -22,8 +22,8 @@ public class ImageCircularButton extends CircularButton {
      * @param x
      * @param image
      */
-    public ImageCircularButton(int y, int x, Image image) {
-        super(y, x, 0, Color.WHITE);
+    public ImageCircularButton(int x, int y, Image image) {
+        super(x, y, 0, Color.WHITE);
         spriteRendenrer = new SpriteBatch();
         imgSize = image.getGraphics().getClipBounds().getSize();
         this.radio = (int) Math.sqrt(Math.pow(2 * imgSize.height, 2) / 2);
@@ -37,8 +37,8 @@ public class ImageCircularButton extends CircularButton {
      * @param color Color de fondo
      * @param image
      */
-    public ImageCircularButton(int y, int x, int radio, Color color, Texture image) {
-        super(radio, y, x, color);
+    public ImageCircularButton(int x, int y, int radio, Color color, Texture image) {
+        super(x, y, radio, color);
         this.image = image;
     }
 

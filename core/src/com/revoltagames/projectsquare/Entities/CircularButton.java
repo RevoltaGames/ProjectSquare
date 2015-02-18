@@ -28,7 +28,7 @@ public class CircularButton {
      * @param y
      * @param x
      */
-    public CircularButton(int y, int x, int radio,  Color color) {
+    public CircularButton(int x, int y, int radio,  Color color) {
         this.radio = radio;
         this.y = y;
         this.x = x;
