@@ -22,9 +22,9 @@ public class ResourceManager extends AssetManager {
      */
     public ResourceManager() {
         super();
-        this.load(RETRY_BUTTON, Texture.class);
+        /*this.load(RETRY_BUTTON, Texture.class);
         this.load(MENU_BUTTON, Texture.class);
-        this.load(RG_LOGO, Texture.class);
+        this.load(RG_LOGO, Texture.class);*/
     }
 
     public Texture getTexture(String id) {
