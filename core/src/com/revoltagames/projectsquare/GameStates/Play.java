@@ -24,6 +24,7 @@ public class Play extends GameState {
     private Border[] borders;
 
     private int swipe = 0;
+    private boolean gameOver;
 
 
     protected Play(GameStateManager gsm) {
@@ -36,10 +37,12 @@ public class Play extends GameState {
         squares = new LinkedList<Square>();
         squares.add(new Square());
         borders = new Border[4];
-        borders[0] = new Border(0, ColorManager.RED);
-        borders[1] = new Border(1, ColorManager.BLUE);
-        borders[2] = new Border(2, ColorManager.YELLOW);
-        borders[3] = new Border(3, ColorManager.GREEN);
+        borders[GestureManager.SW_LEFT-1] = new Border(0, ColorManager.BLUE);
+        borders[GestureManager.SW_RIGHT-1] = new Border(1, ColorManager.GREEN);
+        borders[GestureManager.SW_DOWN-1] = new Border(2, ColorManager.YELLOW);
+        borders[GestureManager.SW_UP-1] = new Border(3, ColorManager.RED);
+
+        gameOver = false;
 
         GestureManager.clear();
     }
@@ -50,13 +53,24 @@ public class Play extends GameState {
 
         squares.get(0).update(dt, swipe);
 
+        if(swipe != 0) {
+            if (squares.get(0).getColor() != borders[swipe-1].getColor()) {
+                gameOver = true;
+            }
+        }
+
         if (squares.get(0).isOnAnimation()) {
             swipedSquare = squares.get(0);
             squares.add(0, new Square());
         }
 
-        if (swipedSquare != null)
+        if (swipedSquare != null) {
             swipedSquare.update(dt, swipe);
+        }
+
+        if(gameOver) {
+            this.gsm.setState(new GameOver(this.gsm));
+        }
 
     }
 

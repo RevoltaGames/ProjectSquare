@@ -52,4 +52,8 @@ public class Border {
         shapeR.setColor(oldColor);
      }
 
+    public Color getColor() {
+        return color;
+    }
+
 }

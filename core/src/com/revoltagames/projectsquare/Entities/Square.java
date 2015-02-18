@@ -74,4 +74,8 @@ public class Square  {
     public boolean isOnAnimation() {
         return onAnimation;
     }
+
+    public Color getColor() {
+        return color;
+    }
 }

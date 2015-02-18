@@ -28,20 +28,21 @@ public class GameOver extends GameState {
 
     protected GameOver(GameStateManager gsm) {
         super(gsm);
-        int unitStep = ProjectSquare.WIDTH/8;
-        boton1 = new CircularButton(unitStep*2,
-                ProjectSquare.HEIGTH/4,
-                unitStep,
-                ColorManager.LIGHT_BLUE);
-        boton2 = new CircularButton(unitStep*6,
-                ProjectSquare.HEIGTH/4,
-                unitStep,
-                ColorManager.LIGHT_GREEN);
     }
 
     @Override
     public void init() {
         gameOverText = "jaja you loser!!";
+        int unitStep = ProjectSquare.WIDTH/8;
+        boton1 = new CircularButton(unitStep*2,
+                ProjectSquare.HEIGTH/4,
+                unitStep,
+                ColorManager.LIGHT_GREEN);
+        boton2 = new CircularButton(unitStep*6,
+                ProjectSquare.HEIGTH/4,
+                unitStep,
+                ColorManager.LIGHT_BLUE);
+        renderer = new ShapeRenderer();
     }
 
     @Override
