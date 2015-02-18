@@ -2,6 +2,7 @@ package com.revoltagames.projectsquare.Entities;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.revoltagames.projectsquare.Managers.ColorManager;
 import com.revoltagames.projectsquare.Managers.GestureManager;
 import com.revoltagames.projectsquare.ProjectSquare;
 
@@ -27,12 +28,11 @@ public class Square  {
 
         dx = dy = 0;
 
-        size = ProjectSquare.WIDTH * 6 / 10;
+        size = ProjectSquare.WIDTH * 1 / 2;
 
         vel = ProjectSquare.HEIGTH * 5;
 
-        // TODO Colores aleatorios
-        color = new Color(3/255f,169/255f,244/255f,1);
+        color = ColorManager.randomColor();
     }
 
     public void draw(ShapeRenderer shapeR) {
