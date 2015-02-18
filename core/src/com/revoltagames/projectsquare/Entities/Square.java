@@ -28,11 +28,11 @@ public class Square  {
 
         dx = dy = 0;
 
-        size = ProjectSquare.WIDTH * 1 / 2;
+        size = ProjectSquare.WIDTH / 3;
 
         vel = ProjectSquare.HEIGTH * 5;
 
-        color = ColorManager.randomColor();
+        color = ColorManager.randomColor(4);
     }
 
     public void draw(ShapeRenderer shapeR) {

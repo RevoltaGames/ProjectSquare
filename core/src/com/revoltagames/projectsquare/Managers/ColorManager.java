@@ -37,18 +37,18 @@ public class ColorManager {
 
     static {
         RED = colores[0] = new MyColor(244, 67, 54, 1);
-        PINK = colores[1] = new MyColor(233, 30, 99, 1);
-        PURPLE = colores[2] = new MyColor(156, 39, 176, 1);
-        DEEP_PURPLE = colores[3] = new MyColor(103, 58, 183, 1);
-        INDIGO = colores[4] = new MyColor(63, 81, 181, 1);
-        BLUE = colores[5] = new MyColor(33, 150, 243, 1);
-        LIGHT_BLUE = colores[6] = new MyColor(3, 169, 244, 1);
-        CYAN = colores[7] = new MyColor(0, 188, 212, 1);
-        TEAL = colores[8] = new MyColor(0, 150, 136, 1);
-        GREEN = colores[9] = new MyColor(76, 175, 80, 1);
-        LIGHT_GREEN = colores[10] = new MyColor(139, 195, 74, 1);
+        BLUE = colores[1] = new MyColor(33, 150, 243, 1);
+        YELLOW = colores[2] = new MyColor(255, 235, 59, 1);
+        GREEN = colores[3] = new MyColor(76, 175, 80, 1);
+        PINK = colores[4] = new MyColor(233, 30, 99, 1);
+        PURPLE = colores[5] = new MyColor(156, 39, 176, 1);
+        DEEP_PURPLE = colores[6] = new MyColor(103, 58, 183, 1);
+        INDIGO = colores[7] = new MyColor(63, 81, 181, 1);
+        LIGHT_BLUE = colores[8] = new MyColor(3, 169, 244, 1);
+        CYAN = colores[9] = new MyColor(0, 188, 212, 1);
+        TEAL = colores[10] = new MyColor(0, 150, 136, 1);
         LIME = colores[11] = new MyColor(205, 220, 57, 1);
-        YELLOW = colores[12] = new MyColor(255, 235, 59, 1);
+        LIGHT_GREEN = colores[12] = new MyColor(139, 195, 74, 1);
         AMBER = colores[13] = new MyColor(255, 193, 7, 1);
         ORANGE = colores[14] = new MyColor(255, 152, 0, 1);
         DEEP_ORANGE = colores[15] = new MyColor(255, 87, 34, 1);
@@ -60,9 +60,11 @@ public class ColorManager {
     }
 
     public static Color randomColor() {
-        int sdfasdf = rnd.nextInt(21);
-        System.out.println(sdfasdf);
-        return colores[sdfasdf];
+        return colores[rnd.nextInt(21)];
+    }
+
+    public static Color randomColor(int n) {
+        return colores[rnd.nextInt(n)];
     }
 
     private static class MyColor extends Color {
