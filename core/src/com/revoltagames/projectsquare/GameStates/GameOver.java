@@ -1,11 +1,13 @@
 package com.revoltagames.projectsquare.GameStates;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.revoltagames.projectsquare.Entities.CircularButton;
 import com.revoltagames.projectsquare.Entities.ImageCircularButton;
 import com.revoltagames.projectsquare.Managers.ColorManager;
 import com.revoltagames.projectsquare.Managers.GameStateManager;
+import com.revoltagames.projectsquare.Managers.ResourceManager;
 import com.revoltagames.projectsquare.ProjectSquare;
 
 /**
@@ -23,6 +25,8 @@ public class GameOver extends GameState {
     CircularButton boton1;
     CircularButton boton2;
 
+    private Music track;
+
     ImageCircularButton menuButton;
     ImageCircularButton retryButton;
 
@@ -32,6 +36,8 @@ public class GameOver extends GameState {
 
     @Override
     public void init() {
+        track= ProjectSquare.resourceManager.getMusic(ResourceManager.GAMEOVER);
+        track.play();
         gameOverText = "jaja you loser!!";
         int unitStep = ProjectSquare.WIDTH/8;
         boton1 = new CircularButton(unitStep*2,
@@ -61,6 +67,7 @@ public class GameOver extends GameState {
     @Override
     public void handleInput() {
         if(Gdx.input.justTouched()) {
+            track.stop();
             if (boton1.touched(Gdx.input.getX(), Gdx.input.getY())) {
                 gsm.setState(new Play(this.gsm));
             } else if (boton2.touched(Gdx.input.getX(), Gdx.input.getY())) {

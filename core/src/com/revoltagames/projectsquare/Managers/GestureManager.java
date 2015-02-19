@@ -5,8 +5,8 @@ package com.revoltagames.projectsquare.Managers;
  */
 public class GestureManager {
 
-    public static final int SW_RIGHT = 1;
-    public static final int SW_LEFT = 2;
+    public static final int SW_LEFT = 1;
+    public static final int SW_RIGHT = 2;
     public static final int SW_UP = 3;
     public static final int SW_DOWN = 4;
 

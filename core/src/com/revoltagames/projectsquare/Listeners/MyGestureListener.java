@@ -3,11 +3,18 @@ package com.revoltagames.projectsquare.Listeners;
 import com.badlogic.gdx.input.GestureDetector.GestureListener;
 import com.badlogic.gdx.math.Vector2;
 import com.revoltagames.projectsquare.Managers.GestureManager;
+import com.badlogic.gdx.audio.Music;
+import com.revoltagames.projectsquare.Managers.ResourceManager;
+import com.revoltagames.projectsquare.ProjectSquare;
+
+
+
 
 /**
  * Created by alejandro on 17/02/15.
  */
 public class MyGestureListener implements GestureListener {
+    private static Music track;
     @Override
     public boolean touchDown(float x, float y, int pointer, int button) {
         return false;
@@ -22,8 +29,8 @@ public class MyGestureListener implements GestureListener {
     public boolean longPress(float x, float y) {
         return false;
     }
-
     @Override
+
     public boolean fling(float velocityX, float velocityY, int button) {
         if(Math.abs(velocityX)>Math.abs(velocityY)){
             if(velocityX>0){
