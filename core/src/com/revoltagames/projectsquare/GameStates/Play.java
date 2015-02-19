@@ -54,10 +54,17 @@ public class Play extends GameState {
 
         squares.add(new Square());
         borders = new Border[4];
+<<<<<<< HEAD
         borders[GestureManager.SW_LEFT-1] = new Border(GestureManager.SW_LEFT-1, ColorManager.NBLUE);
         borders[GestureManager.SW_RIGHT-1] = new Border(GestureManager.SW_RIGHT-1, ColorManager.NGREEN);
         borders[GestureManager.SW_DOWN-1] = new Border(GestureManager.SW_DOWN-1, ColorManager.NYELLOW);
         borders[GestureManager.SW_UP-1] = new Border(GestureManager.SW_UP-1, ColorManager.NRED);
+=======
+        borders[GestureManager.SW_LEFT-1] = new Border(GestureManager.SW_LEFT-1, ColorManager.GREEN);
+        borders[GestureManager.SW_RIGHT-1] = new Border(GestureManager.SW_RIGHT-1, ColorManager.BLUE);
+        borders[GestureManager.SW_DOWN-1] = new Border(GestureManager.SW_DOWN-1, ColorManager.YELLOW);
+        borders[GestureManager.SW_UP-1] = new Border(GestureManager.SW_UP-1, ColorManager.RED);
+>>>>>>> cb78eb5b3c6c99371d1833afc871d14a191c148e
 
         GestureManager.clear();
     }
