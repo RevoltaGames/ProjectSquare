@@ -13,9 +13,9 @@ import com.badlogic.gdx.audio.Music;
 public class
 
         ResourceManager extends AssetManager {
-    public static final String RETRY_BUTTON = "retry-button.png";
+    /*public static final String RETRY_BUTTON = "retry-button.png";
     private static final String MENU_BUTTON = "menu-button.png";
-    private static final String RG_LOGO = "RevoltaGames-logo.png";
+    private static final String RG_LOGO = "RevoltaGames-logo.png";*/
     public static final String MUSIC = "Music/music.wav";
     public static final String MUSIC1 = "Music/music1.wav";
     public static final String MUSIC2 = "Music/music2.wav";

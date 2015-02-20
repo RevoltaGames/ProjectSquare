@@ -67,7 +67,7 @@ public class Play extends GameState {
     public void update(float dt) {
         handleInput();
         move= ProjectSquare.resourceManager.getMusic(ResourceManager.MOVE);
-        squares.get(0).update(dt, swipe);r
+        squares.get(0).update(dt, swipe);
 
         if(swipe != 0) {
             if (squares.get(0).getColor() != borders[swipe-1].getColor()) {

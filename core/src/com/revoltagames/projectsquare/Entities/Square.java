@@ -1,5 +1,6 @@
 package com.revoltagames.projectsquare.Entities;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -19,6 +20,7 @@ public class Square  {
 
     private int number;
     private BitmapFont font;
+    SpriteBatch spRenderer1;
 
     private int size;
 
@@ -33,9 +35,6 @@ public class Square  {
         y = ProjectSquare.HEIGTH / 2;
 
         number = squareNumbers++;
-        font = new BitmapFont();
-        font.setColor(Color.WHITE);
-        font.scale(3.0f);
 
         dx = dy = 0;
 
@@ -43,6 +42,10 @@ public class Square  {
 
         vel = ProjectSquare.HEIGTH * 5;
 
+        spRenderer1 = new SpriteBatch();
+        font = new BitmapFont(Gdx.files.internal("Fonts/font1.fnt"),
+                Gdx.files.internal("Fonts/font1.png"), false);
+        font.scale(1.2f);
         color = ColorManager.randomColor(4);
     }
 
@@ -54,13 +57,13 @@ public class Square  {
         shapeR.setColor(oldColor);
         shapeR.end();
 
-        spRenderer.begin();
         BitmapFont.TextBounds bounds = font.getBounds(Integer.toString(number));
-        font.draw(spRenderer,
+        spRenderer1.begin();
+        font.draw(spRenderer1,
                 Integer.toString(number),
                 this.x-bounds.width/2,
                 this.y+bounds.height/2);
-        spRenderer.end();
+        spRenderer1.end();
     }
 
     public void update(float dt, int swipe) {
