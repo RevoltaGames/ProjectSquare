@@ -13,6 +13,7 @@ import com.revoltagames.projectsquare.ProjectSquare;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by caenrique93 on 17/02/15.
@@ -33,6 +34,7 @@ public class Play extends GameState {
 
     private static Music track;
     private Music move;
+    private static Random rnd = new Random(System.currentTimeMillis());
 
     protected Play(GameStateManager gsm) {
         super(gsm);
@@ -44,7 +46,7 @@ public class Play extends GameState {
         spriteRenderer = new SpriteBatch();
         squares = new LinkedList<Square>();
 
-        track= ProjectSquare.resourceManager.getMusic(ResourceManager.MUSIC);
+        track= ProjectSquare.resourceManager.getMusic(rnd.nextInt(8));
         track.setLooping(true);
         track.play();
 
@@ -65,7 +67,7 @@ public class Play extends GameState {
     public void update(float dt) {
         handleInput();
         move= ProjectSquare.resourceManager.getMusic(ResourceManager.MOVE);
-        squares.get(0).update(dt, swipe);
+        squares.get(0).update(dt, swipe);r
 
         if(swipe != 0) {
             if (squares.get(0).getColor() != borders[swipe-1].getColor()) {
