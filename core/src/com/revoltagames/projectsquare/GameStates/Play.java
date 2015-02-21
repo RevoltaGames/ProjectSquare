@@ -1,6 +1,9 @@
 package com.revoltagames.projectsquare.GameStates;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.revoltagames.projectsquare.Entities.Border;
@@ -36,8 +39,21 @@ public class Play extends GameState {
     private Music move;
     private static Random rnd = new Random(System.currentTimeMillis());
 
+    private int timer;
+    private final int timeIncrement;
+    private int score;
+    private final int scoreIncrement;
+    private int phase;
+    private int phaseScore;
+    private long currentTime;
+    private long lastTime;
+
+    private BitmapFont font;
+
     protected Play(GameStateManager gsm) {
         super(gsm);
+        timeIncrement = 15;
+        scoreIncrement = 20;
     }
 
     @Override
@@ -50,6 +66,19 @@ public class Play extends GameState {
         track.setLooping(true);
         track.play();
 
+        move = ProjectSquare.resourceManager.getMusic(ResourceManager.MOVE);
+
+        timer = 30;
+        score = 0;
+        phase = 0;
+        phaseScore = 0;
+        lastTime = System.currentTimeMillis();
+
+        font = new BitmapFont(Gdx.files.internal("Fonts/font1.fnt"),
+                Gdx.files.internal("Fonts/font1.png"),
+                false);
+        font.scale(1.2f);
+        font.setColor(Color.LIGHT_GRAY);
 
         gameOver = false;
         Square.squareNumbers = 0;
@@ -66,15 +95,35 @@ public class Play extends GameState {
     @Override
     public void update(float dt) {
         handleInput();
-        move= ProjectSquare.resourceManager.getMusic(ResourceManager.MOVE);
+
+        if(gameOver) {
+            this.gsm.setState(new GameOver(this.gsm));
+        }
+
+        currentTime = System.currentTimeMillis();
+        if (currentTime - lastTime >= 1000) {
+            lastTime = currentTime;
+            timer--;
+        }
+
         squares.get(0).update(dt, swipe);
 
+        // Acaba de deslizar el cuadrado
         if(swipe != 0) {
             if (squares.get(0).getColor() != borders[swipe-1].getColor()) {
                 track.stop();
                 gameOver = true;
             }
+            score++;
+            phaseScore++;
+            if (phaseScore == scoreIncrement) {
+                phase++;
+                timer += timeIncrement;
+                phaseScore = 0;
+            }
         }
+
+        if (timer == 0) gameOver = true;
 
         if (squares.get(0).isOnAnimation()) {
             move.stop();
@@ -86,11 +135,6 @@ public class Play extends GameState {
         if (swipedSquare != null) {
             swipedSquare.update(dt, swipe);
         }
-
-        if(gameOver) {
-            this.gsm.setState(new GameOver(this.gsm));
-        }
-
     }
 
     @Override
@@ -102,6 +146,17 @@ public class Play extends GameState {
         squares.get(0).draw(shapeR, spriteRenderer);
         if (swipedSquare != null)
             swipedSquare.draw(shapeR, spriteRenderer);
+
+        drawTimer();
+    }
+
+    private void drawTimer() {
+        spriteRenderer.begin();
+        BitmapFont.TextBounds timerBound = font.getBounds(Integer.toString(timer));
+        float timerX = ProjectSquare.WIDTH/2 - timerBound.width/2;
+        float timerY = 4*ProjectSquare.HEIGTH/5 + timerBound.height/2;
+        font.draw(spriteRenderer, Integer.toString(timer), timerX, timerY);
+        spriteRenderer.end();
     }
 
     @Override
