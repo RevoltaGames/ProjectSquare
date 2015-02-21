@@ -78,7 +78,6 @@ public class Play extends GameState {
                 Gdx.files.internal("Fonts/font1.png"),
                 false);
         font.scale(1.2f);
-        font.setColor(Color.LIGHT_GRAY);
 
         gameOver = false;
         Square.squareNumbers = 0;
@@ -97,7 +96,7 @@ public class Play extends GameState {
         handleInput();
 
         if(gameOver) {
-            this.gsm.setState(new GameOver(this.gsm));
+            this.gsm.setState(new GameOver(this.gsm, score));
         }
 
         currentTime = System.currentTimeMillis();
@@ -155,7 +154,11 @@ public class Play extends GameState {
         BitmapFont.TextBounds timerBound = font.getBounds(Integer.toString(timer));
         float timerX = ProjectSquare.WIDTH/2 - timerBound.width/2;
         float timerY = 4*ProjectSquare.HEIGTH/5 + timerBound.height/2;
+
+        Color oldColor = spriteRenderer.getColor();
+        spriteRenderer.setColor(Color.LIGHT_GRAY);
         font.draw(spriteRenderer, Integer.toString(timer), timerX, timerY);
+        spriteRenderer.setColor(oldColor);
         spriteRenderer.end();
     }
 
