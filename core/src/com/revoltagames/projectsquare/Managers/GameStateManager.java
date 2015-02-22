@@ -18,11 +18,12 @@ public class GameStateManager {
     }
 
     public void pop() {
+        states.get(0).dispose();
         states.pop();
     }
 
     public void setState(GameState state) {
-        if(!states.empty()) states.pop();
+        if(!states.empty()) this.pop();
         states.push(state);
     }
 

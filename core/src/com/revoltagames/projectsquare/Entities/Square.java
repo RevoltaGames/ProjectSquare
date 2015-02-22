@@ -9,8 +9,6 @@ import com.revoltagames.projectsquare.Managers.ColorManager;
 import com.revoltagames.projectsquare.Managers.GestureManager;
 import com.revoltagames.projectsquare.ProjectSquare;
 
-import sun.org.mozilla.javascript.ast.Yield;
-
 /**
  * Created by alejandro on 18/02/15.
  */
