@@ -32,8 +32,13 @@ public class ColorManager {
     public static Color BLUE_GREY;
     public static Color BLACK;
     public static Color WHITE;
+    public static Color NRED;
+    public static Color NBLUE;
+    public static Color NYELLOW;
+    public static Color NGREEN;
 
-    private static Color[] colores = new Color[21];
+
+    private static Color[] colores = new Color[25];
 
     static {
         RED = colores[0] = new MyColor(244, 67, 54, 1);
@@ -57,14 +62,18 @@ public class ColorManager {
         BLUE_GREY = colores[18] = new MyColor(96, 125, 139, 1);
         BLACK = colores[19] = new MyColor(0, 0, 0, 1);
         WHITE = colores[20] = new MyColor(1, 1, 1, 1);
+        NRED = colores[21] = new MyColor(225, 91, 100, 1);
+        NBLUE= colores[22] = new MyColor(68, 91, 134, 1);
+        NYELLOW = colores[23] = new MyColor(251, 179, 107, 1);
+        NGREEN = colores[24] = new MyColor(171, 188, 133, 1);
     }
 
     public static Color randomColor() {
-        return colores[rnd.nextInt(21)];
+        return colores[rnd.nextInt(22)];
     }
 
     public static Color randomColor(int n) {
-        return colores[rnd.nextInt(n)];
+        return colores[rnd.nextInt(n)+21];
     }
 
     private static class MyColor extends Color {

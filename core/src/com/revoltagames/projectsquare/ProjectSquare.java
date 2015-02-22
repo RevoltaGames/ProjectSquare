@@ -21,7 +21,7 @@ public class ProjectSquare extends ApplicationAdapter {
     public static int HEIGTH;
 
     private OrthographicCamera camera;
-    private ResourceManager resourceManager;
+    public static ResourceManager resourceManager;
 	
 	@Override
 	public void create () {

@@ -1,11 +1,15 @@
 package com.revoltagames.projectsquare.GameStates;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.revoltagames.projectsquare.Entities.CircularButton;
 import com.revoltagames.projectsquare.Entities.ImageCircularButton;
 import com.revoltagames.projectsquare.Managers.ColorManager;
 import com.revoltagames.projectsquare.Managers.GameStateManager;
+import com.revoltagames.projectsquare.Managers.ResourceManager;
 import com.revoltagames.projectsquare.ProjectSquare;
 
 /**
@@ -13,25 +17,35 @@ import com.revoltagames.projectsquare.ProjectSquare;
  */
 public class GameOver extends GameState {
 
-    String gameOverText;
-    ShapeRenderer renderer;
+    private String gameOverText;
+    private ShapeRenderer renderer;
+    private SpriteBatch spriteRenderer;
 
     /*
     Estos botones son provisionales, cuanto esten las imagenes se usaran
     los ImageCircularButton
     */
-    CircularButton boton1;
-    CircularButton boton2;
+    private CircularButton boton1;
+    private CircularButton boton2;
 
-    ImageCircularButton menuButton;
-    ImageCircularButton retryButton;
+    private int score;
+    private BitmapFont font;
 
-    protected GameOver(GameStateManager gsm) {
+
+    private Music track;
+
+    private ImageCircularButton menuButton;
+    private ImageCircularButton retryButton;
+
+    protected GameOver(GameStateManager gsm, int score) {
         super(gsm);
+        this.score = score;
     }
 
     @Override
     public void init() {
+        track= ProjectSquare.resourceManager.getMusic(ResourceManager.GAMEOVER);
+        track.play();
         gameOverText = "jaja you loser!!";
         int unitStep = ProjectSquare.WIDTH/8;
         boton1 = new CircularButton(unitStep*2,
@@ -43,6 +57,11 @@ public class GameOver extends GameState {
                 unitStep,
                 ColorManager.LIGHT_BLUE);
         renderer = new ShapeRenderer();
+        spriteRenderer = new SpriteBatch();
+        font = new BitmapFont(Gdx.files.internal("Fonts/font1.fnt"),
+                Gdx.files.internal("Fonts/font1.png"),
+                false);
+        font.scale(1.2f);
     }
 
     @Override
@@ -56,11 +75,32 @@ public class GameOver extends GameState {
         boton1.draw(renderer);
         boton2.draw(renderer);
         renderer.end();
+        drawScore();
+        drawGameOverText();
+    }
+
+    private void drawGameOverText() {
+        BitmapFont.TextBounds bounds = font.getBounds(gameOverText);
+        float textX = ProjectSquare.WIDTH / 2 - bounds.width/2;
+        float textY = 3 * ProjectSquare.HEIGTH / 4 + bounds.height/2;
+        spriteRenderer.begin();
+        font.draw(spriteRenderer,gameOverText, textX, textY);
+        spriteRenderer.end();
+    }
+
+    private void drawScore() {
+        BitmapFont.TextBounds bounds = font.getBounds(Integer.toString(score));
+        float textX = ProjectSquare.WIDTH / 2 - bounds.width/2;
+        float textY = ProjectSquare.HEIGTH / 2 + bounds.height/2;
+        spriteRenderer.begin();
+        font.draw(spriteRenderer,Integer.toString(score), textX, textY);
+        spriteRenderer.end();
     }
 
     @Override
     public void handleInput() {
         if(Gdx.input.justTouched()) {
+            track.stop();
             if (boton1.touched(Gdx.input.getX(), Gdx.input.getY())) {
                 gsm.setState(new Play(this.gsm));
             } else if (boton2.touched(Gdx.input.getX(), Gdx.input.getY())) {
