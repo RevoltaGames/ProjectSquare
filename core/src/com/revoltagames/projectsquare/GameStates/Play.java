@@ -42,7 +42,10 @@ public class Play extends GameState {
         gameOver = false;
         Square.squareNumbers = 0;
 
-        squares.add(new Square());
+        for (int i = 0; i < 4; i++)
+            squares.add(new Square());
+        squares.get(0).setColocado(true);
+
         borders = new Border[4];
         borders[GestureManager.SW_LEFT-1] = new Border(GestureManager.SW_LEFT-1, ColorManager.GREEN);
         borders[GestureManager.SW_RIGHT-1] = new Border(GestureManager.SW_RIGHT-1, ColorManager.BLUE);
@@ -66,7 +69,8 @@ public class Play extends GameState {
 
         if (squares.get(0).isOnAnimation()) {
             swipedSquare = squares.get(0);
-            squares.add(0, new Square());
+            squares.remove(0);
+            squares.add(new Square());
         }
 
         if (swipedSquare != null) {
@@ -86,6 +90,10 @@ public class Play extends GameState {
         }
 
         squares.get(0).draw(shapeR, spriteRenderer);
+        squares.get(1).drawAsNext(shapeR, 0);
+        squares.get(2).drawAsNext(shapeR, 1);
+        squares.get(3).drawAsNext(shapeR, 2);
+
         if (swipedSquare != null)
             swipedSquare.draw(shapeR, spriteRenderer);
     }
