@@ -113,7 +113,6 @@ public class Play extends GameState {
         // Acaba de deslizar el cuadrado
         if(swipe != 0) {
             if (squares.get(0).getColor() != borders[swipe-1].getColor()) {
-                track.stop();
                 gameOver = true;
             }
             score++;
@@ -177,7 +176,7 @@ public class Play extends GameState {
 
     @Override
     public void dispose() {
-
+        track.stop();
     }
 
 }
