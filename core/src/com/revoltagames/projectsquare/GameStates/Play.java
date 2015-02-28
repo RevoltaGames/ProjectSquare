@@ -28,7 +28,7 @@ public class Play extends GameState {
     private SpriteBatch spriteRenderer;
 
     private List<Square> squares;
-    Square swipedSquare;
+    List<Square> swipedSquares;
 
     private Border[] borders;
 
@@ -61,8 +61,9 @@ public class Play extends GameState {
         shapeR = new ShapeRenderer();
         spriteRenderer = new SpriteBatch();
         squares = new LinkedList<Square>();
+        swipedSquares = new LinkedList<Square>();
 
-        track= ProjectSquare.resourceManager.getMusic(rnd.nextInt(8));
+        track = ProjectSquare.resourceManager.getMusic(rnd.nextInt(8));
         track.setLooping(true);
         track.play();
 
@@ -87,10 +88,10 @@ public class Play extends GameState {
         squares.get(0).setColocado(true);
 
         borders = new Border[4];
-        borders[GestureManager.SW_LEFT-1] = new Border(GestureManager.SW_LEFT-1, ColorManager.NBLUE);
-        borders[GestureManager.SW_RIGHT-1] = new Border(GestureManager.SW_RIGHT-1, ColorManager.NGREEN);
-        borders[GestureManager.SW_DOWN-1] = new Border(GestureManager.SW_DOWN-1, ColorManager.NYELLOW);
-        borders[GestureManager.SW_UP-1] = new Border(GestureManager.SW_UP-1, ColorManager.NRED);
+        borders[GestureManager.SW_LEFT - 1] = new Border(GestureManager.SW_LEFT - 1, ColorManager.NBLUE);
+        borders[GestureManager.SW_RIGHT - 1] = new Border(GestureManager.SW_RIGHT - 1, ColorManager.NGREEN);
+        borders[GestureManager.SW_DOWN - 1] = new Border(GestureManager.SW_DOWN - 1, ColorManager.NYELLOW);
+        borders[GestureManager.SW_UP - 1] = new Border(GestureManager.SW_UP - 1, ColorManager.NRED);
         GestureManager.clear();
     }
 
@@ -98,7 +99,7 @@ public class Play extends GameState {
     public void update(float dt) {
         handleInput();
 
-        if(gameOver) {
+        if (gameOver) {
             this.gsm.setState(new GameOver(this.gsm, score));
         }
 
@@ -110,11 +111,9 @@ public class Play extends GameState {
 
         squares.get(0).update(dt, swipe);
 
+
         // Acaba de deslizar el cuadrado
-        if(swipe != 0) {
-            if (squares.get(0).getColor() != borders[swipe-1].getColor()) {
-                gameOver = true;
-            }
+        if (swipe != 0) {
             score++;
             phaseScore++;
             if (phaseScore == scoreIncrement) {
@@ -129,19 +128,25 @@ public class Play extends GameState {
         if (squares.get(0).isOnAnimation()) {
             move.stop();
             move.play();
-            swipedSquare = squares.get(0);
+            swipedSquares.add(squares.get(0));
             squares.remove(0);
             squares.add(new Square());
         }
 
-        if (swipedSquare != null) {
-            swipedSquare.update(dt, swipe);
-        }
+        if (!swipedSquares.isEmpty())
+            for (Square swipedSquare : swipedSquares) {
+                swipedSquare.update(dt, swipe);
+                if (swipedSquare.atBorder() && swipedSquare.getColor() != borders[swipedSquare.getSwipe() - 1].getColor())
+                    gameOver = true;
+            }
     }
+
+
+
 
     @Override
     public void draw() {
-        for (Border border: borders) {
+        for (Border border : borders) {
             border.draw(shapeR);
         }
 
@@ -150,8 +155,9 @@ public class Play extends GameState {
         squares.get(2).drawAsNext(shapeR, 1);
         squares.get(3).drawAsNext(shapeR, 2);
 
-        if (swipedSquare != null)
-            swipedSquare.draw(shapeR, spriteRenderer);
+        if (!swipedSquares.isEmpty())
+            for (Square swipedSquare: swipedSquares)
+                swipedSquare.draw(shapeR, spriteRenderer);
 
         drawTimer();
     }
@@ -159,8 +165,8 @@ public class Play extends GameState {
     private void drawTimer() {
         spriteRenderer.begin();
         BitmapFont.TextBounds timerBound = font.getBounds(Integer.toString(timer));
-        float timerX = ProjectSquare.WIDTH/2 - timerBound.width/2;
-        float timerY = 4*ProjectSquare.HEIGTH/5 + timerBound.height/2;
+        float timerX = ProjectSquare.WIDTH / 2 - timerBound.width / 2;
+        float timerY = 4 * ProjectSquare.HEIGTH / 5 + timerBound.height / 2;
 
         Color oldColor = spriteRenderer.getColor();
         spriteRenderer.setColor(Color.LIGHT_GRAY);

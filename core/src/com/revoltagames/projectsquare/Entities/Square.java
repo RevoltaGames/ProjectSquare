@@ -12,7 +12,7 @@ import com.revoltagames.projectsquare.ProjectSquare;
 /**
  * Created by alejandro on 18/02/15.
  */
-public class Square  {
+public class Square {
     public static int squareNumbers = 0;
 
     private int x, y;
@@ -41,6 +41,7 @@ public class Square  {
     private int xAni, yAni;
     private int sizeAni;
     boolean colocado = false;
+    private int swipe;
 
     public Square() {
         x = ProjectSquare.WIDTH / 2;
@@ -60,19 +61,23 @@ public class Square  {
         font.scale(1.2f);
         color = ColorManager.randomColor(4);
 
-        miniSize = new int[] {
-                size/4,
-                size/6,
-                size/8
+        miniSize = new int[]{
+                size / 4,
+                size / 6,
+                size / 8
         };
 
         prevX = new int[3];
 
-        prevX[0] = x - size/2 + size/6;
-        prevX[1] = prevX[0] + miniSize[0] + miniSize[0]/6;
-        prevX[2] = prevX[1] + miniSize[1] + miniSize[0]/6;
+        prevX[0] = x - size / 2 + size / 6;
+        prevX[1] = prevX[0] + miniSize[0] + miniSize[0] / 6;
+        prevX[2] = prevX[1] + miniSize[1] + miniSize[0] / 6;
 
         prevY = y + size / 2 + miniSize[0] / 10;
+
+        sizeAni = miniSize[0];
+        xAni = prevX[0];
+        yAni = prevY;
 
     }
 
@@ -114,53 +119,49 @@ public class Square  {
         shapeR.setColor(oldColor);
         shapeR.end();
 
-        /*BitmapFont.TextBounds bounds = font.getBounds(Integer.toString(number));
-        spRenderer1.begin();
-        font.draw(spRenderer1,
-                Integer.toString(number),
-                this.x-bounds.width/2,
-                this.y+bounds.height/2);
-        spRenderer1.end();
-        */
     }
 
     public void update(float dt, int swipe) {
-        if (!colocado) {
+       // if (!colocado)
             updatePrevToFirstAnimation(dt);
-        } else {
-            if (!onAnimation) {
-                switch (swipe) {
-                    case GestureManager.SW_DOWN:
-                        dy = -1;
-                        onAnimation = true;
-                        break;
-                    case GestureManager.SW_LEFT:
-                        dx = -1;
-                        onAnimation = true;
-                        break;
-                    case GestureManager.SW_RIGHT:
-                        dx = 1;
-                        onAnimation = true;
-                        break;
-                    case GestureManager.SW_UP:
-                        dy = 1;
-                        onAnimation = true;
-                        break;
-                    default:
-                }
-            }
 
-            x += dx * vel * dt;
-            y += dy * vel * dt;
+
+        if (!onAnimation) {
+            this.swipe = swipe;
+            switch (swipe) {
+                case GestureManager.SW_DOWN:
+                    dy = -1;
+                    onAnimation = true;
+                    break;
+                case GestureManager.SW_LEFT:
+                    dx = -1;
+                    onAnimation = true;
+                    break;
+                case GestureManager.SW_RIGHT:
+                    dx = 1;
+                    onAnimation = true;
+                    break;
+                case GestureManager.SW_UP:
+                    dy = 1;
+                    onAnimation = true;
+                    break;
+                default:
+            }
         }
+
+        x += dx * vel * dt;
+        y += dy * vel * dt;
+
     }
 
     public void updatePrevToFirstAnimation(float dt) {
+        sizeAni += Math.round(dt * (size - miniSize[0]) / animationTime);
+        if (sizeAni > size) sizeAni = size;
+        xAni += Math.round(dt * (((x - size / 2) - prevX[0]) / animationTime));
+        yAni += (int) (dt * (((y - size / 2) - prevY) / animationTime));
+        if (xAni > x) xAni = x;
         animationTimer += dt;
-        sizeAni = (int) (animationTimer * (size-miniSize[0])/animationTime);
-        xAni = prevX[0] + (int) (animationTimer * (((x-size/2)-prevX[0])/animationTime));
-        yAni = prevY + (int) (animationTimer * (((y-size/2)-prevY)/animationTime));
-        if (animationTime < animationTimer)
+        if (animationTime < animationTimer )
             colocado = true;
     }
 
@@ -174,5 +175,15 @@ public class Square  {
 
     public void setColocado(boolean b) {
         colocado = b;
+    }
+
+    public boolean atBorder() {
+        int w = ProjectSquare.WIDTH;
+        int h = ProjectSquare.HEIGTH;
+        return x >= w || x <= 0 || y <= 0|| y>= h;
+    }
+
+    public int getSwipe() {
+        return swipe;
     }
 }
