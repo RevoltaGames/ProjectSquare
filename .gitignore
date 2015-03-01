@@ -30,3 +30,6 @@ proguard/
 
 # Archivos de android studio
 *.iml
+
+# Scores files
+highScores
