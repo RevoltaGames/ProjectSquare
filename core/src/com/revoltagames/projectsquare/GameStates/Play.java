@@ -136,8 +136,13 @@ public class Play extends GameState {
         if (!swipedSquares.isEmpty())
             for (Square swipedSquare : swipedSquares) {
                 swipedSquare.update(dt, swipe);
-                if (swipedSquare.atBorder() && swipedSquare.getColor() != borders[swipedSquare.getSwipe() - 1].getColor())
-                    gameOver = true;
+                if (swipedSquare.atBorder()) {
+                    if (swipedSquare.getColor() != borders[swipedSquare.getSwipe() - 1].getColor())
+                        gameOver = true;
+                    else
+                        swipedSquares.remove(swipedSquare);
+                }
+
             }
     }
 
