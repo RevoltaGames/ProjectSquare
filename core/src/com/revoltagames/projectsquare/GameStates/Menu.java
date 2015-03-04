@@ -4,6 +4,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.revoltagames.projectsquare.Entities.CircularButton;
+import com.revoltagames.projectsquare.Managers.ColorManager;
 import com.revoltagames.projectsquare.Managers.GameStateManager;
 import com.revoltagames.projectsquare.Managers.ResourceManager;
 import com.revoltagames.projectsquare.ProjectSquare;
@@ -15,6 +16,7 @@ public class Menu extends GameState {
 
     private ShapeRenderer shapeR;
     private CircularButton playB;
+    private CircularButton highScores;
     private Music track;
 
 
@@ -29,6 +31,7 @@ public class Menu extends GameState {
         track.play();
         shapeR = new ShapeRenderer();
         playB = new CircularButton();
+        highScores = new CircularButton(ProjectSquare.WIDTH/2 - 40, ProjectSquare.HEIGTH/2 - 40, 40, ColorManager.LIGHT_GREEN);
     }
 
     @Override
@@ -40,6 +43,7 @@ public class Menu extends GameState {
     public void draw() {
         shapeR.begin(ShapeRenderer.ShapeType.Filled);
         playB.draw(shapeR);
+        highScores.draw(shapeR);
         shapeR.end();
     }
 
@@ -49,6 +53,10 @@ public class Menu extends GameState {
             if (playB.touched(Gdx.input.getX(), Gdx.input.getY())) {
                 track.stop();
                 gsm.setState(new Play(this.gsm));
+            }
+            if (highScores.touched(Gdx.input.getX(), Gdx.input.getY())) {
+                track.stop();
+                gsm.push(new HighScores(this.gsm));
             }
         }
     }
