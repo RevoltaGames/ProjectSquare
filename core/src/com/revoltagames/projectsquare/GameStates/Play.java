@@ -81,7 +81,7 @@ public class Play extends GameState {
                 false);
         font.scale(1.2f);
 
-        font70 = ProjectSquare.rm.getFont(18, Color.LIGHT_GRAY);
+        font70 = ProjectSquare.rm.getFont(1, Color.LIGHT_GRAY);
 
         gameOver = false;
         Square.squareNumbers = 0;

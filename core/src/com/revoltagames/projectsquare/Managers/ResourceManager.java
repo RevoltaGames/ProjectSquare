@@ -9,8 +9,9 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
-import com.revoltagames.projectsquare.ProjectSquare;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGeneratorLoader;
+import com.badlogic.gdx.graphics.g2d.freetype.FreetypeFontLoader;
+import com.badlogic.gdx.graphics.g2d.freetype.FreetypeFontLoader.FreeTypeFontLoaderParameter;
 
 /**
  * Created by caenrique93 on 18/02/15.
@@ -40,12 +41,27 @@ public class ResourceManager {
     public ResourceManager() {
         manager = new AssetManager();
         resolver = new InternalFileHandleResolver();
+
+        manager.setLoader(FreeTypeFontGenerator.class,
+                new FreeTypeFontGeneratorLoader(resolver));
+        manager.setLoader(BitmapFont.class, ".ttf",
+                new FreetypeFontLoader(resolver));
         manager.setLoader(Music.class,
                 new MusicLoader(resolver));
 
-        fontGenerator = new FreeTypeFontGenerator(
-                Gdx.files.internal("Fonts/dinBlack.ttf")
-        );
+        FreeTypeFontLoaderParameter size1Params =
+                new FreeTypeFontLoaderParameter();
+        size1Params.fontFileName = "Fonts/dinBlack.ttf";
+        size1Params.fontParameters.size = Gdx.graphics.getHeight()/8;
+        size1Params.fontParameters.color = Color.LIGHT_GRAY;
+        manager.load("size1.ttf", BitmapFont.class, size1Params);
+
+        FreeTypeFontLoaderParameter size2Params =
+                new FreeTypeFontLoaderParameter();
+        size2Params.fontFileName = "Fonts/dinBlack.ttf";
+        size2Params.fontParameters.size = Gdx.graphics.getHeight()/12;
+        size2Params.fontParameters.color = Color.BLACK;
+        manager.load("size2.ttf", BitmapFont.class, size2Params);
 
         for(int i=0;i<musica.length;i++) {
             musica[i] = "Music/music" + i%4 + ".wav";
@@ -76,10 +92,19 @@ public class ResourceManager {
     }
 
     public BitmapFont getFont(int size, Color color) {
-        FreeTypeFontParameter parameter = new FreeTypeFontParameter();
-        parameter.size = ((ProjectSquare.HEIGTH/100)*size);
-        parameter.color = color;
-        return fontGenerator.generateFont(parameter);
+        BitmapFont bitFont;
+        switch(size) {
+            case 1:
+                bitFont = manager.get("size1.ttf", BitmapFont.class);
+                break;
+            case 2:
+                bitFont = manager.get("size2.ttf", BitmapFont.class);
+                break;
+            default:
+                bitFont = manager.get("size1.ttf", BitmapFont.class);
+        }
+        //bitFont.setColor(color);
+        return  bitFont;
     }
 
     public boolean update() {

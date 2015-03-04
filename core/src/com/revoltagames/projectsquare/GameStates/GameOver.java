@@ -69,7 +69,7 @@ public class GameOver extends GameState {
         font = new BitmapFont(Gdx.files.internal("Fonts/font1.fnt"),
                 Gdx.files.internal("Fonts/font1.png"),
                 false);
-        font70 = ProjectSquare.rm.getFont(9, Color.BLACK);
+        font70 = ProjectSquare.rm.getFont(2, Color.BLACK);
         font.scale(1.2f);
     }
 
