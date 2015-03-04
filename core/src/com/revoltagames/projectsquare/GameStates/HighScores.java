@@ -2,6 +2,7 @@ package com.revoltagames.projectsquare.GameStates;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.revoltagames.projectsquare.Managers.GameStateManager;
@@ -15,7 +16,7 @@ public class HighScores extends GameState {
     private FileHandle scoreHandle;
     private String scores;
     private SpriteBatch renderer;
-    BitmapFont font;
+    BitmapFont font = ProjectSquare.rm.getFont(5, Color.BLACK);
     String mesage;
     String[] s;
     BitmapFont.TextBounds bounds;

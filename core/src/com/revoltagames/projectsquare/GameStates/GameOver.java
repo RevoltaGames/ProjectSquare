@@ -3,6 +3,7 @@ package com.revoltagames.projectsquare.GameStates;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -68,7 +69,7 @@ public class GameOver extends GameState {
         font = new BitmapFont(Gdx.files.internal("Fonts/font1.fnt"),
                 Gdx.files.internal("Fonts/font1.png"),
                 false);
-        font70 = ProjectSquare.rm.getFont(1);
+        font70 = ProjectSquare.rm.getFont(9, Color.BLACK);
         font.scale(1.2f);
     }
 

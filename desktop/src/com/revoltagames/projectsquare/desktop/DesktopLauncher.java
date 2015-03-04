@@ -8,7 +8,7 @@ public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
         config.height = 640;
-        config.width = 360;
+        config.width = 400;
 		new LwjglApplication(new ProjectSquare(), config);
 	}
 }
