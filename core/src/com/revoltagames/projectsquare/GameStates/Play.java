@@ -158,10 +158,10 @@ public class Play extends GameState {
             border.draw(shapeR);
         }
 
-        squares.get(0).draw(shapeR, spriteRenderer);
-        squares.get(1).drawAsNext(shapeR, 0);
-        squares.get(2).drawAsNext(shapeR, 1);
         squares.get(3).drawAsNext(shapeR, 2);
+        squares.get(2).drawAsNext(shapeR, 1);
+        squares.get(1).drawAsNext(shapeR, 0);
+        squares.get(0).draw(shapeR, spriteRenderer);
 
         if (!swipedSquares.isEmpty())
             for (Square swipedSquare: swipedSquares)
