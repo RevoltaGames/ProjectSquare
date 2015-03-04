@@ -27,7 +27,7 @@ public class Menu extends GameState {
 
     @Override
     public void init() {
-        track= ProjectSquare.resourceManager.getMusic(ResourceManager.MENU);
+        track= ProjectSquare.rm.getSound(ResourceManager.MENU);
         track.play();
         shapeR = new ShapeRenderer();
         playB = new CircularButton();

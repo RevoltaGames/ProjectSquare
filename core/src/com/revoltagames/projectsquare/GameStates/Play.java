@@ -49,6 +49,7 @@ public class Play extends GameState {
     private long lastTime;
 
     private BitmapFont font;
+    private BitmapFont font70;
 
     protected Play(GameStateManager gsm) {
         super(gsm);
@@ -63,11 +64,11 @@ public class Play extends GameState {
         squares = new LinkedList<Square>();
         swipedSquares = new LinkedList<Square>();
 
-        track = ProjectSquare.resourceManager.getMusic(rnd.nextInt(8));
+        track = ProjectSquare.rm.getMusic(rnd.nextInt(8));
         track.setLooping(true);
         track.play();
 
-        move = ProjectSquare.resourceManager.getMusic(ResourceManager.MOVE);
+        move = ProjectSquare.rm.getSound(ResourceManager.MOVE);
 
         timer = 30;
         score = 0;
@@ -79,6 +80,8 @@ public class Play extends GameState {
                 Gdx.files.internal("Fonts/font1.png"),
                 false);
         font.scale(1.2f);
+
+        font70 = ProjectSquare.rm.getFont(20);
 
         gameOver = false;
         Square.squareNumbers = 0;
@@ -169,13 +172,14 @@ public class Play extends GameState {
 
     private void drawTimer() {
         spriteRenderer.begin();
-        BitmapFont.TextBounds timerBound = font.getBounds(Integer.toString(timer));
+        BitmapFont.TextBounds timerBound =
+                font70.getBounds(Integer.toString(timer));
         float timerX = ProjectSquare.WIDTH / 2 - timerBound.width / 2;
         float timerY = 4 * ProjectSquare.HEIGTH / 5 + timerBound.height / 2;
 
         Color oldColor = spriteRenderer.getColor();
         spriteRenderer.setColor(Color.LIGHT_GRAY);
-        font.draw(spriteRenderer, Integer.toString(timer), timerX, timerY);
+        font70.draw(spriteRenderer, Integer.toString(timer), timerX, timerY);
         spriteRenderer.setColor(oldColor);
         spriteRenderer.end();
     }

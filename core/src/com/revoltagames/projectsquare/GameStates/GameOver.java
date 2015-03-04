@@ -42,6 +42,7 @@ public class GameOver extends GameState {
 
     private ImageCircularButton menuButton;
     private ImageCircularButton retryButton;
+    private BitmapFont font70;
 
     protected GameOver(GameStateManager gsm, int score) {
         super(gsm);
@@ -50,7 +51,7 @@ public class GameOver extends GameState {
 
     @Override
     public void init() {
-        track= ProjectSquare.resourceManager.getMusic(ResourceManager.GAMEOVER);
+        track= ProjectSquare.rm.getSound(ResourceManager.GAMEOVER);
         track.play();
         gameOverText = "jaja you loser!!";
         int unitStep = ProjectSquare.WIDTH/8;
@@ -67,6 +68,7 @@ public class GameOver extends GameState {
         font = new BitmapFont(Gdx.files.internal("Fonts/font1.fnt"),
                 Gdx.files.internal("Fonts/font1.png"),
                 false);
+        font70 = ProjectSquare.rm.getFont(1);
         font.scale(1.2f);
     }
 
@@ -135,20 +137,20 @@ public class GameOver extends GameState {
     }
 
     private void drawGameOverText() {
-        BitmapFont.TextBounds bounds = font.getBounds(gameOverText);
+        BitmapFont.TextBounds bounds = font70.getBounds(gameOverText);
         float textX = ProjectSquare.WIDTH / 2 - bounds.width/2;
         float textY = 3 * ProjectSquare.HEIGTH / 4 + bounds.height/2;
         spriteRenderer.begin();
-        font.draw(spriteRenderer,gameOverText, textX, textY);
+        font70.draw(spriteRenderer,gameOverText, textX, textY);
         spriteRenderer.end();
     }
 
     private void drawScore() {
-        BitmapFont.TextBounds bounds = font.getBounds(Integer.toString(score));
+        BitmapFont.TextBounds bounds = font70.getBounds(Integer.toString(score));
         float textX = ProjectSquare.WIDTH / 2 - bounds.width/2;
         float textY = ProjectSquare.HEIGTH / 2 + bounds.height/2;
         spriteRenderer.begin();
-        font.draw(spriteRenderer,Integer.toString(score), textX, textY);
+        font70.draw(spriteRenderer,Integer.toString(score), textX, textY);
         spriteRenderer.end();
     }
 
