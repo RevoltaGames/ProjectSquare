@@ -36,7 +36,7 @@ public class Square {
     private int prevY;
 
     //Para animacion
-    private float animationTime = 0.4f;
+    private float animationTime = 0.2f;
     private float animationTimer = 0;
     private int xAni, yAni;
     private int sizeAni;
