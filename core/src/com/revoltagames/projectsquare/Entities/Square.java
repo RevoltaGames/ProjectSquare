@@ -11,20 +11,23 @@ import com.revoltagames.projectsquare.ProjectSquare;
 public class Square {
     private float x, y, size;
     private Color color;
+    private float alpha;
 
     private int swipe;
+
 
     public Square(float x, float y, float size) {
         this.x = x;
         this.y = y;
         this.size = size;
         color = ColorManager.randomColor(4);
+        alpha = 0.6f;
     }
 
     public void draw(ShapeRenderer shapeR) {
         shapeR.begin(ShapeRenderer.ShapeType.Filled);
         Color oldColor = shapeR.getColor();
-        shapeR.setColor(color);
+        shapeR.setColor(color.r, color.g, color.b, alpha);
         shapeR.rect(x - size / 2, y - size / 2, size, size);
         shapeR.setColor(oldColor);
         shapeR.end();
@@ -70,6 +73,14 @@ public class Square {
 
     public Color getColor() {
         return color;
+    }
+
+    public void setAlpha(float alpha) {
+        this.alpha = alpha;
+    }
+
+    public float getAlpha() {
+        return alpha;
     }
 }
 

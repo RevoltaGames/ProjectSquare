@@ -89,6 +89,9 @@ public class SquaresManager {
         for (int i=0; i<4; i++)
             squares.add(new Square(X[i],Y[i],Sizes[i]));
 
+        //Eliminamos transparencia del cuadrado principal
+        squares.get(0).setAlpha(1);
+
     }
 
     public void draw(ShapeRenderer shapeR, SpriteBatch spRenderer) {
@@ -152,6 +155,8 @@ public class SquaresManager {
             for (int i = 0; i < squares.size(); i++) {
                 Square actual = squares.get(i);
                 animateSquareTo(actual, X[i], Y[i], Sizes[i]);
+                if (i == 0)
+                    animateSquareAlphaTo(actual, 1);
             }
 
             Square square = new Square(X[3],Y[3], 0);
@@ -177,12 +182,16 @@ public class SquaresManager {
     }
 
     private void animateSquareTo(Square square, float x, float y, float size) {
-        Tween.set(square, SquareAccessor.POS_AND_SIZE)
-                .target(square.getX(),square.getY(),square.getSize())
-                .start(tweenManager);
+        /*Tween.set(square, SquareAccessor.POS_AND_SIZE)
+                .target(square.getX(),square.getY(),square.getSize(),square.getAlpha())
+                .start(tweenManager);*/
         Tween.to(square, SquareAccessor.POS_AND_SIZE, animationTime)
                 .target(x,y,size).start(tweenManager);
     }
-    
+
+    private void animateSquareAlphaTo(Square square, float alpha) {
+        Tween.to(square, SquareAccessor.ALPHA, animationTime)
+                .target(alpha).start(tweenManager);
+    }
 
 }
