@@ -11,6 +11,8 @@ import com.revoltagames.projectsquare.Listeners.MyGestureListener;
 import com.revoltagames.projectsquare.Managers.GameStateManager;
 import com.revoltagames.projectsquare.Managers.ResourceManager;
 
+import aurelienribon.tweenengine.Tween;
+
 public class ProjectSquare extends ApplicationAdapter {
 
     private GameStateManager gameStateManager;
@@ -25,6 +27,8 @@ public class ProjectSquare extends ApplicationAdapter {
 
 	@Override
 	public void create () {
+
+        Tween.setCombinedAttributesLimit(4);
 
         WIDTH = Gdx.graphics.getWidth();
         HEIGTH = Gdx.graphics.getHeight();
@@ -45,8 +49,10 @@ public class ProjectSquare extends ApplicationAdapter {
 
 	@Override
 	public void render () {
-		Gdx.gl.glClearColor(1, 1, 1, 1); //White
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		Gdx.gl.glClearColor(1,1,1,1); //White
+        Gdx.gl.glEnable(GL20.GL_BLEND);
+        //Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         if(!ready) {
             long dTime = System.currentTimeMillis() - initTime;
