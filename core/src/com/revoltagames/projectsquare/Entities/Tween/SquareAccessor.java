@@ -23,6 +23,8 @@ public class SquareAccessor implements TweenAccessor<Square>{
      */
 
     public static final int POS_AND_SIZE = 0;
+    public static final int ALPHA = 1;
+
     @Override
     public int getValues(Square target, int tweenType, float[] returnValues) {
         switch (tweenType) {
@@ -31,6 +33,9 @@ public class SquareAccessor implements TweenAccessor<Square>{
                 returnValues[1] = target.getY();
                 returnValues[2] = target.getSize();
                 return 3;
+            case ALPHA:
+                returnValues[0] = target.getAlpha();
+                return 1;
             default:
                 assert false;
                 return -1;
@@ -44,6 +49,9 @@ public class SquareAccessor implements TweenAccessor<Square>{
                 target.setX(newValues[0]);
                 target.setY(newValues[1]);
                 target.setSize(newValues[2]);
+                break;
+            case ALPHA:
+                target.setAlpha(newValues[0]);
                 break;
             default:
                 assert false;
