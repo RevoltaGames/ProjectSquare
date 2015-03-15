@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.revoltagames.projectsquare.Entities.BackgroundClock;
 import com.revoltagames.projectsquare.Entities.Border;
 import com.revoltagames.projectsquare.Entities.SquaresManager;
 import com.revoltagames.projectsquare.Managers.ColorManager;
@@ -45,6 +46,8 @@ public class Play extends GameState {
     private BitmapFont font70;
 
     private SquaresManager squaresManager;
+
+    private BackgroundClock clock;
 
     protected Play(GameStateManager gsm) {
         super(gsm);
@@ -86,12 +89,16 @@ public class Play extends GameState {
         borders[GestureManager.SW_UP - 1] = new Border(GestureManager.SW_UP - 1, ColorManager.NRED);
         GestureManager.clear();
 
+        clock = new BackgroundClock(timer, timeIncrement);
+
     }
 
 
     @Override
     public void update(float dt) {
         handleInput();
+
+        clock.upade(timer, secondCounter);
 
         if (gameOver) {
             this.gsm.setState(new GameOver(this.gsm, score));
@@ -127,6 +134,8 @@ public class Play extends GameState {
 
     @Override
     public void draw() {
+        clock.draw(shapeR);
+
         for (Border border : borders) {
             border.draw(shapeR);
         }
