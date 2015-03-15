@@ -39,6 +39,7 @@ public class ColorManager {
 
 
     private static Color[] colores = new Color[25];
+    private static Color ColorFondo = new MyColor(255,255,255,1);
 
     static {
         RED = colores[0] = new MyColor(244, 67, 54, 1);
