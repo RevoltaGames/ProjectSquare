@@ -91,7 +91,7 @@ public class ResourceManager {
         return null;
     }
 
-    public BitmapFont getFont(int size, Color color) {
+    public BitmapFont getFont(int size) {
         BitmapFont bitFont;
         switch(size) {
             case 1:
