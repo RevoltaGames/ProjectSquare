@@ -1,6 +1,6 @@
 package com.revoltagames.projectsquare.Entities.Tween;
 
-import com.revoltagames.projectsquare.Entities.Square;
+import com.revoltagames.projectsquare.Entities.Shapes.Square;
 
 import aurelienribon.tweenengine.TweenAccessor;
 
