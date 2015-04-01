@@ -1,9 +1,10 @@
 package com.revoltagames.projectsquare.GameStates;
 
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.revoltagames.projectsquare.Entities.CircularButton;
+import com.revoltagames.projectsquare.Entities.Button;
+import com.revoltagames.projectsquare.Entities.Shapes.Circle;
 import com.revoltagames.projectsquare.Managers.ColorManager;
 import com.revoltagames.projectsquare.Managers.GameStateManager;
 import com.revoltagames.projectsquare.Managers.ResourceManager;
@@ -15,8 +16,8 @@ import com.revoltagames.projectsquare.ProjectSquare;
 public class Menu extends GameState {
 
     private ShapeRenderer shapeR;
-    private CircularButton playB;
-    private CircularButton highScores;
+    private Button playB;
+    private Button highScores;
     private Music track;
 
 
@@ -30,8 +31,14 @@ public class Menu extends GameState {
         track= ProjectSquare.rm.getSound(ResourceManager.MENU);
         track.play();
         shapeR = new ShapeRenderer();
-        playB = new CircularButton();
-        highScores = new CircularButton(ProjectSquare.WIDTH/2 - 40, ProjectSquare.HEIGTH/2 - 40, 40, ColorManager.LIGHT_GREEN);
+        Button.setDefaultShape(new Circle(
+                ProjectSquare.WIDTH/2,
+                ProjectSquare.HEIGTH/4,
+                ProjectSquare.WIDTH/8,
+                ColorManager.LIGHT_BLUE
+        ));
+        playB = new Button();
+        highScores = new Button(ProjectSquare.WIDTH/2, ProjectSquare.HEIGTH/2);
     }
 
     @Override
@@ -41,10 +48,8 @@ public class Menu extends GameState {
 
     @Override
     public void draw() {
-        shapeR.begin(ShapeRenderer.ShapeType.Filled);
         playB.draw(shapeR);
         highScores.draw(shapeR);
-        shapeR.end();
     }
 
     @Override

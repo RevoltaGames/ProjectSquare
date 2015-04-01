@@ -7,8 +7,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.revoltagames.projectsquare.Entities.CircularButton;
-import com.revoltagames.projectsquare.Entities.ImageCircularButton;
+import com.revoltagames.projectsquare.Entities.Button;
 import com.revoltagames.projectsquare.Managers.ColorManager;
 import com.revoltagames.projectsquare.Managers.GameStateManager;
 import com.revoltagames.projectsquare.Managers.ResourceManager;
@@ -31,8 +30,8 @@ public class GameOver extends GameState {
     Estos botones son provisionales, cuanto esten las imagenes se usaran
     los ImageCircularButton
     */
-    private CircularButton boton1;
-    private CircularButton boton2;
+    private Button boton1;
+    private Button boton2;
 
     private int score;
     private BitmapFont font;
@@ -40,9 +39,7 @@ public class GameOver extends GameState {
     private FileHandle scoreHandle;
 
     private Music track;
-
-    private ImageCircularButton menuButton;
-    private ImageCircularButton retryButton;
+    
     private BitmapFont font70;
 
     protected GameOver(GameStateManager gsm, int score) {
@@ -54,16 +51,11 @@ public class GameOver extends GameState {
     public void init() {
         track= ProjectSquare.rm.getSound(ResourceManager.GAMEOVER);
         track.play();
-        gameOverText = "jaja you loser!!";
+        gameOverText = "GAME OVER";
         int unitStep = ProjectSquare.WIDTH/8;
-        boton1 = new CircularButton(unitStep*2,
-                ProjectSquare.HEIGTH/4,
-                unitStep,
-                ColorManager.LIGHT_GREEN);
-        boton2 = new CircularButton(unitStep*6,
-                ProjectSquare.HEIGTH/4,
-                unitStep,
-                ColorManager.LIGHT_BLUE);
+        boton1 = new Button(unitStep*2, ProjectSquare.HEIGTH/4);
+        boton2 = new Button(unitStep*6, ProjectSquare.HEIGTH/4);
+        boton1.setColor(ColorManager.LIGHT_GREEN);
         renderer = new ShapeRenderer();
         spriteRenderer = new SpriteBatch();
         font = new BitmapFont(Gdx.files.internal("Fonts/font1.fnt"),
@@ -129,10 +121,8 @@ public class GameOver extends GameState {
 
     @Override
     public void draw() {
-        renderer.begin(ShapeRenderer.ShapeType.Filled);
         boton1.draw(renderer);
         boton2.draw(renderer);
-        renderer.end();
         drawScore();
         drawGameOverText();
     }

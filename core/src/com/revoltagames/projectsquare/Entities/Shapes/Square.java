@@ -1,4 +1,4 @@
-package com.revoltagames.projectsquare.Entities;
+package com.revoltagames.projectsquare.Entities.Shapes;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
