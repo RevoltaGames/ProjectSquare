@@ -23,7 +23,7 @@ public class ProjectSquare extends ApplicationAdapter {
     public static int HEIGTH;
 
     private OrthographicCamera camera;
-    public static ResourceManager rm;
+    public static ResourceManager resManager;
 
 	@Override
 	public void create () {
@@ -37,7 +37,7 @@ public class ProjectSquare extends ApplicationAdapter {
         camera.translate(WIDTH/2, HEIGTH/2);
         camera.update();
 
-        rm = new ResourceManager();
+        resManager = new ResourceManager();
         initTime = System.currentTimeMillis();
         ready = false;
 
@@ -56,7 +56,7 @@ public class ProjectSquare extends ApplicationAdapter {
 
         if(!ready) {
             long dTime = System.currentTimeMillis() - initTime;
-            if(rm.update() && (dTime >= 4000)) {
+            if(resManager.update() && (dTime >= 4000)) {
                 gameStateManager.setState(new Menu(gameStateManager));
                 ready = true;
             }

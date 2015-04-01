@@ -60,11 +60,11 @@ public class Play extends GameState {
         shapeR = new ShapeRenderer();
         spriteRenderer = new SpriteBatch();
 
-        track = ProjectSquare.rm.getMusic(rnd.nextInt(8));
+        track = ProjectSquare.resManager.getMusic(rnd.nextInt(8));
         track.setLooping(true);
         track.play();
 
-        move = ProjectSquare.rm.getSound(ResourceManager.MOVE);
+        move = ProjectSquare.resManager.getSound(ResourceManager.MOVE);
 
         timer = 30;
         score = 0;
@@ -76,7 +76,7 @@ public class Play extends GameState {
                 false);
         font.scale(1.2f);
 
-        font70 = ProjectSquare.rm.getFont(1, Color.LIGHT_GRAY);
+        font70 = ProjectSquare.resManager.getFont(1, Color.LIGHT_GRAY);
 
         gameOver = false;
 
@@ -90,9 +90,7 @@ public class Play extends GameState {
         GestureManager.clear();
 
         clock = new BackgroundClock(timer, timeIncrement);
-
     }
-
 
     @Override
     public void update(float dt) {
@@ -124,13 +122,7 @@ public class Play extends GameState {
         }
 
         if (timer == 0) gameOver = true;
-
-
-
     }
-
-
-
 
     @Override
     public void draw() {

@@ -60,7 +60,7 @@ public class ResourceManager {
                 new FreeTypeFontLoaderParameter();
         size2Params.fontFileName = "Fonts/dinBlack.ttf";
         size2Params.fontParameters.size = Gdx.graphics.getHeight()/12;
-        size2Params.fontParameters.color = Color.BLACK;
+        size2Params.fontParameters.color = Color.LIGHT_GRAY;
         manager.load("size2.ttf", BitmapFont.class, size2Params);
 
         for(int i=0;i<musica.length;i++) {

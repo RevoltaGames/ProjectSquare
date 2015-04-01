@@ -91,7 +91,7 @@ public class SquaresManager {
             squares.add(new Square(X[i],Y[i],Sizes[i]));
 
         //Eliminamos transparencia del cuadrado principal
-        //squares.get(0).setAlpha(1);
+        squares.get(0).setAlpha(1);
 
     }
 

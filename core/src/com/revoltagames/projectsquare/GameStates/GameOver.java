@@ -49,7 +49,7 @@ public class GameOver extends GameState {
 
     @Override
     public void init() {
-        track= ProjectSquare.rm.getSound(ResourceManager.GAMEOVER);
+        track= ProjectSquare.resManager.getSound(ResourceManager.GAMEOVER);
         track.play();
         gameOverText = "GAME OVER";
         int unitStep = ProjectSquare.WIDTH/8;
@@ -61,7 +61,7 @@ public class GameOver extends GameState {
         font = new BitmapFont(Gdx.files.internal("Fonts/font1.fnt"),
                 Gdx.files.internal("Fonts/font1.png"),
                 false);
-        font70 = ProjectSquare.rm.getFont(2, Color.BLACK);
+        font70 = ProjectSquare.resManager.getFont(2, Color.BLACK);
         font.scale(1.2f);
     }
 

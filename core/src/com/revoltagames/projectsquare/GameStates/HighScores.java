@@ -16,7 +16,7 @@ public class HighScores extends GameState {
     private FileHandle scoreHandle;
     private String scores;
     private SpriteBatch renderer;
-    BitmapFont font = ProjectSquare.rm.getFont(2, Color.BLACK);
+    BitmapFont font = ProjectSquare.resManager.getFont(2, Color.BLACK);
     String mesage;
     String[] s;
     BitmapFont.TextBounds bounds;
