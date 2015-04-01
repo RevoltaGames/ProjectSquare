@@ -91,7 +91,7 @@ public class SquaresManager {
             squares.add(new Square(X[i],Y[i],Sizes[i]));
 
         //Eliminamos transparencia del cuadrado principal
-        squares.get(0).setAlpha(1);
+        //squares.get(0).setAlpha(1);
 
     }
 
@@ -105,14 +105,6 @@ public class SquaresManager {
         if (!swipedSquares.isEmpty())
             for (Square swipedSquare: swipedSquares)
                 swipedSquare.draw(shapeR);
-
-        spRenderer.begin();
-        BitmapFont.TextBounds bounds = font.getBounds(Integer.toString(numberOfSquares));
-        font.draw(spRenderer,
-                Integer.toString(numberOfSquares),
-                X[0] - bounds.width / 2,
-                Y[0] + bounds.height / 2);
-        spRenderer.end();
 
     }
 

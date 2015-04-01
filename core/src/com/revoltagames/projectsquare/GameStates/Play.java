@@ -142,20 +142,20 @@ public class Play extends GameState {
 
         squaresManager.draw(shapeR, spriteRenderer);
 
-        drawTimer();
+        drawScore();
     }
 
 
-    private void drawTimer() {
+    private void drawScore() {
         spriteRenderer.begin();
         BitmapFont.TextBounds timerBound =
-                font70.getBounds(Integer.toString(timer));
+                font70.getBounds(Integer.toString(score));
         float timerX = ProjectSquare.WIDTH / 2 - timerBound.width / 2;
         float timerY = 4 * ProjectSquare.HEIGTH / 5 + timerBound.height / 2;
 
         Color oldColor = spriteRenderer.getColor();
         spriteRenderer.setColor(Color.LIGHT_GRAY);
-        font70.draw(spriteRenderer, Integer.toString(timer), timerX, timerY);
+        font70.draw(spriteRenderer, Integer.toString(score), timerX, timerY);
         spriteRenderer.setColor(oldColor);
         spriteRenderer.end();
     }
