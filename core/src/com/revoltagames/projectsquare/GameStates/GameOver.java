@@ -94,7 +94,6 @@ public class GameOver extends GameState {
         }
         String finalScore = toStringList(sortedScore);
         scoreHandle.writeString(finalScore, false);
-        System.out.println(finalScore);
     }
 
     private String toStringList(List<Integer> theList) {

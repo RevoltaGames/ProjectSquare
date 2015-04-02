@@ -37,7 +37,6 @@ public class HighScores extends GameState {
         font = ProjectSquare.resManager.getFont(2);
         bounds = font.getBounds(mesage);
         textWidth = bounds.width;
-        System.out.println(bounds.width + " " + bounds.height);
     }
 
     @Override
@@ -62,7 +61,6 @@ public class HighScores extends GameState {
     public void handleInput() {
         if(Gdx.input.justTouched()) {
             gsm.pop();
-            System.out.println("touched");
         }
     }
 
