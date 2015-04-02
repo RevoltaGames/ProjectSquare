@@ -28,7 +28,7 @@ public class ProjectSquare extends ApplicationAdapter {
 	@Override
 	public void create () {
 
-        Tween.setCombinedAttributesLimit(4);
+        Tween.setCombinedAttributesLimit(8);
 
         WIDTH = Gdx.graphics.getWidth();
         HEIGTH = Gdx.graphics.getHeight();
