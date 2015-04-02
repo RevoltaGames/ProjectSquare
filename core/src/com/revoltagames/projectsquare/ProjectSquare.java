@@ -8,6 +8,7 @@ import com.badlogic.gdx.input.GestureDetector;
 import com.revoltagames.projectsquare.GameStates.LoadState;
 import com.revoltagames.projectsquare.GameStates.Menu;
 import com.revoltagames.projectsquare.Listeners.MyGestureListener;
+import com.revoltagames.projectsquare.Managers.DataManager;
 import com.revoltagames.projectsquare.Managers.GameStateManager;
 import com.revoltagames.projectsquare.Managers.ResourceManager;
 
@@ -24,6 +25,7 @@ public class ProjectSquare extends ApplicationAdapter {
 
     private OrthographicCamera camera;
     public static ResourceManager resManager;
+    public static DataManager dataManager;
 
 	@Override
 	public void create () {
@@ -37,6 +39,7 @@ public class ProjectSquare extends ApplicationAdapter {
         camera.translate(WIDTH/2, HEIGTH/2);
         camera.update();
 
+        dataManager = new DataManager();
         resManager = new ResourceManager();
         initTime = System.currentTimeMillis();
         ready = false;
@@ -45,6 +48,16 @@ public class ProjectSquare extends ApplicationAdapter {
         gameStateManager.setState(new LoadState(gameStateManager));
 
         Gdx.input.setInputProcessor(new GestureDetector(new MyGestureListener()));
+    }
+
+    @Override
+    public void pause() {
+        dataManager.saveData();
+    }
+
+    @Override
+    public void dispose() {
+        pause();
     }
 
 	@Override
