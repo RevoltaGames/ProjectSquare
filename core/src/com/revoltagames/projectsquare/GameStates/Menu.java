@@ -53,13 +53,11 @@ public class Menu extends GameState {
         borders[GestureManager.SW_DOWN - 1] = new Border(GestureManager.SW_DOWN - 1, ColorManager.NYELLOW);
         borders[GestureManager.SW_UP - 1] = new Border(GestureManager.SW_UP - 1, ColorManager.NRED);
 
-        for (Border b: borders)
-            b.startAnimation();
+
     }
 
     @Override
     public void update(float dt) {
-        Border.updateTweenManager(dt);
         handleInput();
     }
 
@@ -77,12 +75,15 @@ public class Menu extends GameState {
         if (Gdx.input.justTouched()) {
             if (playB.touched(Gdx.input.getX(), Gdx.input.getY())) {
                 track.stop();
-                gsm.setState(new Play(this.gsm));
+                for (Border b: borders)
+                    b.startAnimation();
+                gsm.setState(new Play(this.gsm, borders));
             }
             if (highScores.touched(Gdx.input.getX(), Gdx.input.getY())) {
                 track.stop();
                 gsm.push(new HighScores(this.gsm));
             }
+
         }
     }
 

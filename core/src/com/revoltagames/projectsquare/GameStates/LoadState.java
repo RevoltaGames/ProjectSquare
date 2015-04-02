@@ -20,7 +20,6 @@ public class LoadState extends GameState{
     SpriteBatch renderer;
     Sprite splashScreen;
 
-    TweenManager tweenManager;
 
     public LoadState(GameStateManager gsm) {
         super(gsm);
@@ -32,7 +31,6 @@ public class LoadState extends GameState{
         splashScreen = new Sprite(texSplash);
         renderer = new SpriteBatch();
 
-        tweenManager = new TweenManager();
         Tween.registerAccessor(Sprite.class, new SpriteAccessor());
 
         float w = ProjectSquare.WIDTH*0.8f;
@@ -42,14 +40,13 @@ public class LoadState extends GameState{
         splashScreen.setPosition((ProjectSquare.WIDTH - splashScreen.getWidth()) / 2,
                 (ProjectSquare.HEIGTH - splashScreen.getHeight()) / 2);
 
-        Tween.set(splashScreen, SpriteAccessor.ALPHA).target(1).start(tweenManager);
-        Tween.to(splashScreen, SpriteAccessor.ALPHA,1f).target(0).delay(3f).start(tweenManager);
+        Tween.set(splashScreen, SpriteAccessor.ALPHA).target(1).start(ProjectSquare.tweenManager);
+        Tween.to(splashScreen, SpriteAccessor.ALPHA,1f).target(0).delay(3f).start(ProjectSquare.tweenManager);
 
     }
 
     @Override
     public void update(float dt) {
-        tweenManager.update(dt);
         handleInput();
     }
 

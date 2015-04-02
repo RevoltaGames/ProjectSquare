@@ -29,9 +29,7 @@ public class BorderAccessor implements TweenAccessor<Border> {
     public void setValues(Border target, int tweenType, float[] newValues) {
         switch (tweenType) {
             case POS_AND_SIZE:
-                float[] vertices = target.getVertices();
-                for (int i = 0; i < vertices.length; i++)
-                    vertices[i] = newValues[i];
+                target.setVertices(newValues);
                 break;
             default:
                 assert false;

@@ -31,8 +31,7 @@ public class SquaresManager {
     private BitmapFont font;
     SpriteBatch spRenderer1;
 
-    //Animaciones
-    private TweenManager tweenManager;
+
 
     //Cuadrados en pantalla
     private List<Square> squares;
@@ -52,7 +51,6 @@ public class SquaresManager {
 
         numberOfSquares = 0;
 
-        tweenManager = new TweenManager();
         Tween.registerAccessor(Square.class, new SquareAccessor());
 
         spRenderer1 = new SpriteBatch();
@@ -110,7 +108,6 @@ public class SquaresManager {
 
 
     public void update(float dt, int swipe) {
-        tweenManager.update(dt);
 
         this.swipe = swipe;
         if (swipe != 0) {
@@ -179,12 +176,12 @@ public class SquaresManager {
                 .target(square.getX(),square.getY(),square.getSize(),square.getAlpha())
                 .start(tweenManager);*/
         Tween.to(square, SquareAccessor.POS_AND_SIZE, animationTime)
-                .target(x,y,size).start(tweenManager);
+                .target(x,y,size).start(ProjectSquare.tweenManager);
     }
 
     private void animateSquareAlphaTo(Square square, float alpha) {
         Tween.to(square, SquareAccessor.ALPHA, animationTime)
-                .target(alpha).start(tweenManager);
+                .target(alpha).start(ProjectSquare.tweenManager);
     }
 
 }

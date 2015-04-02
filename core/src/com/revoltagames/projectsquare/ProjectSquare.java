@@ -12,6 +12,7 @@ import com.revoltagames.projectsquare.Managers.GameStateManager;
 import com.revoltagames.projectsquare.Managers.ResourceManager;
 
 import aurelienribon.tweenengine.Tween;
+import aurelienribon.tweenengine.TweenManager;
 
 public class ProjectSquare extends ApplicationAdapter {
 
@@ -21,6 +22,8 @@ public class ProjectSquare extends ApplicationAdapter {
 
     public static int WIDTH;
     public static int HEIGTH;
+
+    public static TweenManager tweenManager = new TweenManager();
 
     private OrthographicCamera camera;
     public static ResourceManager resManager;
@@ -62,7 +65,9 @@ public class ProjectSquare extends ApplicationAdapter {
             }
         }
 
-        gameStateManager.update(Gdx.graphics.getDeltaTime());
+        float dt = Gdx.graphics.getDeltaTime();
+        tweenManager.update(dt);
+        gameStateManager.update(dt);
         gameStateManager.draw();
 	}
 }

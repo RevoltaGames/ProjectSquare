@@ -49,10 +49,25 @@ public class Play extends GameState {
 
     private BackgroundClock clock;
 
+    protected Play(GameStateManager gsm, Border[] borders) {
+        super(gsm);
+        timeIncrement = 15;
+        scoreIncrement = 20;
+        this.borders = borders;
+    }
+
     protected Play(GameStateManager gsm) {
         super(gsm);
         timeIncrement = 15;
         scoreIncrement = 20;
+        borders = new Border[4];
+        borders[GestureManager.SW_LEFT - 1] = new Border(GestureManager.SW_LEFT - 1, ColorManager.NBLUE);
+        borders[GestureManager.SW_RIGHT - 1] = new Border(GestureManager.SW_RIGHT - 1, ColorManager.NGREEN);
+        borders[GestureManager.SW_DOWN - 1] = new Border(GestureManager.SW_DOWN - 1, ColorManager.NYELLOW);
+        borders[GestureManager.SW_UP - 1] = new Border(GestureManager.SW_UP - 1, ColorManager.NRED);
+        GestureManager.clear();
+        for (Border b: borders)
+            b.startAnimation();
     }
 
     @Override
@@ -82,11 +97,11 @@ public class Play extends GameState {
 
         squaresManager = new SquaresManager(this);
 
-        borders = new Border[4];
+       /* borders = new Border[4];
         borders[GestureManager.SW_LEFT - 1] = new Border(GestureManager.SW_LEFT - 1, ColorManager.NBLUE);
         borders[GestureManager.SW_RIGHT - 1] = new Border(GestureManager.SW_RIGHT - 1, ColorManager.NGREEN);
         borders[GestureManager.SW_DOWN - 1] = new Border(GestureManager.SW_DOWN - 1, ColorManager.NYELLOW);
-        borders[GestureManager.SW_UP - 1] = new Border(GestureManager.SW_UP - 1, ColorManager.NRED);
+        borders[GestureManager.SW_UP - 1] = new Border(GestureManager.SW_UP - 1, ColorManager.NRED);*/
         GestureManager.clear();
 
         clock = new BackgroundClock(timer, timeIncrement);

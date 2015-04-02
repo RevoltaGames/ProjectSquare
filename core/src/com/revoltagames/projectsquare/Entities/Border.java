@@ -17,7 +17,6 @@ public class Border {
     private float[] vertices;
     private Color color;
 
-    private static TweenManager tweenManager = new TweenManager();
     static {
         Tween.registerAccessor(Border.class, new BorderAccessor());
     }
@@ -29,56 +28,56 @@ public class Border {
     private static int y0Prima = ProjectSquare.HEIGTH/2 - size_cuadradoMenu/2;
     private static int yMaxPrima = ProjectSquare.HEIGTH/2 + size_cuadradoMenu/2;
 
-    public static float[] vertices_izquierda_menu = new float[] {
+    public static final float[] vertices_izquierda_menu = new float[] {
             x0Prima,y0Prima,
             x0Prima, yMaxPrima,
             x0Prima + width, yMaxPrima - width,
             x0Prima + width, y0Prima + width
     };
 
-    public static float[] vertices_izquierda = new float[] {
+    public static final float[] vertices_izquierda = new float[] {
             0,0,
             0,ProjectSquare.HEIGTH,
             width, ProjectSquare.HEIGTH-width,
             width, width
     };
 
-    public static float[] vertices_derecha_menu = new float[] {
+    public static final float[] vertices_derecha_menu = new float[] {
             xMaxPrima, y0Prima,
             xMaxPrima, yMaxPrima,
             xMaxPrima - width, yMaxPrima - width,
             xMaxPrima - width, y0Prima + width
     };
 
-    public static float[] vertices_derecha = new float[] {
+    public static final float[] vertices_derecha = new float[] {
             ProjectSquare.WIDTH, 0,
             ProjectSquare.WIDTH, ProjectSquare.HEIGTH,
             ProjectSquare.WIDTH - width, ProjectSquare.HEIGTH - width,
             ProjectSquare.WIDTH - width, width
     };
 
-    public static float[] vertices_arriba_menu = new float[] {
+    public static final float[] vertices_arriba_menu = new float[] {
             x0Prima, yMaxPrima,
             xMaxPrima, yMaxPrima,
             xMaxPrima - width, yMaxPrima - width,
             x0Prima + width, yMaxPrima - width
     };
 
-    public static float[] vertices_arriba = new float[] {
+    public static final float[] vertices_arriba = new float[] {
             0, ProjectSquare.HEIGTH,
             ProjectSquare.WIDTH, ProjectSquare.HEIGTH,
             ProjectSquare.WIDTH - width, ProjectSquare.HEIGTH - width,
             width, ProjectSquare.HEIGTH - width
     };
 
-    public static float[] vertices_abajo_menu = new float[] {
+    public static final float[] vertices_abajo_menu = new float[] {
             x0Prima + width,y0Prima + width,
             x0Prima, y0Prima,
             xMaxPrima, y0Prima,
             xMaxPrima - width, y0Prima + width
     };
 
-    public static float[] vertices_abajo = new float[] {
+    public static final float[] vertices_abajo = new float[] {
             width, width,
             0, 0,
             ProjectSquare.WIDTH, 0,
@@ -88,8 +87,8 @@ public class Border {
 
 
     private int type; // 0 izq, 1 der, 2 arrib, 3 abajo
-    private static float[][] vertices_menu = new float[][] {vertices_izquierda_menu, vertices_derecha_menu, vertices_arriba_menu, vertices_abajo_menu};
-    private static float[][] vertices_play = new float[][] {vertices_izquierda, vertices_derecha, vertices_arriba, vertices_abajo};
+    private static final float[][] vertices_menu = new float[][] {vertices_izquierda_menu, vertices_derecha_menu, vertices_arriba_menu, vertices_abajo_menu};
+    private static final float[][] vertices_play = new float[][] {vertices_izquierda, vertices_derecha, vertices_arriba, vertices_abajo};
 
     public Border (int type, Color color) {
         this.type = type;
@@ -109,7 +108,6 @@ public class Border {
                 vertices = vertices_arriba_menu;
                 break;
             case 3:
-
                 vertices = vertices_abajo_menu;
         }
     }
@@ -132,17 +130,17 @@ public class Border {
         return vertices;
     }
 
-    public void setVertices(float[] vertices) {
-        this.vertices = vertices;
+    public void setVertices(float[] newvertices) {
+        this.vertices = new float[8];
+        for (int i = 0; i < vertices.length; i++) {
+            vertices[i] = newvertices[i];
+        }
     }
 
-    public static void updateTweenManager(float dt) {
-        tweenManager.update(dt);
-    }
 
     public void startAnimation() {
-        Tween.set(this, BorderAccessor.POS_AND_SIZE).target(vertices_menu[type]).start(tweenManager);
-        Tween.to(this, BorderAccessor.POS_AND_SIZE, 1).target(vertices_play[type]).delay(0.5f).start(tweenManager);
+        Tween.set(this, BorderAccessor.POS_AND_SIZE).target(vertices_menu[type]).start(ProjectSquare.tweenManager);
+        Tween.to(this, BorderAccessor.POS_AND_SIZE, 1).target(vertices_play[type]).start(ProjectSquare.tweenManager);
     }
 
 }
