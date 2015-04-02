@@ -6,15 +6,11 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.revoltagames.projectsquare.Entities.Border;
 import com.revoltagames.projectsquare.Entities.Button;
 import com.revoltagames.projectsquare.Entities.Shapes.Circle;
-import com.revoltagames.projectsquare.Entities.Tween.BorderAccessor;
 import com.revoltagames.projectsquare.Managers.ColorManager;
 import com.revoltagames.projectsquare.Managers.GameStateManager;
 import com.revoltagames.projectsquare.Managers.GestureManager;
 import com.revoltagames.projectsquare.Managers.ResourceManager;
 import com.revoltagames.projectsquare.ProjectSquare;
-
-import aurelienribon.tweenengine.Tween;
-import aurelienribon.tweenengine.TweenManager;
 
 /**
  * Created by caenrique93 on 17/02/15.
