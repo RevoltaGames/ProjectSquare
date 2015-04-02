@@ -7,7 +7,9 @@ import com.badlogic.gdx.assets.loaders.MusicLoader;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGeneratorLoader;
 import com.badlogic.gdx.graphics.g2d.freetype.FreetypeFontLoader;
@@ -30,6 +32,8 @@ public class ResourceManager {
     public static final String GAMEOVER = "Music/gameover.wav";
     public static final String MENU = "Music/menu.wav";
 
+    public static final String SPLASH = "Images/splash2.png";
+
     private final String[] musica = new String[8];
 
     /**
@@ -48,6 +52,11 @@ public class ResourceManager {
                 new FreetypeFontLoader(resolver));
         manager.setLoader(Music.class,
                 new MusicLoader(resolver));
+
+        // Cargamos Splash
+        manager.load(SPLASH, Texture.class);
+        manager.finishLoading();
+
 
         FreeTypeFontLoaderParameter size1Params =
                 new FreeTypeFontLoaderParameter();
@@ -68,6 +77,8 @@ public class ResourceManager {
             System.out.println(musica[i]);
         }
 
+
+
         manager.load(musica[0], Music.class);
         manager.load(musica[1], Music.class);
         manager.load(musica[2], Music.class);
@@ -79,6 +90,11 @@ public class ResourceManager {
         manager.load(MOVE, Music.class);
         manager.load(GAMEOVER, Music.class);
         manager.load(MENU, Music.class);
+
+    }
+
+    public Texture getSplashScreen() {
+        return manager.get(SPLASH, Texture.class);
     }
 
     public Music getSound(String move) {
