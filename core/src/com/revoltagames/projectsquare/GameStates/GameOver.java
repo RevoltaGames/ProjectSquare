@@ -12,10 +12,6 @@ import com.revoltagames.projectsquare.Managers.GameStateManager;
 import com.revoltagames.projectsquare.Managers.ResourceManager;
 import com.revoltagames.projectsquare.ProjectSquare;
 
-import java.io.IOException;
-import java.util.LinkedList;
-import java.util.List;
-
 /**
  * Created by caenrique93 on 17/02/15.
  */
@@ -64,54 +60,6 @@ public class GameOver extends GameState {
         font.scale(1.2f);
     }
 
-    private void saveScore() {
-        scoreHandle = Gdx.files.local("highScores");
-        if (!scoreHandle.exists()) {
-            try {
-                scoreHandle.file().createNewFile();
-                scoreHandle.writeString("-1 -1 -1 -1 -1", false);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        String stringScore = scoreHandle.readString();
-        String[] scores = stringScore.split(" ");
-        LinkedList<Integer> sortedScore = (LinkedList<Integer>) toIntegerList(scores);
-        int next; int old=0;
-        boolean inserted = false;
-        for(int i=0;i<sortedScore.size();i++) {
-            if(inserted) {
-                next = sortedScore.get(i);
-                sortedScore.set(i, old);
-                old = next;
-            } else {
-                old = sortedScore.get(i);
-                if(score > old) {
-                    inserted = true;
-                    sortedScore.set(i, score);
-                }
-            }
-        }
-        String finalScore = toStringList(sortedScore);
-        scoreHandle.writeString(finalScore, false);
-    }
-
-    private String toStringList(List<Integer> theList) {
-        String scoreString = "";
-        for(int score : theList) {
-            scoreString = scoreString + score + " ";
-        }
-        return  scoreString;
-    }
-
-    private List<Integer> toIntegerList(String[] theList) {
-        LinkedList<Integer> IntegerList = new LinkedList<Integer>();
-        for(String score : theList) {
-            IntegerList.add(Integer.parseInt(score));
-        }
-        return  IntegerList;
-    }
-
     @Override
     public void update(float dt) {
         handleInput();
@@ -157,6 +105,7 @@ public class GameOver extends GameState {
 
     @Override
     public void dispose() {
-        saveScore();
+        ProjectSquare.dataManager.saveScore(score);
+        ProjectSquare.dataManager.addCoins(score);
     }
 }

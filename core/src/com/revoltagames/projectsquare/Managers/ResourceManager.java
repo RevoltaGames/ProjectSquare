@@ -9,7 +9,6 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGeneratorLoader;
 import com.badlogic.gdx.graphics.g2d.freetype.FreetypeFontLoader;
@@ -72,6 +71,13 @@ public class ResourceManager {
         size2Params.fontParameters.color = Color.LIGHT_GRAY;
         manager.load("size2.ttf", BitmapFont.class, size2Params);
 
+        FreeTypeFontLoaderParameter size3Params =
+                new FreeTypeFontLoaderParameter();
+        size3Params.fontFileName = "Fonts/dinMedium.ttf";
+        size3Params.fontParameters.size = Gdx.graphics.getHeight()/30;
+        size3Params.fontParameters.color = Color.LIGHT_GRAY;
+        manager.load("size3.ttf", BitmapFont.class, size3Params);
+
         for(int i=0;i<musica.length;i++) {
             musica[i] = "Music/music" + i%4 + ".wav";
             System.out.println(musica[i]);
@@ -115,6 +121,9 @@ public class ResourceManager {
                 break;
             case 2:
                 bitFont = manager.get("size2.ttf", BitmapFont.class);
+                break;
+            case 3:
+                bitFont = manager.get("size3.ttf", BitmapFont.class);
                 break;
             default:
                 bitFont = manager.get("size1.ttf", BitmapFont.class);

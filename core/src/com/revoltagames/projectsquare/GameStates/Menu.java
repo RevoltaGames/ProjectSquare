@@ -2,6 +2,8 @@ package com.revoltagames.projectsquare.GameStates;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.revoltagames.projectsquare.Entities.Border;
 import com.revoltagames.projectsquare.Entities.Button;
@@ -18,11 +20,13 @@ import com.revoltagames.projectsquare.ProjectSquare;
 public class Menu extends GameState {
 
     private ShapeRenderer shapeR;
+    private SpriteBatch renderer;
     private Button playB;
     private Button highScores;
     private Music track;
-    private Border[] borders;
 
+    private Border[] borders;
+    private BitmapFont font;
 
     public Menu(GameStateManager gsm) {
         super(gsm);
@@ -49,7 +53,8 @@ public class Menu extends GameState {
         borders[GestureManager.SW_DOWN - 1] = new Border(GestureManager.SW_DOWN - 1, ColorManager.NYELLOW);
         borders[GestureManager.SW_UP - 1] = new Border(GestureManager.SW_UP - 1, ColorManager.NRED);
 
-
+        font = ProjectSquare.resManager.getFont(3);
+        renderer = new SpriteBatch();
     }
 
     @Override
@@ -61,9 +66,18 @@ public class Menu extends GameState {
     public void draw() {
         playB.draw(shapeR);
         highScores.draw(shapeR);
+        
         for (Border border : borders) {
             border.draw(shapeR);
         }
+
+        int score = ProjectSquare.dataManager.getCoins();
+        String puntuacion = "puntos: " + score;
+        BitmapFont.TextBounds bounds = font.getBounds(puntuacion);
+
+        renderer.begin();
+        font.draw(renderer,puntuacion, ProjectSquare.WIDTH/2 - bounds.width/2, ProjectSquare.HEIGTH - ProjectSquare.HEIGTH/12 - bounds.height/2);
+        renderer.end();
     }
 
     @Override
