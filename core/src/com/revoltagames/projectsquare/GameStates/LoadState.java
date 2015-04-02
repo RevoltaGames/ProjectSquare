@@ -35,12 +35,15 @@ public class LoadState extends GameState{
         tweenManager = new TweenManager();
         Tween.registerAccessor(Sprite.class, new SpriteAccessor());
 
+        float w = ProjectSquare.WIDTH*0.8f;
+        float h = splashScreen.getHeight() * w/splashScreen.getWidth();
+        splashScreen.setSize(w,h);
+
         splashScreen.setPosition((ProjectSquare.WIDTH - splashScreen.getWidth()) / 2,
                 (ProjectSquare.HEIGTH - splashScreen.getHeight()) / 2);
 
-        Tween.set(splashScreen, SpriteAccessor.ALPHA).target(0).start(tweenManager);
-        Tween.to(splashScreen, SpriteAccessor.ALPHA,0.6f).target(1).start(tweenManager);
-        Tween.to(splashScreen, SpriteAccessor.ALPHA,0.6f).target(0).delay(2.8f).start(tweenManager);
+        Tween.set(splashScreen, SpriteAccessor.ALPHA).target(1).start(tweenManager);
+        Tween.to(splashScreen, SpriteAccessor.ALPHA,1f).target(0).delay(3f).start(tweenManager);
 
     }
 

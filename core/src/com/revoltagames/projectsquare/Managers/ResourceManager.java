@@ -32,7 +32,7 @@ public class ResourceManager {
     public static final String GAMEOVER = "Music/gameover.wav";
     public static final String MENU = "Music/menu.wav";
 
-    public static final String SPLASH = "Images/splash2.png";
+    public static final String SPLASH = "Images/splash4.png";
 
     private final String[] musica = new String[8];
 
