@@ -89,7 +89,7 @@ public class Play extends GameState {
         borders[GestureManager.SW_UP - 1] = new Border(GestureManager.SW_UP - 1, ColorManager.NRED);
         GestureManager.clear();
 
-        clock = new BackgroundClock(timer, timeIncrement);
+        clock = new BackgroundClock(timer);
 
     }
 

@@ -13,12 +13,10 @@ public class BackgroundClock {
     private float alpha;
     private Color color;
     private int max;
-    private int increment;
 
-    public BackgroundClock(int max, int increment) {
+    public BackgroundClock(int max) {
         color = ColorManager.ColorClock;
         this.max = max;
-        this.increment = increment;
     }
 
     public void draw(ShapeRenderer shapeR){
@@ -33,7 +31,7 @@ public class BackgroundClock {
 
     public void upade(int timer, float seconCounter) {
         if (timer > max)
-            max += increment;
+            max = timer;
         else {
             float slice = (2 * 3.1415f) / max;
             alpha = (30 - (timer - seconCounter)) * slice;

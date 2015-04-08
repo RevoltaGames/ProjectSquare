@@ -2,12 +2,14 @@ package com.revoltagames.projectsquare;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.input.GestureDetector;
 import com.revoltagames.projectsquare.GameStates.LoadState;
 import com.revoltagames.projectsquare.GameStates.Menu;
 import com.revoltagames.projectsquare.Listeners.MyGestureListener;
+import com.revoltagames.projectsquare.Managers.ColorManager;
 import com.revoltagames.projectsquare.Managers.GameStateManager;
 import com.revoltagames.projectsquare.Managers.ResourceManager;
 
@@ -49,7 +51,8 @@ public class ProjectSquare extends ApplicationAdapter {
 
 	@Override
 	public void render () {
-		Gdx.gl.glClearColor(1,1,1,1); //White
+        Color colorFondo = ColorManager.ColorFondo;
+		Gdx.gl.glClearColor(colorFondo.r,colorFondo.g,colorFondo.b,colorFondo.a); //White
         Gdx.gl.glEnable(GL20.GL_BLEND);
         //Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
