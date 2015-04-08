@@ -1,26 +1,25 @@
 package com.revoltagames.projectsquare.GameStates;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.revoltagames.projectsquare.Managers.GameStateManager;
 import com.revoltagames.projectsquare.ProjectSquare;
+
+import java.util.ArrayList;
 
 
 /**
  * Created by caenrique93 on 28/02/15.
  */
 public class HighScores extends GameState {
-    private FileHandle scoreHandle;
-    private String scores;
+    private ArrayList<Integer> scores;
     private SpriteBatch renderer;
-    BitmapFont font = ProjectSquare.rm.getFont(2, Color.BLACK);
+    BitmapFont font;
     String mesage;
-    String[] s;
     BitmapFont.TextBounds bounds;
-    int gap = 20;
+    float gap;
+    private float textWidth;
 
 
     protected HighScores(GameStateManager gsm) {
@@ -29,13 +28,12 @@ public class HighScores extends GameState {
 
     @Override
     public void init() {
-        scoreHandle = Gdx.files.local("highScores");
-        scores = scoreHandle.readString();
-        s = scores.split(" ");
         mesage = "HighScores";
         renderer = new SpriteBatch();
-        font = new BitmapFont();
+        font = ProjectSquare.resManager.getFont(2);
         bounds = font.getBounds(mesage);
+        textWidth = bounds.width;
+        scores = ProjectSquare.dataManager.getHighScores();
     }
 
     @Override
@@ -47,10 +45,12 @@ public class HighScores extends GameState {
     public void draw() {
         BitmapFont.TextBounds numberBound;
         renderer.begin();
-        font.draw(renderer, mesage, ProjectSquare.WIDTH / 2 - bounds.width / 2, 3 * ProjectSquare.HEIGTH / 4 - bounds.height / 2);
-        for(int i=0;i<4;i++) {
-            numberBound = font.getBounds(s[i]);
-            font.draw(renderer, s[i], ProjectSquare.WIDTH/2 - numberBound.width/2, 3*ProjectSquare.HEIGTH/4 - numberBound.height/2 - 2*gap - i*gap);
+        font.draw(renderer, mesage, ProjectSquare.WIDTH/2 - textWidth/2, 3 * ProjectSquare.HEIGTH / 4 - bounds.height / 2);
+        gap = font.getLineHeight();
+        for(int i=0;i<5;i++) {
+            String score = scores.get(i).toString();
+            numberBound = font.getBounds(score);
+            font.draw(renderer, score, ProjectSquare.WIDTH/2 - numberBound.width/2, 3*ProjectSquare.HEIGTH/4 - numberBound.height/2 - 2*gap - i*gap);
         }
         renderer.end();
     }
@@ -59,7 +59,6 @@ public class HighScores extends GameState {
     public void handleInput() {
         if(Gdx.input.justTouched()) {
             gsm.pop();
-            System.out.println("touched");
         }
     }
 

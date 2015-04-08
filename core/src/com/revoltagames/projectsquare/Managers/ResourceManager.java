@@ -7,6 +7,7 @@ import com.badlogic.gdx.assets.loaders.MusicLoader;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGeneratorLoader;
@@ -30,6 +31,8 @@ public class ResourceManager {
     public static final String GAMEOVER = "Music/gameover.wav";
     public static final String MENU = "Music/menu.wav";
 
+    public static final String SPLASH = "Images/splash4.png";
+
     private final String[] musica = new String[8];
 
     /**
@@ -49,6 +52,11 @@ public class ResourceManager {
         manager.setLoader(Music.class,
                 new MusicLoader(resolver));
 
+        // Cargamos Splash
+        manager.load(SPLASH, Texture.class);
+        manager.finishLoading();
+
+
         FreeTypeFontLoaderParameter size1Params =
                 new FreeTypeFontLoaderParameter();
         size1Params.fontFileName = "Fonts/dinBlack.ttf";
@@ -60,13 +68,22 @@ public class ResourceManager {
                 new FreeTypeFontLoaderParameter();
         size2Params.fontFileName = "Fonts/dinBlack.ttf";
         size2Params.fontParameters.size = Gdx.graphics.getHeight()/12;
-        size2Params.fontParameters.color = Color.BLACK;
+        size2Params.fontParameters.color = Color.LIGHT_GRAY;
         manager.load("size2.ttf", BitmapFont.class, size2Params);
+
+        FreeTypeFontLoaderParameter size3Params =
+                new FreeTypeFontLoaderParameter();
+        size3Params.fontFileName = "Fonts/dinMedium.ttf";
+        size3Params.fontParameters.size = Gdx.graphics.getHeight()/30;
+        size3Params.fontParameters.color = Color.LIGHT_GRAY;
+        manager.load("size3.ttf", BitmapFont.class, size3Params);
 
         for(int i=0;i<musica.length;i++) {
             musica[i] = "Music/music" + i%4 + ".wav";
             System.out.println(musica[i]);
         }
+
+
 
         manager.load(musica[0], Music.class);
         manager.load(musica[1], Music.class);
@@ -79,6 +96,11 @@ public class ResourceManager {
         manager.load(MOVE, Music.class);
         manager.load(GAMEOVER, Music.class);
         manager.load(MENU, Music.class);
+
+    }
+
+    public Texture getSplashScreen() {
+        return manager.get(SPLASH, Texture.class);
     }
 
     public Music getSound(String move) {
@@ -91,7 +113,7 @@ public class ResourceManager {
         return null;
     }
 
-    public BitmapFont getFont(int size, Color color) {
+    public BitmapFont getFont(int size) {
         BitmapFont bitFont;
         switch(size) {
             case 1:
@@ -99,6 +121,9 @@ public class ResourceManager {
                 break;
             case 2:
                 bitFont = manager.get("size2.ttf", BitmapFont.class);
+                break;
+            case 3:
+                bitFont = manager.get("size3.ttf", BitmapFont.class);
                 break;
             default:
                 bitFont = manager.get("size1.ttf", BitmapFont.class);

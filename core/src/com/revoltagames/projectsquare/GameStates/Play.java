@@ -49,10 +49,25 @@ public class Play extends GameState {
 
     private BackgroundClock clock;
 
+    protected Play(GameStateManager gsm, Border[] borders) {
+        super(gsm);
+        timeIncrement = 15;
+        scoreIncrement = 20;
+        this.borders = borders;
+    }
+
     protected Play(GameStateManager gsm) {
         super(gsm);
         timeIncrement = 15;
         scoreIncrement = 20;
+        borders = new Border[4];
+        borders[GestureManager.SW_LEFT - 1] = new Border(GestureManager.SW_LEFT - 1, ColorManager.NBLUE);
+        borders[GestureManager.SW_RIGHT - 1] = new Border(GestureManager.SW_RIGHT - 1, ColorManager.NGREEN);
+        borders[GestureManager.SW_DOWN - 1] = new Border(GestureManager.SW_DOWN - 1, ColorManager.NYELLOW);
+        borders[GestureManager.SW_UP - 1] = new Border(GestureManager.SW_UP - 1, ColorManager.NRED);
+        GestureManager.clear();
+        for (Border b: borders)
+            b.startAnimation();
     }
 
     @Override
@@ -60,11 +75,11 @@ public class Play extends GameState {
         shapeR = new ShapeRenderer();
         spriteRenderer = new SpriteBatch();
 
-        track = ProjectSquare.rm.getMusic(rnd.nextInt(8));
+        track = ProjectSquare.resManager.getMusic(rnd.nextInt(8));
         track.setLooping(true);
         track.play();
 
-        move = ProjectSquare.rm.getSound(ResourceManager.MOVE);
+        move = ProjectSquare.resManager.getSound(ResourceManager.MOVE);
 
         timer = 30;
         score = 0;
@@ -76,23 +91,23 @@ public class Play extends GameState {
                 false);
         font.scale(1.2f);
 
-        font70 = ProjectSquare.rm.getFont(1, Color.LIGHT_GRAY);
+        font70 = ProjectSquare.resManager.getFont(1);
 
         gameOver = false;
 
         squaresManager = new SquaresManager(this);
 
-        borders = new Border[4];
+       /* borders = new Border[4];
         borders[GestureManager.SW_LEFT - 1] = new Border(GestureManager.SW_LEFT - 1, ColorManager.NBLUE);
         borders[GestureManager.SW_RIGHT - 1] = new Border(GestureManager.SW_RIGHT - 1, ColorManager.NGREEN);
         borders[GestureManager.SW_DOWN - 1] = new Border(GestureManager.SW_DOWN - 1, ColorManager.NYELLOW);
-        borders[GestureManager.SW_UP - 1] = new Border(GestureManager.SW_UP - 1, ColorManager.NRED);
+        borders[GestureManager.SW_UP - 1] = new Border(GestureManager.SW_UP - 1, ColorManager.NRED);*/
         GestureManager.clear();
 
         clock = new BackgroundClock(timer);
 
-    }
 
+    }
 
     @Override
     public void update(float dt) {
@@ -124,13 +139,7 @@ public class Play extends GameState {
         }
 
         if (timer == 0) gameOver = true;
-
-
-
     }
-
-
-
 
     @Override
     public void draw() {
@@ -142,20 +151,20 @@ public class Play extends GameState {
 
         squaresManager.draw(shapeR, spriteRenderer);
 
-        drawTimer();
+        drawScore();
     }
 
 
-    private void drawTimer() {
+    private void drawScore() {
         spriteRenderer.begin();
         BitmapFont.TextBounds timerBound =
-                font70.getBounds(Integer.toString(timer));
+                font70.getBounds(Integer.toString(score));
         float timerX = ProjectSquare.WIDTH / 2 - timerBound.width / 2;
         float timerY = 4 * ProjectSquare.HEIGTH / 5 + timerBound.height / 2;
 
         Color oldColor = spriteRenderer.getColor();
         spriteRenderer.setColor(Color.LIGHT_GRAY);
-        font70.draw(spriteRenderer, Integer.toString(timer), timerX, timerY);
+        font70.draw(spriteRenderer, Integer.toString(score), timerX, timerY);
         spriteRenderer.setColor(oldColor);
         spriteRenderer.end();
     }
