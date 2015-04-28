@@ -22,6 +22,7 @@ public class ProjectSquare extends ApplicationAdapter {
     private GameStateManager gameStateManager;
     private long initTime;
     private boolean ready;
+    public static boolean sound;
 
     public static int WIDTH;
     public static int HEIGTH;
@@ -39,6 +40,8 @@ public class ProjectSquare extends ApplicationAdapter {
 
         WIDTH = Gdx.graphics.getWidth();
         HEIGTH = Gdx.graphics.getHeight();
+
+        sound = true;
 
         camera = new OrthographicCamera(WIDTH, HEIGTH);
         camera.translate(WIDTH/2, HEIGTH/2);

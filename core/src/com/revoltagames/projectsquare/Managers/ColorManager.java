@@ -40,7 +40,7 @@ public class ColorManager {
 
     private static Color[] colores = new Color[25];
     //public static Color ColorFondo = new MyColor(227,224,176,1);
-    public static Color ColorFondo = new MyColor(197,231,205,1);
+    public static Color ColorFondo = new MyColor(212,212,212,1);
     public static Color ColorClock = new MyColor(255,255,255,1);
 
     static {

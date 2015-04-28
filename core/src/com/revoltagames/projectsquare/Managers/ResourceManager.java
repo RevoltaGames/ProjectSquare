@@ -33,6 +33,15 @@ public class ResourceManager {
 
     public static final String SPLASH = "Images/splash4.png";
 
+    public static final String B_EXIT = "Images/exit.png";
+    public static final String B_SCORES = "Images/highscore.png";
+    public static final String B_SETTINGS = "Images/settings.png";
+    public static final String B_VOLUME_ON = "Images/soundon.png";
+    public static final String B_VOLUME_OFF = "Images/soundoff.png";
+    public static final String TITTLE = "Images/tittle.png";
+    public static final String TOUCH = "Images/touchtoplay.png";
+    public static final String SHADOW = "Images/sombra.png";
+
     private final String[] musica = new String[8];
 
     /**
@@ -56,6 +65,14 @@ public class ResourceManager {
         manager.load(SPLASH, Texture.class);
         manager.finishLoading();
 
+        manager.load(B_EXIT, Texture.class);
+        manager.load(B_SCORES, Texture.class);
+        manager.load(B_SETTINGS, Texture.class);
+        manager.load(B_VOLUME_OFF, Texture.class);
+        manager.load(B_VOLUME_ON, Texture.class);
+        manager.load(TITTLE, Texture.class);
+        manager.load(TOUCH, Texture.class);
+        manager.load(SHADOW, Texture.class);
 
         FreeTypeFontLoaderParameter size1Params =
                 new FreeTypeFontLoaderParameter();
@@ -130,6 +147,10 @@ public class ResourceManager {
         }
         //bitFont.setColor(color);
         return  bitFont;
+    }
+
+    public Texture getImage(String id) {
+        return manager.get(id, Texture.class);
     }
 
     public boolean update() {

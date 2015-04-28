@@ -77,7 +77,9 @@ public class Play extends GameState {
 
         track = ProjectSquare.resManager.getMusic(rnd.nextInt(8));
         track.setLooping(true);
-        track.play();
+        if (ProjectSquare.sound) {
+            track.play();
+        }
 
         move = ProjectSquare.resManager.getSound(ResourceManager.MOVE);
 

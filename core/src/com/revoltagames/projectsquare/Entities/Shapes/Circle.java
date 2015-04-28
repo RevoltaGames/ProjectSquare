@@ -38,7 +38,7 @@ public class Circle implements Shape {
 
     @Override
     public Rectangle getBoundaries() {
-        return new Rectangle(x, y, radio, radio);
+        return new Rectangle(x, y, radio*2, radio*2);
     }
 
     public float getX() {

@@ -45,7 +45,10 @@ public class GameOver extends GameState {
     @Override
     public void init() {
         track= ProjectSquare.resManager.getSound(ResourceManager.GAMEOVER);
-        track.play();
+
+        if (ProjectSquare.sound)
+            track.play();
+
         gameOverText = "GAME OVER";
         int unitStep = ProjectSquare.WIDTH/8;
         boton1 = new Button(unitStep*2, ProjectSquare.HEIGTH/4);

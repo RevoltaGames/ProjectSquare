@@ -66,7 +66,9 @@ public class Button {
     }
 
     public void draw(ShapeRenderer renderer) {
-        this.shape.draw(renderer);
+        if(image == null) {
+            this.shape.draw(renderer);
+        }
 
         if(spRenderer != null) {
             spRenderer.setProjectionMatrix(renderer.getProjectionMatrix());
@@ -87,8 +89,8 @@ public class Button {
             if(image != null) {
                 spRenderer.draw(
                         image,
-                        shape.getBoundaries().getX(),
-                        shape.getBoundaries().getY(),
+                        shape.getBoundaries().getX() - shape.getBoundaries().getWidth()/2,
+                        shape.getBoundaries().getY() - shape.getBoundaries().getHeight()/2,
                         shape.getBoundaries().getWidth(),
                         shape.getBoundaries().getHeight()
                 );
@@ -99,5 +101,9 @@ public class Button {
 
     public boolean touched(float tx, float ty) {
         return shape.touched(tx, ty);
+    }
+
+    public void setImage(Texture img) {
+        this.image = img;
     }
 }

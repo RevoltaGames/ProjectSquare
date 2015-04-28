@@ -2,13 +2,14 @@ package com.revoltagames.projectsquare.Entities.Shapes;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Rectangle;
 import com.revoltagames.projectsquare.Managers.ColorManager;
 import com.revoltagames.projectsquare.ProjectSquare;
 
 /**
  * Created by alejandro on 18/02/15.
  */
-public class Square {
+public class Square implements Shape {
     private float x, y, size;
     private Color color;
     private float alpha;
@@ -33,6 +34,16 @@ public class Square {
         shapeR.end();
     }
 
+    @Override
+    public boolean touched(float tx, float ty) {
+        return tx>=x-size/2 && tx<=x+size/2 && ty>=y-size/2 && ty<=y+size/2;
+    }
+
+    @Override
+    public Rectangle getBoundaries() {
+        return new Rectangle(this.x, this.y, this.size, this.size);
+    }
+
     public float getX() {
         return x;
     }
@@ -43,6 +54,11 @@ public class Square {
 
     public float getY() {
         return y;
+    }
+
+    @Override
+    public Shape clone() {
+        return new Square(this.x, this.y, this.size);
     }
 
     public void setY(float y) {
@@ -73,6 +89,11 @@ public class Square {
 
     public Color getColor() {
         return color;
+    }
+
+    @Override
+    public void setColor(Color color) {
+        this.color = color;
     }
 
     public void setAlpha(float alpha) {
