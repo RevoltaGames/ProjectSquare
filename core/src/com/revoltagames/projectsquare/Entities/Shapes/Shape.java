@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 
 /**
- * Created by caenrique93 on 15/03/15.
+ * Interfaz usada para definir formaas geométricas
  */
 public interface Shape {
     public void draw(ShapeRenderer renderer);
