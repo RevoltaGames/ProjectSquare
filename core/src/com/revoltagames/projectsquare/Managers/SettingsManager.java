@@ -12,7 +12,8 @@ import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.Comparator;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -25,15 +26,16 @@ public class SettingsManager {
     public boolean etc;
     */
 
-    private List<Integer> scores = new ArrayList<Integer>();
+    private List<Integer> scores = new ArrayList<Integer>(Arrays.asList(0,0,0,0,0));
 
 
     public static final String settingsPath = "settings.json";
 
     public void setNewScore(int score) {
         scores.add(score);
-        scores.sort(Comparator.<Integer>reverseOrder());
-        scores = scores.subList(0,5);
+        Collections.sort(scores);
+        scores = scores.subList(1,scores.size());
+        Collections.reverse(scores);
     }
 
     public List<Integer> getScores() {
@@ -41,12 +43,14 @@ public class SettingsManager {
     }
 
     public void save() {
-        try (
+        OutputStream file = null;
+        OutputStream buffer = null;
+        ObjectOutput output = null;
+        try {
+            file = Gdx.files.local(SettingsManager.settingsPath).write(false);
+            buffer = new BufferedOutputStream(file);
+            output = new ObjectOutputStream(buffer);
 
-            OutputStream file = Gdx.files.local(SettingsManager.settingsPath).write(false);
-            OutputStream buffer = new BufferedOutputStream(file);
-            ObjectOutput output = new ObjectOutputStream(buffer);
-        ){
             output.writeObject(this);
         } catch (IOException e) {
             e.printStackTrace();
@@ -55,11 +59,14 @@ public class SettingsManager {
 
     public static SettingsManager load() {
         SettingsManager sm = null;
-        try (
-            InputStream file = Gdx.files.local(SettingsManager.settingsPath).read();
-            InputStream buffer = new BufferedInputStream(file);
-            ObjectInput input = new ObjectInputStream(buffer);
-        ){
+        InputStream file = null;
+        InputStream buffer = null;
+        ObjectInput input = null;
+        try {
+            file = Gdx.files.local(SettingsManager.settingsPath).read();
+            buffer = new BufferedInputStream(file);
+            input = new ObjectInputStream(buffer);
+
             sm = (SettingsManager) input.readObject();
         } catch (IOException e) {
             e.printStackTrace();
