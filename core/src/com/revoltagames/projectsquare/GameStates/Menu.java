@@ -3,12 +3,10 @@ package com.revoltagames.projectsquare.GameStates;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Vector3;
 import com.revoltagames.projectsquare.Entities.Border;
 import com.revoltagames.projectsquare.Entities.Button;
 import com.revoltagames.projectsquare.Entities.Shapes.Circle;
@@ -50,8 +48,6 @@ public class Menu extends GameState {
     float buttonsx;
     float buttonsy;
 
-    OrthographicCamera camera;
-
     private boolean soundChanged;
 
     public Menu(GameStateManager gsm) {
@@ -62,8 +58,6 @@ public class Menu extends GameState {
     @Override
     public void init() {
         track= ProjectSquare.resManager.getSound(ResourceManager.MENU);
-
-        camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         track.play();
 
@@ -157,7 +151,6 @@ public class Menu extends GameState {
 
     @Override
     public void handleInput() {
-        Vector3 coords = camera.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0));
         if (Gdx.input.justTouched()) {
             if (playB.touched(Gdx.input.getX(), Gdx.input.getY())) {
                 track.stop();
