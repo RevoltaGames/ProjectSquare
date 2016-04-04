@@ -58,8 +58,10 @@ public class Menu extends GameState {
     @Override
     public void init() {
         track= ProjectSquare.resManager.getSound(ResourceManager.MENU);
-
-        track.play();
+        track.setLooping(true);
+        if (ProjectSquare.sound) {
+            track.play();
+        }
 
         soundChanged = true;
         shapeR = new ShapeRenderer();

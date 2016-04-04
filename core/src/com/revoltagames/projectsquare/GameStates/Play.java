@@ -75,7 +75,7 @@ public class Play extends GameState {
         shapeR = new ShapeRenderer();
         spriteRenderer = new SpriteBatch();
 
-        track = ProjectSquare.resManager.getMusic(rnd.nextInt(8));
+        track = ProjectSquare.resManager.getMusic(0);
         track.setLooping(true);
         if (ProjectSquare.sound) {
             track.play();
