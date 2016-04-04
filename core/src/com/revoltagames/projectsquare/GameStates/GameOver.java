@@ -108,7 +108,6 @@ public class GameOver extends GameState {
 
     @Override
     public void dispose() {
-        ProjectSquare.dataManager.saveScore(score);
-        ProjectSquare.dataManager.addCoins(score);
+        ProjectSquare.settingsManager.setNewScore(score);
     }
 }

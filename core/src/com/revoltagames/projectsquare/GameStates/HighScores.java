@@ -6,14 +6,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.revoltagames.projectsquare.Managers.GameStateManager;
 import com.revoltagames.projectsquare.ProjectSquare;
 
-import java.util.ArrayList;
+import java.util.List;
 
 
 /**
  * Created by caenrique93 on 28/02/15.
  */
 public class HighScores extends GameState {
-    private ArrayList<Integer> scores;
+    private List<Integer> scores;
     private SpriteBatch renderer;
     BitmapFont font;
     String mesage;
@@ -33,7 +33,7 @@ public class HighScores extends GameState {
         font = ProjectSquare.resManager.getFont(2);
         bounds = font.getBounds(mesage);
         textWidth = bounds.width;
-        scores = ProjectSquare.dataManager.getHighScores();
+        scores = ProjectSquare.settingsManager.getScores();
     }
 
     @Override

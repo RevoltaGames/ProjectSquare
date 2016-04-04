@@ -1,6 +1,8 @@
 package com.revoltagames.projectsquare.Managers;
 
 import com.revoltagames.projectsquare.GameStates.GameState;
+import com.revoltagames.projectsquare.ProjectSquare;
+
 import java.util.Stack;
 
 /**
@@ -8,9 +10,11 @@ import java.util.Stack;
  */
 public class GameStateManager {
     private Stack<GameState> states;
+    public ProjectSquare projectSquare;
 
-    public GameStateManager() {
+    public GameStateManager(ProjectSquare ps) {
         states = new Stack<GameState>();
+        projectSquare = ps;
     }
 
     public void push(GameState state) {
@@ -18,7 +22,7 @@ public class GameStateManager {
     }
 
     public void pop() {
-        states.get(0).dispose();
+        states.peek().dispose();
         states.pop();
     }
 

@@ -10,9 +10,9 @@ import com.revoltagames.projectsquare.GameStates.LoadState;
 import com.revoltagames.projectsquare.GameStates.Menu;
 import com.revoltagames.projectsquare.Listeners.MyGestureListener;
 import com.revoltagames.projectsquare.Managers.ColorManager;
-import com.revoltagames.projectsquare.Managers.DataManager;
 import com.revoltagames.projectsquare.Managers.GameStateManager;
 import com.revoltagames.projectsquare.Managers.ResourceManager;
+import com.revoltagames.projectsquare.Managers.SettingsManager;
 
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenManager;
@@ -31,7 +31,7 @@ public class ProjectSquare extends ApplicationAdapter {
 
     private OrthographicCamera camera;
     public static ResourceManager resManager;
-    public static DataManager dataManager;
+    public static SettingsManager settingsManager;
 
 	@Override
 	public void create () {
@@ -47,12 +47,12 @@ public class ProjectSquare extends ApplicationAdapter {
         camera.translate(WIDTH/2, HEIGTH/2);
         camera.update();
 
-        dataManager = new DataManager();
+        settingsManager = new SettingsManager();
         resManager = new ResourceManager();
         initTime = System.currentTimeMillis();
         ready = false;
 
-        gameStateManager = new GameStateManager();
+        gameStateManager = new GameStateManager(this);
         gameStateManager.setState(new LoadState(gameStateManager));
 
         Gdx.input.setInputProcessor(new GestureDetector(new MyGestureListener()));
@@ -60,12 +60,13 @@ public class ProjectSquare extends ApplicationAdapter {
 
     @Override
     public void pause() {
-        dataManager.saveData();
+        settingsManager.save();
     }
 
     @Override
     public void dispose() {
         pause();
+        Gdx.app.exit();
     }
 
 	@Override

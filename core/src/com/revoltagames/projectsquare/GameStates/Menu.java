@@ -108,9 +108,7 @@ public class Menu extends GameState {
                 track.pause();
             }
             soundChanged = false;
-
         }
-
     }
 
     @Override
@@ -148,10 +146,6 @@ public class Menu extends GameState {
             border.draw(shapeR);
         }
 
-        int score = ProjectSquare.dataManager.getCoins();
-        String puntuacion = "puntos: " + score;
-        BitmapFont.TextBounds bounds = font.getBounds(puntuacion);
-
         /*renderer.begin();
         font.draw(renderer,puntuacion, ProjectSquare.WIDTH/2 - bounds.width/2, ProjectSquare.HEIGTH - ProjectSquare.HEIGTH/12 - bounds.height/2);
         renderer.end();*/
@@ -176,14 +170,14 @@ public class Menu extends GameState {
             }
             if (exitB.touched(Gdx.input.getX(), Gdx.input.getY())) {
                 dispose();
-                System.exit(0);
+                gsm.projectSquare.dispose();
             }
         }
     }
 
     @Override
     public void dispose() {
-
+        System.out.println("saliendo");
     }
 }
 
