@@ -36,9 +36,9 @@ public class ColorManager {
     public static Color NBLUE;
     public static Color NYELLOW;
     public static Color NGREEN;
+    public static Color MID_GREY;
 
-
-    private static Color[] colores = new Color[25];
+    private static Color[] colores = new Color[26];
     //public static Color ColorFondo = new MyColor(227,224,176,1);
     public static Color ColorFondo = new MyColor(212,212,212,1);
     public static Color ColorClock = new MyColor(255,255,255,1);
@@ -64,11 +64,12 @@ public class ColorManager {
         GREY = colores[17] = new MyColor(158, 158, 158, 1);
         BLUE_GREY = colores[18] = new MyColor(96, 125, 139, 1);
         BLACK = colores[19] = new MyColor(0, 0, 0, 1);
-        WHITE = colores[20] = new MyColor(1, 1, 1, 1);
+        WHITE = colores[20] = new MyColor(255, 255, 255, 255);
         NRED = colores[21] = new MyColor(225, 91, 100, 1);
         NBLUE= colores[22] = new MyColor(68, 91, 134, 1);
         NYELLOW = colores[23] = new MyColor(251, 179, 107, 1);
         NGREEN = colores[24] = new MyColor(171, 188, 133, 1);
+        MID_GREY = colores[25] = new MyColor(102, 102, 102, 1);
     }
 
     public static Color randomColor() {

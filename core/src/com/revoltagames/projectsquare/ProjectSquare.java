@@ -71,7 +71,8 @@ public class ProjectSquare extends ApplicationAdapter {
 
 	@Override
 	public void render () {
-        Color colorFondo = ColorManager.ColorFondo;
+        //Color colorFondo = ColorManager.ColorFondo;
+        Color colorFondo = ColorManager.WHITE;
 		Gdx.gl.glClearColor(colorFondo.r,colorFondo.g,colorFondo.b,colorFondo.a); //White
         Gdx.gl.glEnable(GL20.GL_BLEND);
         //Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
