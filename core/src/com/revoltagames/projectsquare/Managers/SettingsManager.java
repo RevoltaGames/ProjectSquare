@@ -1,16 +1,8 @@
 package com.revoltagames.projectsquare.Managers;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInput;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutput;
-import java.io.ObjectOutputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -20,16 +12,22 @@ import java.util.List;
  * Created by caenrique93 on 3/26/16.
  */
 public class SettingsManager {
-    /*
-    public int dificulty;
-    public boolean godMode;
-    public boolean etc;
-    */
 
+    public int dificulty = 0;
+    public boolean godMode = false;
     private List<Integer> scores = new ArrayList<Integer>(Arrays.asList(0,0,0,0,0));
 
+    public SettingsManager() {
+        this.load();
+    }
 
-    public static final String settingsPath = "settings.json";
+    private String listToString(List<Integer> list) {
+        String lista = "";
+        for (int item: list) {
+            lista += item + " ";
+        }
+        return lista;
+    }
 
     public void setNewScore(int score) {
         scores.add(score);
@@ -43,36 +41,25 @@ public class SettingsManager {
     }
 
     public void save() {
-        OutputStream file = null;
-        OutputStream buffer = null;
-        ObjectOutput output = null;
-        try {
-            file = Gdx.files.local(SettingsManager.settingsPath).write(false);
-            buffer = new BufferedOutputStream(file);
-            output = new ObjectOutputStream(buffer);
+        Preferences projectSquare = Gdx.app.getPreferences("projectSquare");
+        projectSquare.putString("scores", listToString(this.scores));
+        projectSquare.putBoolean("godMode", this.godMode);
+        projectSquare.putInteger("dificulty", this.dificulty);
 
-            output.writeObject(this);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        projectSquare.flush();
+        System.out.println("guardando ajustes");
     }
 
-    public static SettingsManager load() {
-        SettingsManager sm = null;
-        InputStream file = null;
-        InputStream buffer = null;
-        ObjectInput input = null;
-        try {
-            file = Gdx.files.local(SettingsManager.settingsPath).read();
-            buffer = new BufferedInputStream(file);
-            input = new ObjectInputStream(buffer);
+    public void load() {
+        Preferences pref = Gdx.app.getPreferences("projectSquare");
+        if(pref.contains("godMode")) this.godMode = pref.getBoolean("godMode");
+        if(pref.contains("scores")) this.scores = toList(pref.getString("scores"));
+        if(pref.contains("dificulty")) this.dificulty = pref.getInteger("dificulty");
+    }
 
-            sm = (SettingsManager) input.readObject();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        return sm;
+    private List<Integer> toList(String scores) {
+        List<Integer> intList = new ArrayList<Integer>();
+        for(String s: scores.split(" ")) intList.add(Integer.valueOf(s));
+        return intList;
     }
 }
