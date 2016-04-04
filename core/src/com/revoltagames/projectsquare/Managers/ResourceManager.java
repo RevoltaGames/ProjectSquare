@@ -28,8 +28,8 @@ public class ResourceManager {
     FreeTypeFontGenerator fontGenerator;
 
     public static final String MOVE = "Music/move.wav";
-    public static final String GAMEOVER = "Music/gameover.wav";
-    public static final String MENU = "Music/menu.wav";
+    public static final String GAMEOVER = "Music/gameover.mp3";
+    public static final String MENU = "Music/menu.mp3";
 
     public static final String SPLASH = "Images/splash4.png";
 
@@ -95,21 +95,9 @@ public class ResourceManager {
         size3Params.fontParameters.color = Color.LIGHT_GRAY;
         manager.load("size3.ttf", BitmapFont.class, size3Params);
 
-        for(int i=0;i<musica.length;i++) {
-            musica[i] = "Music/music" + i%4 + ".wav";
-            System.out.println(musica[i]);
-        }
-
-
+        musica[0] = "Music/gameMusic.mp3";
 
         manager.load(musica[0], Music.class);
-        manager.load(musica[1], Music.class);
-        manager.load(musica[2], Music.class);
-        manager.load(musica[3], Music.class);
-        manager.load(musica[4], Music.class);
-        manager.load(musica[5], Music.class);
-        manager.load(musica[6], Music.class);
-        manager.load(musica[7], Music.class);
         manager.load(MOVE, Music.class);
         manager.load(GAMEOVER, Music.class);
         manager.load(MENU, Music.class);
