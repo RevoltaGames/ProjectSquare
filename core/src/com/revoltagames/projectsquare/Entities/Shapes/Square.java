@@ -53,6 +53,7 @@ public class Square implements Shape {
      */
     @Override
     public boolean touched(float tx, float ty) {
+        ty = ProjectSquare.HEIGTH - ty;
         return tx>=x-size/2 && tx<=x+size/2 && ty>=y-size/2 && ty<=y+size/2;
     }
 
