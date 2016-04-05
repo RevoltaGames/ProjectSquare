@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.revoltagames.projectsquare.Entities.Shapes.Square;
+import com.revoltagames.projectsquare.Managers.ColorManager;
 import com.revoltagames.projectsquare.ProjectSquare;
 
 /**
@@ -22,8 +23,10 @@ public class TextFrame extends Square {
      */
     public TextFrame(float x, float y, float size, String text) {
         super(x, y, size);
+        super.setColor(ColorManager.ColorClockBack);
         this.text = text;
         font = ProjectSquare.resManager.getFont(3);
+
     }
 
     /**
@@ -45,7 +48,7 @@ public class TextFrame extends Square {
 
         BitmapFont.TextBounds bounds = font.getBounds(text);
         float x = this.getX() - bounds.width/2;
-        float y = this.getY() - bounds.height/2;
+        float y = this.getY() + bounds.height/2;
         sb.begin();
         font.draw(sb, text, x, y);
         sb.end();
