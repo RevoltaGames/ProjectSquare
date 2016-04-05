@@ -1,15 +1,14 @@
 package com.revoltagames.projectsquare.GameStates;
 
+import aurelienribon.tweenengine.Timeline;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.revoltagames.projectsquare.Entities.Border;
 import com.revoltagames.projectsquare.Entities.Button;
-import com.revoltagames.projectsquare.Entities.Shapes.Circle;
 import com.revoltagames.projectsquare.Entities.Shapes.Square;
 import com.revoltagames.projectsquare.Managers.ColorManager;
 import com.revoltagames.projectsquare.Managers.GameStateManager;
@@ -73,27 +72,29 @@ public class Menu extends GameState {
         b_soundon = ProjectSquare.resManager.getImage(ProjectSquare.resManager.B_VOLUME_ON);
         tittle = ProjectSquare.resManager.getImage(ProjectSquare.resManager.TITTLE);
         touchtoplay = ProjectSquare.resManager.getImage(ProjectSquare.resManager.TOUCH);
-        b_shadow = ProjectSquare.resManager.getImage(ProjectSquare.resManager.SHADOW);
 
-        buttonsr = ProjectSquare.WIDTH/13;
+        buttonsr = ProjectSquare.WIDTH/7;
         buttonsx = ProjectSquare.WIDTH/5;
         buttonsy = ProjectSquare.HEIGTH/8;
+        float offset = ProjectSquare.HEIGTH/2 - (buttonsy + buttonsr)/2 + buttonsr/2;
 
-        soundB = new Button(new Circle(1*buttonsx,buttonsy, buttonsr, Color.RED), b_soundon);
-        scoresB = new Button(new Circle(2*buttonsx,buttonsy, buttonsr, Color.RED), b_scores);
-        settingsB = new Button(new Circle(3*buttonsx,buttonsy, buttonsr, Color.RED), b_settings);
-        exitB = new Button(new Circle(4*buttonsx,buttonsy, buttonsr, Color.RED), b_exit);
+
+        scoresB = new Button(new Square(1*buttonsx,buttonsy + offset, buttonsr), b_scores);
+        settingsB = new Button(new Square(1*buttonsx, offset, buttonsr), b_settings);
+        soundB = new Button(new Square(4*buttonsx,buttonsy + offset, buttonsr), b_soundon);
+        exitB = new Button(new Square(4*buttonsx,offset, buttonsr), b_exit);
 
         playB = new Button(new Square(ProjectSquare.WIDTH/2, ProjectSquare.HEIGTH/2, ProjectSquare.WIDTH/2));
 
         borders = new Border[4];
-        borders[GestureManager.SW_LEFT - 1] = new Border(GestureManager.SW_LEFT - 1, ColorManager.NBLUE);
-        borders[GestureManager.SW_RIGHT - 1] = new Border(GestureManager.SW_RIGHT - 1, ColorManager.NGREEN);
-        borders[GestureManager.SW_DOWN - 1] = new Border(GestureManager.SW_DOWN - 1, ColorManager.NYELLOW);
-        borders[GestureManager.SW_UP - 1] = new Border(GestureManager.SW_UP - 1, ColorManager.NRED);
+        borders[GestureManager.SW_LEFT - 1] = new Border(GestureManager.SW_LEFT - 1, ColorManager.NBLUE, true);
+        borders[GestureManager.SW_RIGHT - 1] = new Border(GestureManager.SW_RIGHT - 1, ColorManager.NGREEN, true);
+        borders[GestureManager.SW_DOWN - 1] = new Border(GestureManager.SW_DOWN - 1, ColorManager.NYELLOW, true);
+        borders[GestureManager.SW_UP - 1] = new Border(GestureManager.SW_UP - 1, ColorManager.NRED, true);
 
-        font = ProjectSquare.resManager.getFont(3);
+        font = ProjectSquare.resManager.getFont(4);
         renderer = new SpriteBatch();
+
     }
 
     @Override
@@ -120,7 +121,7 @@ public class Menu extends GameState {
         float twith = ProjectSquare.WIDTH/4;
         float theight = twith/2.62f;
 
-        renderer.begin();
+        /*renderer.begin();
         renderer.draw(tittle,
                       ProjectSquare.WIDTH/2 - width/2,
                       ProjectSquare.HEIGTH/2 + height/1.5f,
@@ -132,15 +133,10 @@ public class Menu extends GameState {
                       ProjectSquare.HEIGTH/3 - theight/2,
                       twith,
                       theight);
-        for (int i=1; i<5; i++) {
-            renderer.draw(b_shadow, i*buttonsx-buttonsr*1.4f, buttonsy-buttonsr*1.7f, 3*buttonsr, 3*buttonsr);
-        }
-        renderer.end();
+        renderer.end();*/
 
-        soundB.draw(shapeR);
-        scoresB.draw(shapeR);
-        settingsB.draw(shapeR);
-        exitB.draw(shapeR);
+        drawTitle();
+        drawButtons();
 
         for (Border border : borders) {
             border.draw(shapeR);
@@ -151,14 +147,38 @@ public class Menu extends GameState {
         renderer.end();*/
     }
 
+    private void drawButtons() {
+        soundB.draw(shapeR);
+        scoresB.draw(shapeR);
+        settingsB.draw(shapeR);
+        exitB.draw(shapeR);
+    }
+
+    private void drawTitle() {
+        BitmapFont.TextBounds bounds = font.getBounds("Project");
+        float textX = ProjectSquare.WIDTH / 2 - bounds.width/2;
+        float textY = 4*ProjectSquare.HEIGTH/5 + bounds.height/2;
+        BitmapFont.TextBounds bounds2 = font.getBounds("Square");
+        float text2X = ProjectSquare.WIDTH / 2 - bounds2.width/2;
+        float text2Y = 1*ProjectSquare.HEIGTH/5 + bounds.height/2;
+        renderer.begin();
+        font.draw(renderer, "Project", textX, textY);
+        font.draw(renderer,"Square", text2X, text2Y);
+        renderer.end();
+    }
+
     @Override
     public void handleInput() {
         if (Gdx.input.justTouched()) {
             if (playB.touched(Gdx.input.getX(), Gdx.input.getY())) {
                 track.stop();
+
+                Timeline animation = Timeline.createParallel();
                 for (Border b: borders)
-                    b.startAnimation();
-                gsm.setState(new Play(this.gsm, borders));
+                    b.startAnimation(animation);
+                animation.start(ProjectSquare.tweenManager);
+                gsm.setState(new Play(this.gsm, borders, animation));
+
             }
             if (scoresB.touched(Gdx.input.getX(), Gdx.input.getY())) {
                 track.stop();

@@ -95,6 +95,14 @@ public class ResourceManager {
         size3Params.fontParameters.color = Color.LIGHT_GRAY;
         manager.load("size3.ttf", BitmapFont.class, size3Params);
 
+
+        FreeTypeFontLoaderParameter size4Params =
+                new FreeTypeFontLoaderParameter();
+        size4Params.fontFileName = "Fonts/forcedSquare.ttf";
+        size4Params.fontParameters.size = Gdx.graphics.getHeight()/7;
+        size4Params.fontParameters.color = ColorManager.MID_GREY;
+        manager.load("square.ttf", BitmapFont.class, size4Params);
+
         musica[0] = "Music/gamesong.mp3";
 
         manager.load(musica[0], Music.class);
@@ -129,6 +137,9 @@ public class ResourceManager {
                 break;
             case 3:
                 bitFont = manager.get("size3.ttf", BitmapFont.class);
+                break;
+            case 4:
+                bitFont = manager.get("square.ttf", BitmapFont.class);
                 break;
             default:
                 bitFont = manager.get("size1.ttf", BitmapFont.class);

@@ -1,5 +1,6 @@
 package com.revoltagames.projectsquare.Entities;
 
+import aurelienribon.tweenengine.Timeline;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -14,7 +15,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import aurelienribon.tweenengine.Tween;
-import aurelienribon.tweenengine.TweenManager;
 
 /**
  * Created by alejandro on 4/03/15.
@@ -171,17 +171,56 @@ public class SquaresManager {
 
     }
 
+    public void initialAnimation(Timeline timeline) {
+
+//        for(Square sq : squares){
+//            timeline.push(Tween.set(sq, SquareAccessor.ALPHA).target(0));
+//        }
+//        timeline.pushPause(500);
+//        timeline.beginParallel();
+//
+//        for(Square sq : squares){
+//            timeline.push(prepareAnimateSquareAlphaTo(sq, 1, 1f));
+//        }
+//
+//        timeline.end();
+        for(int i=0; i<squares.size(); i++){
+            squares.get(i).setSize(0);
+            timeline.push(Tween.set(squares.get(i), SquareAccessor.POS_AND_SIZE).target(X[i], Y[i], 0));
+        }
+
+        timeline.beginSequence();
+
+        for(int i=0; i<squares.size(); i++){
+            Square sq = squares.get(i);
+            timeline.push(prepareAnimateSquareTo(sq, X[i], Y[i], Sizes[i]));
+        }
+
+        timeline.end();
+    }
+
     private void animateSquareTo(Square square, float x, float y, float size) {
-        /*Tween.set(square, SquareAccessor.POS_AND_SIZE)
-                .target(square.getX(),square.getY(),square.getSize(),square.getAlpha())
-                .start(tweenManager);*/
-        Tween.to(square, SquareAccessor.POS_AND_SIZE, animationTime)
-                .target(x,y,size).start(ProjectSquare.tweenManager);
+        prepareAnimateSquareTo(square,x,y,size).start(ProjectSquare.tweenManager);
+    }
+
+    private Tween prepareAnimateSquareTo(Square square, float x, float y, float size) {
+        return Tween.to(square, SquareAccessor.POS_AND_SIZE, animationTime)
+                .target(x,y,size);
     }
 
     private void animateSquareAlphaTo(Square square, float alpha) {
-        Tween.to(square, SquareAccessor.ALPHA, animationTime)
-                .target(alpha).start(ProjectSquare.tweenManager);
+        prepareAnimateSquareAlphaTo(square, alpha).start(ProjectSquare.tweenManager);
     }
+
+    private Tween prepareAnimateSquareAlphaTo(Square square, float alpha, float time) {
+        return Tween.to(square, SquareAccessor.ALPHA, animationTime)
+                .target(alpha);
+    }
+
+    private Tween prepareAnimateSquareAlphaTo(Square square, float alpha) {
+        return prepareAnimateSquareAlphaTo(square, alpha, animationTime);
+    }
+
+
 
 }

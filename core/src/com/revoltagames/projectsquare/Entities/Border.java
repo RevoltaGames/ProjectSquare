@@ -1,16 +1,14 @@
 package com.revoltagames.projectsquare.Entities;
 
+import aurelienribon.tweenengine.Timeline;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.revoltagames.projectsquare.Entities.Tween.BorderAccessor;
 import com.revoltagames.projectsquare.ProjectSquare;
 
 import aurelienribon.tweenengine.Tween;
-import aurelienribon.tweenengine.TweenManager;
 
-/**
- * Created by alejandro on 18/02/15.
- */
+
 public class Border {
 
     private int[] x, y;
@@ -35,6 +33,13 @@ public class Border {
             x0Prima + width, y0Prima + width
     };
 
+    public static final float[] vertices_izquierda_anim = new float[] {
+            0,y0Prima,
+            0, yMaxPrima,
+            width, yMaxPrima - width,
+            width, y0Prima + width
+    };
+
     public static final float[] vertices_izquierda = new float[] {
             0,0,
             0,ProjectSquare.HEIGTH,
@@ -47,6 +52,13 @@ public class Border {
             xMaxPrima, yMaxPrima,
             xMaxPrima - width, yMaxPrima - width,
             xMaxPrima - width, y0Prima + width
+    };
+
+    public static final float[] vertices_derecha_anim = new float[] {
+            ProjectSquare.WIDTH, y0Prima,
+            ProjectSquare.WIDTH, yMaxPrima,
+            ProjectSquare.WIDTH - width, yMaxPrima - width,
+            ProjectSquare.WIDTH - width, y0Prima + width
     };
 
     public static final float[] vertices_derecha = new float[] {
@@ -63,6 +75,13 @@ public class Border {
             x0Prima + width, yMaxPrima - width
     };
 
+    public static final float[] vertices_arriba_anim = new float[] {
+            x0Prima, ProjectSquare.HEIGTH,
+            xMaxPrima, ProjectSquare.HEIGTH,
+            xMaxPrima - width, ProjectSquare.HEIGTH - width,
+            x0Prima + width, ProjectSquare.HEIGTH - width
+    };
+
     public static final float[] vertices_arriba = new float[] {
             0, ProjectSquare.HEIGTH,
             ProjectSquare.WIDTH, ProjectSquare.HEIGTH,
@@ -77,6 +96,13 @@ public class Border {
             xMaxPrima - width, y0Prima + width
     };
 
+    public static final float[] vertices_abajo_anim = new float[] {
+            x0Prima + width,width,
+            x0Prima, 0,
+            xMaxPrima, 0,
+            xMaxPrima - width, width
+    };
+
     public static final float[] vertices_abajo = new float[] {
             width, width,
             0, 0,
@@ -89,27 +115,19 @@ public class Border {
     private int type; // 0 izq, 1 der, 2 arrib, 3 abajo
     private static final float[][] vertices_menu = new float[][] {vertices_izquierda_menu, vertices_derecha_menu, vertices_arriba_menu, vertices_abajo_menu};
     private static final float[][] vertices_play = new float[][] {vertices_izquierda, vertices_derecha, vertices_arriba, vertices_abajo};
+    private static final float[][] vertices_anim = new float[][] {vertices_izquierda_anim, vertices_derecha_anim, vertices_arriba_anim, vertices_abajo_anim};
 
-    public Border (int type, Color color) {
+    public Border (int type, Color color, boolean isOnMenu) {
         this.type = type;
         this.color = color;
         x = new int[4];
         y = new int[4];
 
+        float[][] _vertices;
+        if (isOnMenu) _vertices = vertices_menu;
+        else _vertices = vertices_play;
 
-        switch (type) {
-            case 0:
-                vertices = vertices_izquierda_menu;
-                break;
-            case 1:
-                vertices = vertices_derecha_menu;
-                break;
-            case 2:
-                vertices = vertices_arriba_menu;
-                break;
-            case 3:
-                vertices = vertices_abajo_menu;
-        }
+        vertices = _vertices[type];
     }
 
     public void draw(ShapeRenderer shapeR) {
@@ -138,9 +156,15 @@ public class Border {
     }
 
 
-    public void startAnimation() {
-        Tween.set(this, BorderAccessor.POS_AND_SIZE).target(vertices_menu[type]).start(ProjectSquare.tweenManager);
-        Tween.to(this, BorderAccessor.POS_AND_SIZE, 1).target(vertices_play[type]).start(ProjectSquare.tweenManager);
+    public void startAnimation(Timeline timeline) {
+
+        timeline
+            .beginSequence()
+                .push(Tween.set(this, BorderAccessor.POS_AND_SIZE).target(vertices_menu[type]))
+                .push(Tween.to(this, BorderAccessor.POS_AND_SIZE, 1).target(vertices_anim[type]))
+                .push(Tween.to(this, BorderAccessor.POS_AND_SIZE, 1).target(vertices_play[type]))
+            .end();
+
     }
 
 }
