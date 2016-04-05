@@ -1,5 +1,6 @@
 package com.revoltagames.projectsquare.GameStates;
 
+import aurelienribon.tweenengine.Timeline;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
@@ -86,10 +87,10 @@ public class Menu extends GameState {
         playB = new Button(new Square(ProjectSquare.WIDTH/2, ProjectSquare.HEIGTH/2, ProjectSquare.WIDTH/2));
 
         borders = new Border[4];
-        borders[GestureManager.SW_LEFT - 1] = new Border(GestureManager.SW_LEFT - 1, ColorManager.NBLUE);
-        borders[GestureManager.SW_RIGHT - 1] = new Border(GestureManager.SW_RIGHT - 1, ColorManager.NGREEN);
-        borders[GestureManager.SW_DOWN - 1] = new Border(GestureManager.SW_DOWN - 1, ColorManager.NYELLOW);
-        borders[GestureManager.SW_UP - 1] = new Border(GestureManager.SW_UP - 1, ColorManager.NRED);
+        borders[GestureManager.SW_LEFT - 1] = new Border(GestureManager.SW_LEFT - 1, ColorManager.NBLUE, true);
+        borders[GestureManager.SW_RIGHT - 1] = new Border(GestureManager.SW_RIGHT - 1, ColorManager.NGREEN, true);
+        borders[GestureManager.SW_DOWN - 1] = new Border(GestureManager.SW_DOWN - 1, ColorManager.NYELLOW, true);
+        borders[GestureManager.SW_UP - 1] = new Border(GestureManager.SW_UP - 1, ColorManager.NRED, true);
 
         font = ProjectSquare.resManager.getFont(4);
         renderer = new SpriteBatch();
@@ -171,9 +172,13 @@ public class Menu extends GameState {
         if (Gdx.input.justTouched()) {
             if (playB.touched(Gdx.input.getX(), Gdx.input.getY())) {
                 track.stop();
+
+                Timeline animation = Timeline.createParallel();
                 for (Border b: borders)
-                    b.startAnimation();
-                gsm.setState(new Play(this.gsm, borders));
+                    b.startAnimation(animation);
+                animation.start(ProjectSquare.tweenManager);
+                gsm.setState(new Play(this.gsm, borders, animation));
+
             }
             if (scoresB.touched(Gdx.input.getX(), Gdx.input.getY())) {
                 track.stop();

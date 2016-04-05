@@ -20,6 +20,7 @@ public class BackgroundClock {
 
         color = ColorManager.ColorClock;
         this.max = max;
+        alpha = 1;
         anterior = max;
     }
 

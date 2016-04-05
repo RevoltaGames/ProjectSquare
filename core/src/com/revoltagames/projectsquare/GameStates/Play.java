@@ -1,5 +1,7 @@
 package com.revoltagames.projectsquare.GameStates;
 
+import aurelienribon.tweenengine.Timeline;
+import aurelienribon.tweenengine.Tween;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
@@ -49,11 +51,19 @@ public class Play extends GameState {
 
     private BackgroundClock clock;
 
-    protected Play(GameStateManager gsm, Border[] borders) {
+    private boolean animationNotFinished = true;
+    private Timeline bordersAnimation;
+    private Timeline squaresAnimation;
+
+    protected Play(GameStateManager gsm, Border[] borders, Timeline animation) {
         super(gsm);
         timeIncrement = 15;
         scoreIncrement = 20;
         this.borders = borders;
+        this.bordersAnimation = animation;
+
+        squaresAnimation = Timeline.createSequence();
+        squaresManager.initialAnimation(squaresAnimation);
     }
 
     protected Play(GameStateManager gsm) {
@@ -61,13 +71,13 @@ public class Play extends GameState {
         timeIncrement = 15;
         scoreIncrement = 20;
         borders = new Border[4];
-        borders[GestureManager.SW_LEFT - 1] = new Border(GestureManager.SW_LEFT - 1, ColorManager.NBLUE);
-        borders[GestureManager.SW_RIGHT - 1] = new Border(GestureManager.SW_RIGHT - 1, ColorManager.NGREEN);
-        borders[GestureManager.SW_DOWN - 1] = new Border(GestureManager.SW_DOWN - 1, ColorManager.NYELLOW);
-        borders[GestureManager.SW_UP - 1] = new Border(GestureManager.SW_UP - 1, ColorManager.NRED);
+        borders[GestureManager.SW_LEFT - 1] = new Border(GestureManager.SW_LEFT - 1, ColorManager.NBLUE, false);
+        borders[GestureManager.SW_RIGHT - 1] = new Border(GestureManager.SW_RIGHT - 1, ColorManager.NGREEN, false);
+        borders[GestureManager.SW_DOWN - 1] = new Border(GestureManager.SW_DOWN - 1, ColorManager.NYELLOW, false);
+        borders[GestureManager.SW_UP - 1] = new Border(GestureManager.SW_UP - 1, ColorManager.NRED, false);
         GestureManager.clear();
-        for (Border b: borders)
-            b.startAnimation();
+
+        animationNotFinished = false;
     }
 
     @Override
@@ -113,6 +123,15 @@ public class Play extends GameState {
 
     @Override
     public void update(float dt) {
+        if (animationNotFinished) {
+            if(bordersAnimation.isFinished() && !squaresAnimation.isStarted()) {
+                squaresAnimation.start(ProjectSquare.tweenManager);
+            }
+            animationNotFinished = !bordersAnimation.isFinished() && !squaresAnimation.isFinished();
+            GestureManager.clear();
+            return;
+        }
+
         handleInput();
 
         clock.upade(timer, secondCounter);
@@ -145,7 +164,10 @@ public class Play extends GameState {
 
     @Override
     public void draw() {
+
         clock.draw(shapeR);
+
+        drawScore();
 
         for (Border border : borders) {
             border.draw(shapeR);
@@ -153,7 +175,6 @@ public class Play extends GameState {
 
         squaresManager.draw(shapeR, spriteRenderer);
 
-        drawScore();
     }
 
 
