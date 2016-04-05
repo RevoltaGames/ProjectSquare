@@ -105,6 +105,6 @@ public class GameOver extends GameState {
 
     @Override
     public void dispose() {
-        ProjectSquare.settingsManager.setNewScore(score);
+        ProjectSquare.settingsManager.setNewScore(this.score, this.nameChooser.getLeters());
     }
 }

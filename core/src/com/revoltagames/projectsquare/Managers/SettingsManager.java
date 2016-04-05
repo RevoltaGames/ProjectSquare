@@ -2,6 +2,7 @@ package com.revoltagames.projectsquare.Managers;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
+import com.revoltagames.projectsquare.Entities.Score;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,7 +17,13 @@ public class SettingsManager {
 
     public int dificulty = 0;
     public boolean godMode = false;
-    private List<Integer> scores = new ArrayList<Integer>(Arrays.asList(0,0,0,0,0));
+    private List<Score> scores = new ArrayList<Score>(Arrays.asList(
+            new Score(0, "AAA"),
+            new Score(0, "AAA"),
+            new Score(0, "AAA"),
+            new Score(0, "AAA"),
+            new Score(0, "AAA")
+    ));
 
     public SettingsManager() {
         this.load();
@@ -26,8 +33,8 @@ public class SettingsManager {
      * Añade una nueva puntuación a la lista de puntuaciones máximas y se queda con las 5 mejores
      * @param score Entero que representa la puntuación
      */
-    public void setNewScore(int score) {
-        scores.add(score);
+    public void setNewScore(int score, String name) {
+        scores.add(new Score(score, name));
         Collections.sort(scores);
         scores = scores.subList(1,scores.size());
         Collections.reverse(scores);
@@ -36,7 +43,7 @@ public class SettingsManager {
     /**
      * @return una lista con las puntuaciónes máximas
      */
-    public List<Integer> getScores() {
+    public List<Score> getScores() {
         return scores;
     }
 
@@ -72,9 +79,9 @@ public class SettingsManager {
      * @param list Lista de enteros
      * @return representación en String de la lista de enteros
      */
-    private String listToString(List<Integer> list) {
+    private String listToString(List<Score> list) {
         String lista = "";
-        for (int item: list) {
+        for (Score item: list) {
             lista += item + " ";
         }
         return lista;
@@ -85,9 +92,15 @@ public class SettingsManager {
      * @param scores String representando una lista de enteros
      * @return Lista de enteros
      */
-    private List<Integer> toList(String scores) {
-        List<Integer> intList = new ArrayList<Integer>();
-        for(String s: scores.split(" ")) intList.add(Integer.valueOf(s));
-        return intList;
+    private List<Score> toList(String scores) {
+        List<Score> scoreList = new ArrayList<Score>();
+        for(String s: scores.split(" ")) {
+            int i = s.indexOf(":");
+            Score sc = new Score(Integer.valueOf(s.substring(0,i)), s.substring(i + 1, s.length()));
+            scoreList.add(sc);
+        }
+        return scoreList;
     }
 }
+
+
