@@ -29,7 +29,7 @@ public class ResourceManager {
 
     public static final String MOVE = "Music/move.wav";
     public static final String GAMEOVER = "Music/gameover.mp3";
-    public static final String MENU = "Music/menu.mp3";
+    public static final String MENU = "Music/menuloop.mp3";
 
     public static final String SPLASH = "Images/splash4.png";
 
@@ -95,6 +95,7 @@ public class ResourceManager {
         size3Params.fontParameters.color = Color.LIGHT_GRAY;
         manager.load("size3.ttf", BitmapFont.class, size3Params);
 
+
         FreeTypeFontLoaderParameter size4Params =
                 new FreeTypeFontLoaderParameter();
         size4Params.fontFileName = "Fonts/forcedSquare.ttf";
@@ -102,7 +103,7 @@ public class ResourceManager {
         size4Params.fontParameters.color = ColorManager.MID_GREY;
         manager.load("square.ttf", BitmapFont.class, size4Params);
 
-        musica[0] = "Music/gameMusic.mp3";
+        musica[0] = "Music/gamesong.mp3";
 
         manager.load(musica[0], Music.class);
         manager.load(MOVE, Music.class);
