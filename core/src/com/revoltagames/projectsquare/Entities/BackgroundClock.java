@@ -27,7 +27,15 @@ public class BackgroundClock {
         Color oldColor = shapeR.getColor();
         shapeR.setColor(color);
         shapeR.begin(ShapeRenderer.ShapeType.Filled);
-            shapeR.arc(ProjectSquare.WIDTH/2, ProjectSquare.HEIGTH/2, ProjectSquare.HEIGTH, 90, (float)Math.toDegrees(alpha));
+
+            // Fondo
+            shapeR.setColor(ColorManager.ColorClockBack);
+            shapeR.rect(ProjectSquare.WIDTH * 2 / 12, 3 * ProjectSquare.HEIGTH / 16, ProjectSquare.WIDTH * 8 / 12, ProjectSquare.HEIGTH / 50);
+
+            // Barra
+            shapeR.setColor(color);
+            shapeR.rect(ProjectSquare.WIDTH * 2 / 12, 3 * ProjectSquare.HEIGTH / 16, alpha * ProjectSquare.WIDTH * 8 / 12, ProjectSquare.HEIGTH / 50);
+
 
         shapeR.end();
         shapeR.setColor(oldColor);
@@ -39,9 +47,7 @@ public class BackgroundClock {
         else if (anterior < timer)
             max = timer;
 
-
-        float slice = (2 * 3.1415f) / max;
-        alpha = (max - (timer - seconCounter)) * slice;
+        alpha = (timer - seconCounter) / (float)max ;
         anterior = timer;
     }
 }
