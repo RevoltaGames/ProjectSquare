@@ -3,7 +3,6 @@ package com.revoltagames.projectsquare.Entities;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
-import com.revoltagames.projectsquare.Entities.Shapes.Shape;
 import com.revoltagames.projectsquare.Entities.Shapes.Square;
 import com.revoltagames.projectsquare.Entities.Tween.SquareAccessor;
 import com.revoltagames.projectsquare.Managers.ColorManager;
@@ -117,5 +116,9 @@ public class Switch {
      */
     public Rectangle getBoundaries() {
         return new Rectangle(x, y, width, height);
+    }
+
+    public boolean getState() {
+        return isOn;
     }
 }

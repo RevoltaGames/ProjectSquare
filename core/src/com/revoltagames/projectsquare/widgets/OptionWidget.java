@@ -79,4 +79,8 @@ public class OptionWidget {
     public Rectangle getBoundaries() {
         return new Rectangle(x, y, width, height);
     }
+
+    public boolean getState() {
+        return toggle.getState();
+    }
 }

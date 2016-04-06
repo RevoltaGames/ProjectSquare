@@ -3,9 +3,9 @@ package com.revoltagames.projectsquare.GameStates;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.revoltagames.projectsquare.widgets.OptionWidget;
 import com.revoltagames.projectsquare.Managers.GameStateManager;
 import com.revoltagames.projectsquare.ProjectSquare;
+import com.revoltagames.projectsquare.widgets.OptionWidget;
 
 /**
  * Created by alejandro on 6/04/16.
@@ -31,6 +31,11 @@ public class SettingsState extends GameState {
     @Override
     public void update(float dt) {
         this.handleInput();
+        this.changeSettings();
+    }
+
+    private void changeSettings() {
+        ProjectSquare.settingsManager.godMode = test.getState();
     }
 
     @Override
