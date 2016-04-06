@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.revoltagames.projectsquare.Entities.Button;
 import com.revoltagames.projectsquare.Entities.Shapes.Rect;
+import com.revoltagames.projectsquare.Managers.ColorManager;
 import com.revoltagames.projectsquare.Managers.GameStateManager;
 import com.revoltagames.projectsquare.Managers.ResourceManager;
 import com.revoltagames.projectsquare.ProjectSquare;
@@ -62,6 +63,7 @@ public class GameOver extends GameState {
                 ProjectSquare.WIDTH/9),
             "back",
             fontSmallWhite);
+        backButton.setColor(ColorManager.NRED);
 
         renderer = new ShapeRenderer();
         spriteRenderer = new SpriteBatch();

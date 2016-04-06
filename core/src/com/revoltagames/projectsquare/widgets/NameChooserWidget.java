@@ -59,7 +59,7 @@ public class NameChooserWidget {
             b.setColor(ColorManager.NRED);
             nextButtons.add(b);
             b = new Button(new Square(origin + letterDistance*i, this.y - (height/2 + letterSize/2), letterSize));
-            b.setColor(ColorManager.NYELLOW);
+            b.setColor(ColorManager.NRED);
             previousButtons.add(b);
         }
     }
