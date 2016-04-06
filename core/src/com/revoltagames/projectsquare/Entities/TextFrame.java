@@ -90,10 +90,18 @@ public class TextFrame extends Rect {
         sb.end();
     }
 
+    /**
+     * Indica si el texto se dibujará centrado (true) o alineado a la izquierda (false)
+     * @return true: Centrado, false: Alineado Izquierda
+     */
     public boolean isTextCentered() {
         return textCentered;
     }
 
+    /**
+     * Establece si el texto se dibujará centrado (true) o alineado a la izquierda (false)
+     * @param textCentered true: Centrado, false: Alineado Izquierda
+     */
     public void setTextCentered(boolean textCentered) {
         this.textCentered = textCentered;
     }
