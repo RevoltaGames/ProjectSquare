@@ -1,5 +1,6 @@
 package com.revoltagames.projectsquare.Entities.Tween;
 
+import com.badlogic.gdx.graphics.Color;
 import com.revoltagames.projectsquare.Entities.Shapes.Square;
 
 import aurelienribon.tweenengine.TweenAccessor;
@@ -24,6 +25,7 @@ public class SquareAccessor implements TweenAccessor<Square>{
 
     public static final int POS_AND_SIZE = 0;
     public static final int ALPHA = 1;
+    public static final int COLOR = 2;
 
     @Override
     public int getValues(Square target, int tweenType, float[] returnValues) {
@@ -36,6 +38,10 @@ public class SquareAccessor implements TweenAccessor<Square>{
             case ALPHA:
                 returnValues[0] = target.getAlpha();
                 return 1;
+            case COLOR:
+                returnValues[0] = target.getColor().r;
+                returnValues[1] = target.getColor().g;
+                returnValues[2] = target.getColor().b;
             default:
                 assert false;
                 return -1;
@@ -53,6 +59,9 @@ public class SquareAccessor implements TweenAccessor<Square>{
             case ALPHA:
                 target.setAlpha(newValues[0]);
                 break;
+            case COLOR:
+                Color newColor = new Color(newValues[0], newValues[1], newValues[2],1);
+                target.setColor(newColor);
             default:
                 assert false;
         }

@@ -192,6 +192,9 @@ public class Menu extends GameState {
                 dispose();
                 gsm.projectSquare.dispose();
             }
+            if (settingsB.touched(Gdx.input.getX(), Gdx.input.getY())){
+                gsm.push(new OptionsState(gsm));
+            }
         }
     }
 

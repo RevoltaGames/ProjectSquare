@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.revoltagames.projectsquare.Entities.BackgroundClock;
+import com.revoltagames.projectsquare.Entities.Clock;
 import com.revoltagames.projectsquare.Entities.Border;
 import com.revoltagames.projectsquare.Entities.Shapes.Square;
 import com.revoltagames.projectsquare.Managers.ColorManager;
@@ -38,6 +38,8 @@ public class Play extends GameState {
     private Vector<Square> vidas;
 
     private static Music track;
+    private static Music intro;
+    private static Music lifeup;
     private Music move;
     private static Random rnd = new Random(System.currentTimeMillis());
 
@@ -54,7 +56,7 @@ public class Play extends GameState {
 
     private SquaresManager squaresManager;
 
-    private BackgroundClock clock;
+    private Clock clock;
 
     private boolean animationNotFinished = true;
     private Timeline bordersAnimation;
@@ -90,11 +92,13 @@ public class Play extends GameState {
         shapeR = new ShapeRenderer();
         spriteRenderer = new SpriteBatch();
 
+        intro = ProjectSquare.resManager.getSound(ResourceManager.INTROGAME);
+        intro.play();
+
         track = ProjectSquare.resManager.getMusic(0);
         track.setLooping(true);
-        if (ProjectSquare.sound) {
-            track.play();
-        }
+
+        lifeup = ProjectSquare.resManager.getSound(ResourceManager.LIFEUP);
 
         move = ProjectSquare.resManager.getSound(ResourceManager.MOVE);
 
@@ -140,13 +144,22 @@ public class Play extends GameState {
         borders[GestureManager.SW_UP - 1] = new Border(GestureManager.SW_UP - 1, ColorManager.NRED);*/
         GestureManager.clear();
 
-        clock = new BackgroundClock(timer);
+        clock = new Clock(timer);
 
 
     }
 
     @Override
     public void update(float dt) {
+
+        if(!track.isPlaying()&&!intro.isPlaying()){
+            track.play();
+        }
+
+        if(!intro.isPlaying()&&!lifeup.isPlaying()&&score%20==0&&score!=0){
+            lifeup.play();
+        }
+
         if (animationNotFinished) {
             if(bordersAnimation.isFinished() && !squaresAnimation.isStarted()) {
                 squaresAnimation.start(ProjectSquare.tweenManager);
