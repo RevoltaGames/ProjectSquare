@@ -8,14 +8,17 @@ import com.revoltagames.projectsquare.ProjectSquare;
 
 import aurelienribon.tweenengine.Tween;
 
-
+/**
+ * Clase que representa un Borde de la pantalla de juego.
+ */
 public class Border {
 
-    private int[] x, y;
     private float[] vertices;
+
     private Color color;
 
     static {
+        // Registramos la interfaz de animaciones
         Tween.registerAccessor(Border.class, new BorderAccessor());
     }
 
@@ -117,11 +120,15 @@ public class Border {
     private static final float[][] vertices_play = new float[][] {vertices_izquierda, vertices_derecha, vertices_arriba, vertices_abajo};
     private static final float[][] vertices_anim = new float[][] {vertices_izquierda_anim, vertices_derecha_anim, vertices_arriba_anim, vertices_abajo_anim};
 
+    /**
+     * Constructor de un Border
+     * @param type Tipo -> 0: Izquierda, 1: Derecha, 2: Arriba, 3: Abajo
+     * @param color Color del Borde
+     * @param isOnMenu Si el borde se encuentra en el menu (se renderizará de menor tamaño)
+     */
     public Border (int type, Color color, boolean isOnMenu) {
         this.type = type;
         this.color = color;
-        x = new int[4];
-        y = new int[4];
 
         float[][] _vertices;
         if (isOnMenu) _vertices = vertices_menu;
@@ -130,6 +137,10 @@ public class Border {
         vertices = _vertices[type];
     }
 
+    /**
+     * Dibuja el Borde
+     * @param shapeR Renderer
+     */
     public void draw(ShapeRenderer shapeR) {
         shapeR.begin(ShapeRenderer.ShapeType.Filled);
         Color oldColor = shapeR.getColor();
@@ -140,14 +151,26 @@ public class Border {
         shapeR.end();
      }
 
+    /**
+     * Color del Borde
+     * @return Color del Borde
+     */
     public Color getColor() {
         return color;
     }
 
+    /**
+     * Vértices del Borde
+     * @return Vértices
+     */
     public float[] getVertices() {
         return vertices;
     }
 
+    /**
+     *
+     * @param newvertices Vértices del Borde
+     */
     public void setVertices(float[] newvertices) {
         this.vertices = new float[8];
         for (int i = 0; i < vertices.length; i++) {
@@ -155,16 +178,17 @@ public class Border {
         }
     }
 
-
-    public void startAnimation(Timeline timeline) {
-
+    /**
+     * Añade la animación de colocación del Borde al Timeline
+     * @param timeline Secuencia de animaciones a la que añadir la animación
+     */
+    public void addAnimation(Timeline timeline) {
         timeline
             .beginSequence()
                 .push(Tween.set(this, BorderAccessor.POS_AND_SIZE).target(vertices_menu[type]))
                 .push(Tween.to(this, BorderAccessor.POS_AND_SIZE, 0.5f).target(vertices_anim[type]))
                 .push(Tween.to(this, BorderAccessor.POS_AND_SIZE, 0.5f).target(vertices_play[type]))
             .end();
-
     }
 
 }

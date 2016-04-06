@@ -175,7 +175,7 @@ public class Menu extends GameState {
 
                 Timeline animation = Timeline.createParallel();
                 for (Border b: borders)
-                    b.startAnimation(animation);
+                    b.addAnimation(animation);
                 animation.start(ProjectSquare.tweenManager);
                 gsm.setState(new Play(this.gsm, borders, animation));
 

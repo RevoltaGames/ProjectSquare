@@ -171,7 +171,7 @@ public class Play extends GameState {
 
         handleInput();
 
-        clock.upade(timer, secondCounter);
+        clock.update(timer, secondCounter);
 
         if (gameOver) {
             this.gsm.setState(new GameOver(this.gsm, score));
