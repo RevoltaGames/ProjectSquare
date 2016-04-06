@@ -7,13 +7,11 @@ import com.badlogic.gdx.audio.Music;
 import com.revoltagames.projectsquare.Managers.ResourceManager;
 import com.revoltagames.projectsquare.ProjectSquare;
 
-
-
-
 /**
- * Created by alejandro on 17/02/15.
+ * Listener reconocedor de gestos táctiles
  */
 public class MyGestureListener implements GestureListener {
+
     private static Music track;
     @Override
     public boolean touchDown(float x, float y, int pointer, int button) {
@@ -29,8 +27,8 @@ public class MyGestureListener implements GestureListener {
     public boolean longPress(float x, float y) {
         return false;
     }
-    @Override
 
+    @Override
     public boolean fling(float velocityX, float velocityY, int button) {
         if(Math.abs(velocityX)>Math.abs(velocityY)){
             if(velocityX>0){

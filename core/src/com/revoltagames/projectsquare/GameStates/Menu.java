@@ -17,7 +17,7 @@ import com.revoltagames.projectsquare.Managers.ResourceManager;
 import com.revoltagames.projectsquare.ProjectSquare;
 
 /**
- * Created by caenrique93 on 17/02/15.
+ * Pantalla de Menu del juego
  */
 public class Menu extends GameState {
 
