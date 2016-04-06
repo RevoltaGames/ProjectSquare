@@ -146,7 +146,7 @@ public class Play extends GameState {
 
         handleInput();
 
-        if(!ProjectSquare.settingsManager.godMode) {
+        if(!ProjectSquare.settingsManager.godMode && ProjectSquare.settingsManager.time) {
             clock.update(timer, secondCounter);
 
             secondCounter += dt;
@@ -164,7 +164,8 @@ public class Play extends GameState {
                 score++;
                 phaseScore++;
                 if (phaseScore == scoreIncrement) {
-                    if(!ProjectSquare.settingsManager.godMode) timer += timeIncrement;
+                    if(!ProjectSquare.settingsManager.godMode && ProjectSquare.settingsManager.time)
+                        timer += timeIncrement;
                     phaseScore = 0;
                     lifeup.play();
                 }
@@ -181,8 +182,10 @@ public class Play extends GameState {
         if(!animationNotFinished) {
             drawScore();
             if (!ProjectSquare.settingsManager.godMode) {
-                clock.draw(shapeR);
-                drawVidas();
+                if(ProjectSquare.settingsManager.time)
+                    clock.draw(shapeR);
+                if(ProjectSquare.settingsManager.lives)
+                    drawVidas();
             } else {
                 godButton.draw(shapeR);
             }
@@ -235,7 +238,9 @@ public class Play extends GameState {
 
     public void setFail() {
         if (!ProjectSquare.settingsManager.godMode) {
-            if (this.numVidas > 1) {
+            if(!ProjectSquare.settingsManager.lives)
+                this.gameOver = true;
+            else if (this.numVidas > 1) {
                 numVidas--;
                 this.vidas.get(numVidas).setColor(ColorManager.ColorClockBack);
             }

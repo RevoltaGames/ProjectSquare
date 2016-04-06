@@ -17,6 +17,8 @@ public class SettingsManager {
 
     public int dificulty = 0;
     public boolean godMode = false;
+    public boolean time = true;
+    public boolean lives = true;
     private List<Score> scores = new ArrayList<Score>(Arrays.asList(
             new Score(0, "AAA"),
             new Score(0, "AAA"),
@@ -57,6 +59,8 @@ public class SettingsManager {
         Preferences projectSquare = Gdx.app.getPreferences("projectSquare");
         projectSquare.putString("scores", listToString(this.scores));
         projectSquare.putBoolean("godMode", this.godMode);
+        projectSquare.putBoolean("lives", this.lives);
+        projectSquare.putBoolean("time", this.time);
         projectSquare.putInteger("dificulty", this.dificulty);
 
         projectSquare.flush();
@@ -70,6 +74,8 @@ public class SettingsManager {
     public void load() {
         Preferences pref = Gdx.app.getPreferences("projectSquare");
         if(pref.contains("godMode")) this.godMode = pref.getBoolean("godMode");
+        if(pref.contains("lives")) this.lives = pref.getBoolean("lives");
+        if(pref.contains("time")) this.time = pref.getBoolean("time");
         if(pref.contains("scores")) this.scores = toList(pref.getString("scores"));
         if(pref.contains("dificulty")) this.dificulty = pref.getInteger("dificulty");
     }
