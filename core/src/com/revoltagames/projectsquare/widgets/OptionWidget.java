@@ -10,7 +10,7 @@ import com.revoltagames.projectsquare.Managers.ColorManager;
 import com.revoltagames.projectsquare.ProjectSquare;
 
 /**
- * Created by alejandro on 6/04/16.
+ * Widget que muestra en pantalla un interruptor con un texto
  */
 public class OptionWidget {
 
@@ -28,6 +28,13 @@ public class OptionWidget {
 
     private TextFrame textBox;
 
+    /**
+     * Constructor
+     * @param x Coordenada x
+     * @param y Coordenada y
+     * @param isOn Si el interruptor esta encendido
+     * @param text Texto del interruptor
+     */
     public OptionWidget(float x, float y, boolean isOn, String text) {
         this.x = x;
         this.y = y;
@@ -38,19 +45,37 @@ public class OptionWidget {
         toggle = new Switch(x + width/2 - width / 10, y, isOn);
     }
 
+    /**
+     * Dibuja el widget completo
+     * @param renderer
+     * @param spriteRenderer
+     */
     public void draw(ShapeRenderer renderer, SpriteBatch spriteRenderer) {
         textBox.draw(renderer, spriteRenderer);
         toggle.draw(renderer);
     }
 
+    /**
+     * Enciende/apaga el interruptor
+     */
     public void toggle() {
         toggle.toggle();
     }
 
+    /**
+     * Indica si el interruptor ha sido pulsado
+     * @param tx
+     * @param ty
+     * @return
+     */
     public boolean touched(float tx, float ty) {
         return toggle.touched(tx, ty);
     }
 
+    /**
+     * Devuelve las dimensiones del widget
+     * @return
+     */
     public Rectangle getBoundaries() {
         return new Rectangle(x, y, width, height);
     }
