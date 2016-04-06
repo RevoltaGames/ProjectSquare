@@ -93,7 +93,9 @@ public class Play extends GameState {
         lifeup = ProjectSquare.resManager.getSound(ResourceManager.LIFEUP);
         intro = ProjectSquare.resManager.getSound(ResourceManager.INTROGAME);
 
-        intro.play();
+        if(ProjectSquare.sound)
+            intro.play();
+
         track.setLooping(true);
 
         initVidas();
@@ -131,7 +133,7 @@ public class Play extends GameState {
             return;
         }
 
-        if(!track.isPlaying()&&!intro.isPlaying()){
+        if(!track.isPlaying()&&!intro.isPlaying()&&ProjectSquare.sound){
             track.play();
         }
 
