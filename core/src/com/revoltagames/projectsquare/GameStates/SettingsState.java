@@ -25,7 +25,7 @@ public class SettingsState extends GameState {
     public void init() {
         shapeR = new ShapeRenderer();
         spriteB = new SpriteBatch();
-        test = new OptionWidget(ProjectSquare.WIDTH/2, ProjectSquare.HEIGTH/2, true, "hola k ase");
+        test = new OptionWidget(ProjectSquare.WIDTH/2, ProjectSquare.HEIGTH/2, ProjectSquare.settingsManager.godMode, "God mode");
     }
 
     @Override

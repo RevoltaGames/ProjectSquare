@@ -1,12 +1,15 @@
 package com.revoltagames.projectsquare.GameStates;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.revoltagames.projectsquare.Entities.Border;
+import com.revoltagames.projectsquare.Entities.Button;
 import com.revoltagames.projectsquare.Entities.Clock;
+import com.revoltagames.projectsquare.Entities.Shapes.Rect;
 import com.revoltagames.projectsquare.Entities.Shapes.Square;
 import com.revoltagames.projectsquare.Managers.ColorManager;
 import com.revoltagames.projectsquare.Managers.GameStateManager;
@@ -47,6 +50,7 @@ public class Play extends GameState {
     private SquaresManager squaresManager;
 
     private Clock clock;
+    private Button godButton;
 
     private boolean animationNotFinished = true;
     private Timeline bordersAnimation;
@@ -64,6 +68,15 @@ public class Play extends GameState {
         spriteRenderer = new SpriteBatch();
         squaresManager = new SquaresManager(this);
         clock = new Clock(timer);
+        BitmapFont godButtonFont = ProjectSquare.resManager.getFont("whiteSmallFont.ttf");
+        godButton = new Button(
+                new Rect(ProjectSquare.WIDTH/2,
+                        ProjectSquare.HEIGTH/5,
+                        ProjectSquare.WIDTH/3,
+                        ProjectSquare.WIDTH/9),
+                "exit",
+                godButtonFont
+        );
 
         timer = 20;
         score = 0;
@@ -114,7 +127,7 @@ public class Play extends GameState {
     @Override
     public void update(float dt) {
         if (gameOver) {
-            this.gsm.setState(new GameOver(this.gsm, score));
+            this.gsm.setState(new GameOver(this.gsm, score-1));
             return;
         }
 
@@ -137,12 +150,14 @@ public class Play extends GameState {
 
         handleInput();
 
-        clock.update(timer, secondCounter);
+        if(!ProjectSquare.settingsManager.godMode) {
+            clock.update(timer, secondCounter);
 
-        secondCounter += dt;
-        if (secondCounter >= 1) {
-            secondCounter = 0;
-            timer--;
+            secondCounter += dt;
+            if (secondCounter >= 1) {
+                secondCounter = 0;
+                timer--;
+            }
         }
 
         squaresManager.update(dt, swipe);
@@ -152,7 +167,7 @@ public class Play extends GameState {
             score++;
             phaseScore++;
             if (phaseScore == scoreIncrement) {
-                timer += timeIncrement;
+                if(!ProjectSquare.settingsManager.godMode) timer += timeIncrement;
                 phaseScore = 0;
             }
         }
@@ -164,8 +179,12 @@ public class Play extends GameState {
     public void draw() {
         if(!animationNotFinished) {
             drawScore();
-            clock.draw(shapeR);
-            drawVidas();
+            if (!ProjectSquare.settingsManager.godMode) {
+                clock.draw(shapeR);
+                drawVidas();
+            } else {
+                godButton.draw(shapeR);
+            }
         }
 
         for (Border border : borders) {
@@ -197,6 +216,11 @@ public class Play extends GameState {
     @Override
     public void handleInput() {
         swipe = GestureManager.getSwipe();
+        if (ProjectSquare.settingsManager.godMode && Gdx.input.justTouched()) {
+            if (godButton.touched(Gdx.input.getX(), Gdx.input.getY())) {
+                this.gameOver =true;
+            }
+        }
     }
 
     @Override
@@ -209,10 +233,12 @@ public class Play extends GameState {
     }
 
     public void setFail() {
-        if (this.numVidas > 1) {
-            numVidas--;
-            this.vidas.get(numVidas).setColor(ColorManager.ColorClockBack);
+        if (!ProjectSquare.settingsManager.godMode) {
+            if (this.numVidas > 1) {
+                numVidas--;
+                this.vidas.get(numVidas).setColor(ColorManager.ColorClockBack);
+            }
+            else this.gameOver = true;
         }
-        else this.gameOver = true;
     }
 }
