@@ -1,29 +1,31 @@
 package com.revoltagames.projectsquare.GameStates;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.revoltagames.projectsquare.Entities.OptionItem;
-import com.revoltagames.projectsquare.Entities.Switch;
+import com.revoltagames.projectsquare.widgets.OptionWidget;
 import com.revoltagames.projectsquare.Managers.GameStateManager;
 import com.revoltagames.projectsquare.ProjectSquare;
 
 /**
  * Created by alejandro on 6/04/16.
  */
-public class OptionsState extends GameState {
+public class SettingsState extends GameState {
 
     private ShapeRenderer shapeR;
+    private SpriteBatch spriteB;
 
-    private OptionItem test;
+    private OptionWidget test;
 
-    public OptionsState(GameStateManager gsm) {
+    public SettingsState(GameStateManager gsm) {
         super(gsm);
     }
 
     @Override
     public void init() {
         shapeR = new ShapeRenderer();
-        test = new OptionItem(ProjectSquare.WIDTH/2, ProjectSquare.HEIGTH/2, true, "hola k ase");
+        spriteB = new SpriteBatch();
+        test = new OptionWidget(ProjectSquare.WIDTH/2, ProjectSquare.HEIGTH/2, true, "hola k ase");
     }
 
     @Override
@@ -33,7 +35,7 @@ public class OptionsState extends GameState {
 
     @Override
     public void draw() {
-        test.draw(shapeR);
+        test.draw(shapeR, spriteB);
     }
 
     @Override

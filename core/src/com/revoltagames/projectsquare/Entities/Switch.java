@@ -29,7 +29,7 @@ public class Switch {
     private float height;
 
     private Color backColor = ColorManager.GREY;
-    private Color onColor = ColorManager.BLUE;
+    private Color onColor = ColorManager.NGREEN;
     private Color offColor = ColorManager.MID_GREY;
 
     private Square toggle;

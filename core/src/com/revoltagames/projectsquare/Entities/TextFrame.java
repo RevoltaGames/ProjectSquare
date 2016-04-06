@@ -16,6 +16,8 @@ public class TextFrame extends Rect {
     private String text;
     private BitmapFont font;
 
+    private boolean textCentered = true;
+
     /**
      * Crea un cuadrado en las coordenadas x e y, de tamaño size y de color aleatorio
      *
@@ -51,7 +53,7 @@ public class TextFrame extends Rect {
      * @param w ancho
      * @param h alto
      * @param text texto
-     * @param color color
+     * @param color colorFondo
      */
     public TextFrame(float x, float y, float w, float h, String text, Color color) {
         super(x, y, w, h);
@@ -81,7 +83,18 @@ public class TextFrame extends Rect {
         float x = this.getX() - bounds.width/2;
         float y = this.getY() + bounds.height/2;
         sb.begin();
-        font.draw(sb, text, x, y);
+        if (textCentered)
+            font.draw(sb, text, x, y);
+        else
+            font.draw(sb, text, x - getW()/2 + bounds.width/2 + getW()/20, y);
         sb.end();
+    }
+
+    public boolean isTextCentered() {
+        return textCentered;
+    }
+
+    public void setTextCentered(boolean textCentered) {
+        this.textCentered = textCentered;
     }
 }

@@ -40,7 +40,7 @@ public class Rect implements Shape {
     public void draw(ShapeRenderer shapeR) {
         shapeR.begin(ShapeRenderer.ShapeType.Filled);
         Color oldColor = shapeR.getColor();
-        shapeR.setColor(color.r, color.g, color.b, alpha);
+        shapeR.setColor(color);
         shapeR.rect(x - w / 2, y - h / 2, w, h);
         shapeR.setColor(oldColor);
         shapeR.end();
@@ -150,6 +150,22 @@ public class Rect implements Shape {
      */
     public float getAlpha() {
         return alpha;
+    }
+
+    public float getH() {
+        return h;
+    }
+
+    public void setH(float h) {
+        this.h = h;
+    }
+
+    public float getW() {
+        return w;
+    }
+
+    public void setW(float w) {
+        this.w = w;
     }
 }
 

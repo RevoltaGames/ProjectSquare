@@ -1,15 +1,18 @@
-package com.revoltagames.projectsquare.Entities;
+package com.revoltagames.projectsquare.widgets;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
+import com.revoltagames.projectsquare.Entities.Switch;
+import com.revoltagames.projectsquare.Entities.TextFrame;
 import com.revoltagames.projectsquare.Managers.ColorManager;
 import com.revoltagames.projectsquare.ProjectSquare;
 
 /**
  * Created by alejandro on 6/04/16.
  */
-public class OptionItem {
+public class OptionWidget {
 
     private Switch toggle;
 
@@ -21,27 +24,22 @@ public class OptionItem {
 
     private float height;
 
-    private Color backColor = ColorManager.RED;
+    private Color backColor = ColorManager.ColorClock;
 
     private TextFrame textBox;
 
-    public OptionItem(float x, float y, boolean isOn, String text) {
+    public OptionWidget(float x, float y, boolean isOn, String text) {
         this.x = x;
         this.y = y;
         this.width = ProjectSquare.WIDTH * 8 / 10;
         this.height = ProjectSquare.HEIGTH / 16;
-        textBox = new TextFrame(x, y, width, height, text);
+        textBox = new TextFrame(x, y, width, height, text, backColor);
+        textBox.setTextCentered(false);
         toggle = new Switch(x + width/2 - width / 10, y, isOn);
     }
 
-    public void draw(ShapeRenderer renderer) {
-        Color oldColor = renderer.getColor();
-        renderer.setColor(backColor);
-
-        textBox.draw(renderer);
-
-        renderer.end();
-
+    public void draw(ShapeRenderer renderer, SpriteBatch spriteRenderer) {
+        textBox.draw(renderer, spriteRenderer);
         toggle.draw(renderer);
     }
 
