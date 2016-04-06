@@ -82,7 +82,17 @@ public class Play extends GameState {
         score = 0;
         phaseScore = 0;
         timeIncrement = 10;
-        scoreIncrement = 20;
+        switch (ProjectSquare.settingsManager.dificulty) {
+            case 0:
+                scoreIncrement = 20;
+                break;
+            case 1:
+                scoreIncrement = 30;
+                break;
+            case 2:
+                scoreIncrement = 60;
+                break;
+        }
         gameOver = false;
 
         squaresAnimation = Timeline.createSequence();
