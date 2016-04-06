@@ -189,10 +189,12 @@ public class Play extends GameState {
     @Override
     public void draw() {
 
-        clock.draw(shapeR);
-        drawVidas();
+        if(!animationNotFinished) {
+            drawScore();
+            clock.draw(shapeR);
+            drawVidas();
+        }
 
-        drawScore();
 
         for (Border border : borders) {
             border.draw(shapeR);
