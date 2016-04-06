@@ -1,14 +1,14 @@
 package com.revoltagames.projectsquare.GameStates;
 
 import aurelienribon.tweenengine.Timeline;
-import aurelienribon.tweenengine.Tween;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.revoltagames.projectsquare.Entities.BackgroundClock;
+import com.revoltagames.projectsquare.Entities.Clock;
 import com.revoltagames.projectsquare.Entities.Border;
 import com.revoltagames.projectsquare.Entities.SquaresManager;
 import com.revoltagames.projectsquare.Managers.ColorManager;
@@ -51,7 +51,7 @@ public class Play extends GameState {
 
     private SquaresManager squaresManager;
 
-    private BackgroundClock clock;
+    private Clock clock;
 
     private boolean animationNotFinished = true;
     private Timeline bordersAnimation;
@@ -120,7 +120,7 @@ public class Play extends GameState {
         borders[GestureManager.SW_UP - 1] = new Border(GestureManager.SW_UP - 1, ColorManager.NRED);*/
         GestureManager.clear();
 
-        clock = new BackgroundClock(timer);
+        clock = new Clock(timer);
 
 
     }

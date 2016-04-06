@@ -8,7 +8,7 @@ import com.revoltagames.projectsquare.ProjectSquare;
 /**
  * Created by alejandro on 15/03/15.
  */
-public class BackgroundClock {
+public class Clock {
 
     private float alpha;
     private Color color;
@@ -16,7 +16,7 @@ public class BackgroundClock {
 
     private int anterior;
 
-    public BackgroundClock(int max) {
+    public Clock(int max) {
 
         color = ColorManager.ColorClock;
         this.max = max;
