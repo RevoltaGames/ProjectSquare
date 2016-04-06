@@ -18,7 +18,7 @@ public class Rect implements Shape {
 
 
     /**
-     * Crea un rectangulo en las coordenadas x e y, de tamaño w x h y de color aleatorio
+     * Crea un rectángulo en las coordenadas x e y, de tamaño w x h y de color aleatorio
      * @param x coordenada horizontal
      * @param y coordenada vertical
      * @param w ancho
@@ -34,13 +34,13 @@ public class Rect implements Shape {
     }
 
     /**
-     * Dibuja el rectangulo usando las coordenadas x e y como centro de la figura
+     * Dibuja el rectángulo usando las coordenadas x e y como centro de la figura
      * @param shapeR renderer para dibujar la figura
      */
     public void draw(ShapeRenderer shapeR) {
         shapeR.begin(ShapeRenderer.ShapeType.Filled);
         Color oldColor = shapeR.getColor();
-        shapeR.setColor(color.r, color.g, color.b, alpha);
+        shapeR.setColor(color);
         shapeR.rect(x - w / 2, y - h / 2, w, h);
         shapeR.setColor(oldColor);
         shapeR.end();
@@ -48,10 +48,10 @@ public class Rect implements Shape {
 
     /**
      * Dadas unas coordenadas tx y ty, devuelve true si dichas coordenadas
-     * están dentro del rectangulo y false en caso contrario
+     * están dentro del rectángulo y false en caso contrario
      * @param tx coordenada horizontal del punto
      * @param ty coordenada vertical del punto
-     * @return true si el punto está dentro del cuadrado o false en caso contrario
+     * @return true si el punto está dentro del rectángulo o false en caso contrario
      */
     @Override
     public boolean touched(float tx, float ty) {
@@ -69,14 +69,14 @@ public class Rect implements Shape {
 
     /**
      * Las coordenadas se miden desde el centro de la figura
-     * @return Devuelve la coordenada x del cuadrado
+     * @return Devuelve la coordenada x del rectángulo
      */
     public float getX() {
         return x;
     }
 
     /**
-     * Establece la coordenada x del cuadrado. Las coordenadas se miden desde el centro de la figura
+     * Establece la coordenada x del rectángulo. Las coordenadas se miden desde el centro de la figura
      * @param x coordenada horizontal
      */
     public void setX(float x) {
@@ -85,14 +85,14 @@ public class Rect implements Shape {
 
     /**
      * Las coordenadas se miden desde el centro de la figura
-     * @return Devuelve la coordenada y del rectangulo
+     * @return Devuelve la coordenada y del rectángulo
      */
     public float getY() {
         return y;
     }
 
     /**
-     * @return Devuelve un nuevo rectangulo con los mismos parámentros que el actual
+     * @return Devuelve un nuevo rectángulo con los mismos parámentros que el actual
      */
     @Override
     public Shape clone() {
@@ -100,7 +100,7 @@ public class Rect implements Shape {
     }
 
     /**
-     * Establece la coordenada y del rectangulo. Las coordenadas se miden desde el centro de la figura
+     * Establece la coordenada y del rectángulo. Las coordenadas se miden desde el centro de la figura
      * @param y coordenada vertical
      */
     public void setY(float y) {
@@ -122,14 +122,14 @@ public class Rect implements Shape {
     }
 
     /**
-     * @return color del rectangulo
+     * @return color del rectángulo
      */
     public Color getColor() {
         return color;
     }
 
     /**
-     * Establece el color del rectangulo
+     * Establece el color del rectángulo
      * @param color
      */
     @Override
@@ -138,7 +138,7 @@ public class Rect implements Shape {
     }
 
     /**
-     * Establece el valor alpha en el color del rectangulo
+     * Establece el valor alpha en el color del rectángulo
      * @param alpha número entre 0 y 1
      */
     public void setAlpha(float alpha) {
@@ -146,10 +146,42 @@ public class Rect implements Shape {
     }
 
     /**
-     * @return el valor alpha del color del rectangulo
+     * @return el valor alpha del color del rectángulo
      */
     public float getAlpha() {
         return alpha;
+    }
+
+    /**
+     * Devuelve la altura del rectángulo
+     * @return algura del rectángulo
+     */
+    public float getH() {
+        return h;
+    }
+
+    /**
+     * Estable la altura del rectángulo
+     * @param h
+     */
+    public void setH(float h) {
+        this.h = h;
+    }
+
+    /**
+     * Devuelve la anchura del rectángulo
+     * @return anchura del rectángulo
+     */
+    public float getW() {
+        return w;
+    }
+
+    /**
+     * Estable la anchura del rectángulo
+     * @param w anchura
+     */
+    public void setW(float w) {
+        this.w = w;
     }
 }
 

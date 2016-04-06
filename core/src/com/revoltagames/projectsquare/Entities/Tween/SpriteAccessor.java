@@ -6,10 +6,14 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import aurelienribon.tweenengine.TweenAccessor;
 
 /**
- * Created by Truji on 02/04/2015.
+ * Clase que permite a TweenEngine acceder a parámetros de un Sprite para poder realizar
+ * animaciones interpoladas.
  */
 public class SpriteAccessor implements TweenAccessor<Sprite> {
 
+    /**
+     * Tipo de interpolación que modifica el Alpha (transparencia) de un Sprite.
+     */
     public static final int ALPHA = 0;
 
     @Override

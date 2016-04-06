@@ -14,13 +14,16 @@ import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenManager;
 
 /**
- * Created by caenrique93 on 18/02/15.
+ * Estado de juego que muestra el logo mientras cargan los assets
  */
 public class LoadState extends GameState{
     SpriteBatch renderer;
     Sprite splashScreen;
 
-
+    /**
+     * Constructor
+     * @param gsm GameStateManager
+     */
     public LoadState(GameStateManager gsm) {
         super(gsm);
     }

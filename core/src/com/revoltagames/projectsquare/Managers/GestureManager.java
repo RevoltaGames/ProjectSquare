@@ -1,7 +1,7 @@
 package com.revoltagames.projectsquare.Managers;
 
 /**
- * Created by alejandro on 17/02/15.
+ * Clase que guarda los gestos realizados por el usuario.
  */
 public class GestureManager {
 

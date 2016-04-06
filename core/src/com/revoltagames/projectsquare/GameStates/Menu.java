@@ -17,7 +17,7 @@ import com.revoltagames.projectsquare.Managers.ResourceManager;
 import com.revoltagames.projectsquare.ProjectSquare;
 
 /**
- * Created by caenrique93 on 17/02/15.
+ * Pantalla de Menu del juego
  */
 public class Menu extends GameState {
 
@@ -175,7 +175,7 @@ public class Menu extends GameState {
 
                 Timeline animation = Timeline.createParallel();
                 for (Border b: borders)
-                    b.startAnimation(animation);
+                    b.addAnimation(animation);
                 animation.start(ProjectSquare.tweenManager);
                 gsm.setState(new Play(this.gsm, borders, animation));
 
@@ -192,7 +192,7 @@ public class Menu extends GameState {
                 gsm.projectSquare.dispose();
             }
             if (settingsB.touched(Gdx.input.getX(), Gdx.input.getY())){
-                gsm.push(new OptionsState(gsm));
+                gsm.push(new SettingsState(gsm));
             }
         }
     }

@@ -16,7 +16,7 @@ import aurelienribon.tweenengine.Timeline;
 import aurelienribon.tweenengine.Tween;
 
 /**
- * Created by alejandro on 4/03/15.
+ * Clase encargada de manejar los cuadrados en la pantalla de juego
  */
 public class SquaresManager {
 
@@ -30,12 +30,9 @@ public class SquaresManager {
     private BitmapFont font;
     SpriteBatch spRenderer1;
 
-
-
     //Cuadrados en pantalla
     private List<Square> squares;
     private List<Square> swipedSquares;
-    //private boolean onAnimation = false;
 
     //Para la previsualizacion
     private float[] Sizes;
@@ -44,6 +41,10 @@ public class SquaresManager {
 
     private float animationTime = 0.2f;
 
+    /**
+     * Constructor
+     * @param play Estado de juego en el que se encuentra el Manager
+     */
     public SquaresManager(Play play) {
 
         this.play = play;
@@ -78,8 +79,6 @@ public class SquaresManager {
         X[2] = X[1] + Sizes[1] + Sizes[1] / 6;
         X[3] = X[2] + Sizes[2] + Sizes[1] / 6;
 
-        // Alineados segun centro
-        //Y[1] = Y[2] = Y[3] =  Y[0] + Sizes[0] / 2 + Sizes[1] / 10 + Sizes[1]/2;
         // Alineados segun borde inferior
         for (int i = 1; i < Y.length; i++)
             Y[i] = Y[0] + Sizes[0] / 2 + Sizes[1] / 10 + Sizes[i]/2;
@@ -92,6 +91,11 @@ public class SquaresManager {
 
     }
 
+    /**
+     * Dibuja todos los cuadrados
+     * @param shapeR
+     * @param spRenderer
+     */
     public void draw(ShapeRenderer shapeR, SpriteBatch spRenderer) {
 
         for(Square square: squares)
@@ -105,7 +109,11 @@ public class SquaresManager {
 
     }
 
-
+    /**
+     * Actualiza el estado de los cuadrados
+     * @param dt Tiempo desde el ultimo frame
+     * @param swipe Gesto realizado por el usuario
+     */
     public void update(float dt, int swipe) {
 
         this.swipe = swipe;
@@ -148,6 +156,7 @@ public class SquaresManager {
                     animateSquareAlphaTo(actual, 1);
             }
 
+            //Añadimos un nuevo cuadrado
             Square square = new Square(X[3],Y[3], 0);
             squares.add(square);
             animateSquareTo(square, X[3], Y[3], Sizes[3]);
@@ -156,7 +165,6 @@ public class SquaresManager {
 
 
        if (!swipedSquares.isEmpty()) {
-           System.out.println(swipedSquares.size());
            for (Square swipedSquare : swipedSquares) {
                if (swipedSquare.atBorder()) {
                    if (swipedSquare.getColor() != play.getBorders()[swipedSquare.getSwipe() - 1].getColor()) {
@@ -173,19 +181,12 @@ public class SquaresManager {
 
     }
 
+    /**
+     * Método que añade a una secuencia la animación de inicio de los cuadrados
+     * @param timeline Secuencia a la que añadir la animación
+     */
     public void initialAnimation(Timeline timeline) {
 
-//        for(Square sq : squares){
-//            timeline.push(Tween.set(sq, SquareAccessor.ALPHA).target(0));
-//        }
-//        timeline.pushPause(500);
-//        timeline.beginParallel();
-//
-//        for(Square sq : squares){
-//            timeline.push(prepareAnimateSquareAlphaTo(sq, 1, 1f));
-//        }
-//
-//        timeline.end();
         for(int i=0; i<squares.size(); i++){
             squares.get(i).setSize(0);
             timeline.push(Tween.set(squares.get(i), SquareAccessor.POS_AND_SIZE).target(X[i], Y[i], 0));
@@ -201,28 +202,49 @@ public class SquaresManager {
         timeline.end();
     }
 
+    /**
+     * Método que lanza una animación interpolada sobre un cuadrado
+     * @param square Cuadrado animado
+     * @param x posición x hasta la que animar
+     * @param y posición y hasta la que animar
+     * @param size Tamaño hasta el que animar
+     */
     private void animateSquareTo(Square square, float x, float y, float size) {
         prepareAnimateSquareTo(square,x,y,size).start(ProjectSquare.tweenManager);
     }
 
+    /**
+     * Método que devuelve una animación interpolada sobre un cuadrado lista para ser ejecutada
+     * @param square Cuadrado animado
+     * @param x posición x hasta la que animar
+     * @param y posición y hasta la que animar
+     * @param size Tamaño hasta el que animar
+     * @return La animación configurada
+     */
     private Tween prepareAnimateSquareTo(Square square, float x, float y, float size) {
         return Tween.to(square, SquareAccessor.POS_AND_SIZE, animationTime)
                 .target(x,y,size);
     }
 
+    /**
+     * Método que lanza una animación interpolada sobre la transparencia de un cuadrado
+     * @param square Cuadrado afectado
+     * @param alpha Transparencia final del cuadrado
+     */
     private void animateSquareAlphaTo(Square square, float alpha) {
         prepareAnimateSquareAlphaTo(square, alpha).start(ProjectSquare.tweenManager);
     }
 
-    private Tween prepareAnimateSquareAlphaTo(Square square, float alpha, float time) {
+    /**
+     * Método que devuelve una animación interpolada sobre la transparencia de un cuadrado
+     * lista para ser ejecutada
+     * @param square Cuadrado afectado
+     * @param alpha Transparencia final del cuadrado
+     * @return La animación configurada
+     */
+    private Tween prepareAnimateSquareAlphaTo(Square square, float alpha) {
         return Tween.to(square, SquareAccessor.ALPHA, animationTime)
                 .target(alpha);
     }
-
-    private Tween prepareAnimateSquareAlphaTo(Square square, float alpha) {
-        return prepareAnimateSquareAlphaTo(square, alpha, animationTime);
-    }
-
-
 
 }
