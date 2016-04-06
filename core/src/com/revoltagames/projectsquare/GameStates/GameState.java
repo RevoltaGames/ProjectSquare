@@ -2,9 +2,7 @@ package com.revoltagames.projectsquare.GameStates;
 
 import com.revoltagames.projectsquare.Managers.GameStateManager;
 
-/**
- * Created by caenrique93 on 17/02/15.
- */
+
 public abstract class GameState {
 
     protected GameStateManager gsm;
