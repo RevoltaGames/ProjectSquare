@@ -41,8 +41,6 @@ public class ProjectSquare extends ApplicationAdapter {
         WIDTH = Gdx.graphics.getWidth();
         HEIGTH = Gdx.graphics.getHeight();
 
-        sound = true;
-
         camera = new OrthographicCamera(WIDTH, HEIGTH);
         camera.translate(WIDTH/2, HEIGTH/2);
         camera.update();
@@ -51,6 +49,8 @@ public class ProjectSquare extends ApplicationAdapter {
         resManager = new ResourceManager();
         initTime = System.currentTimeMillis();
         ready = false;
+
+        sound = settingsManager.sound;
 
         gameStateManager = new GameStateManager(this);
         gameStateManager.setState(new LoadState(gameStateManager));
