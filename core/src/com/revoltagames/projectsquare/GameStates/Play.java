@@ -80,10 +80,10 @@ public class Play extends GameState {
                 godButtonFont
         );
 
-        timer = 20;
+        timer = 30;
         score = 0;
         phaseScore = 0;
-        timeIncrement = 10;
+        timeIncrement = 20;
         switch (ProjectSquare.settingsManager.dificulty) {
             case 0:
                 scoreIncrement = 20;
@@ -92,7 +92,7 @@ public class Play extends GameState {
                 scoreIncrement = 30;
                 break;
             case 2:
-                scoreIncrement = 60;
+                scoreIncrement = 50;
                 break;
         }
         gameOver = false;
