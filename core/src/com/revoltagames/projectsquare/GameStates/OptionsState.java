@@ -2,6 +2,7 @@ package com.revoltagames.projectsquare.GameStates;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.revoltagames.projectsquare.Entities.OptionItem;
 import com.revoltagames.projectsquare.Entities.Switch;
 import com.revoltagames.projectsquare.Managers.GameStateManager;
 import com.revoltagames.projectsquare.ProjectSquare;
@@ -13,7 +14,7 @@ public class OptionsState extends GameState {
 
     private ShapeRenderer shapeR;
 
-    private Switch test;
+    private OptionItem test;
 
     public OptionsState(GameStateManager gsm) {
         super(gsm);
@@ -22,7 +23,7 @@ public class OptionsState extends GameState {
     @Override
     public void init() {
         shapeR = new ShapeRenderer();
-        test = new Switch(ProjectSquare.WIDTH/2, ProjectSquare.HEIGTH/2, true);
+        test = new OptionItem(ProjectSquare.WIDTH/2, ProjectSquare.HEIGTH/2, true, "hola k ase");
     }
 
     @Override

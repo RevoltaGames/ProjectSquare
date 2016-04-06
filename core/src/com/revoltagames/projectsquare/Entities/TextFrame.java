@@ -55,7 +55,7 @@ public class TextFrame extends Rect {
      */
     public TextFrame(float x, float y, float w, float h, String text, Color color) {
         super(x, y, w, h);
-        super.setColor(ColorManager.ColorClockBack);
+        super.setColor(color);
         this.text = text;
         font = ProjectSquare.resManager.getFont(3);
     }
