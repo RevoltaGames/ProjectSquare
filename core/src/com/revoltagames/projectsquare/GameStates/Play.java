@@ -36,6 +36,8 @@ public class Play extends GameState {
     private static Music track;
     private static Music intro;
     private static Music lifeup;
+    private static Music lifelost;
+
     private Music move;
 
     private int timer;
@@ -92,8 +94,13 @@ public class Play extends GameState {
         move = ProjectSquare.resManager.getSound(ResourceManager.MOVE);
         lifeup = ProjectSquare.resManager.getSound(ResourceManager.LIFEUP);
         intro = ProjectSquare.resManager.getSound(ResourceManager.INTROGAME);
+        lifelost = ProjectSquare.resManager.getSound(ResourceManager.LIFELOST);
 
-        intro.play();
+        lifelost.setVolume(0.25f);
+
+        if(ProjectSquare.sound)
+            intro.play();
+
         track.setLooping(true);
 
         initVidas();
@@ -131,7 +138,7 @@ public class Play extends GameState {
             return;
         }
 
-        if(!track.isPlaying()&&!intro.isPlaying()){
+        if(!track.isPlaying()&&!intro.isPlaying()&&ProjectSquare.sound){
             track.play();
         }
 
@@ -243,6 +250,7 @@ public class Play extends GameState {
             else if (this.numVidas > 1) {
                 numVidas--;
                 this.vidas.get(numVidas).setColor(ColorManager.ColorClockBack);
+                lifelost.play();
             }
             else this.gameOver = true;
         }
