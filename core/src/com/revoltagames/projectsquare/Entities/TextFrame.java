@@ -61,6 +61,10 @@ public class TextFrame extends Rect {
         font = ProjectSquare.resManager.getFont("greySmallFont.ttf");
     }
 
+    public void setFont(BitmapFont font) {
+        this.font = font;
+    }
+
     /**
      * Establece el texto dentro del TextFrame
      * @param text

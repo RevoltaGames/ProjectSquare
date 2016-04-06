@@ -3,84 +3,76 @@ package com.revoltagames.projectsquare.widgets;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Rectangle;
-import com.revoltagames.projectsquare.Entities.Switch;
+import com.revoltagames.projectsquare.Entities.Option;
 import com.revoltagames.projectsquare.Entities.TextFrame;
 import com.revoltagames.projectsquare.Managers.ColorManager;
 import com.revoltagames.projectsquare.ProjectSquare;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
- * Widget que muestra en pantalla un interruptor con un texto
+ * Created by caenrique93 on 4/7/16.
  */
 public class OptionWidget {
+    private final String text;
+    private Option options;
+    private final float x;
+    private final float y;
+    private final float height;
+    private final float width;
 
-    private Switch toggle;
+    private TextFrame frame;
+    private List<TextFrame> optionFrames;
+    private final Color apagado = ColorManager.GREY;
+    private final Color encendido = ColorManager.NGREEN;
 
-    private float y;
-
-    private float x;
-
-    private float width;
-
-    private float height;
-
-    private Color backColor = ColorManager.ColorClock;
-
-    private TextFrame textBox;
-
-    /**
-     * Constructor
-     * @param x Coordenada x
-     * @param y Coordenada y
-     * @param isOn Si el interruptor esta encendido
-     * @param text Texto del interruptor
-     */
-    public OptionWidget(float x, float y, boolean isOn, String text) {
+    public OptionWidget(float x, float y, String text, List<String> options, int option) {
         this.x = x;
         this.y = y;
         this.width = ProjectSquare.WIDTH * 8 / 10;
         this.height = ProjectSquare.HEIGTH / 16;
-        textBox = new TextFrame(x, y, width, height, text, backColor);
-        textBox.setTextCentered(false);
-        toggle = new Switch(x + width/2 - width / 10, y, isOn);
+        this.options = new Option(options);
+        this.options.setOption(option);
+        this.text = text;
+
+        frame = new TextFrame(x, y, this.width, this.height, "Dificulty", ColorManager.ColorClock);
+        frame.setTextCentered(false);
+
+        float optionWidthGap = this.width/(2*this.options.getNumOptions());
+        float gap = optionWidthGap / 10;
+        float optionWidth = optionWidthGap - gap;
+        float optionX = this.x + optionWidth/2;
+
+        optionFrames = new ArrayList<TextFrame>();
+        for(int i=0; i<this.options.getNumOptions(); i++) {
+            TextFrame textframe = new TextFrame(optionX + optionWidthGap*i, y, optionWidth, 2*this.height/3, options.get(i), this.apagado);
+            textframe.setFont(ProjectSquare.resManager.getFont("whiteSmallFont.ttf"));
+            optionFrames.add(textframe);
+        }
+        optionFrames.get(option).setColor(this.encendido);
     }
 
-    /**
-     * Dibuja el widget completo
-     * @param renderer
-     * @param spriteRenderer
-     */
     public void draw(ShapeRenderer renderer, SpriteBatch spriteRenderer) {
-        textBox.draw(renderer, spriteRenderer);
-        toggle.draw(renderer);
+        frame.draw(renderer,spriteRenderer);
+        for (TextFrame t: optionFrames) t.draw(renderer, spriteRenderer);
     }
 
-    /**
-     * Enciende/apaga el interruptor
-     */
-    public void toggle() {
-        toggle.toggle();
+    public int getOption() {
+        return this.options.getSelectedOption();
     }
 
-    /**
-     * Indica si el interruptor ha sido pulsado
-     * @param tx
-     * @param ty
-     * @return
-     */
-    public boolean touched(float tx, float ty) {
-        return toggle.touched(tx, ty);
+    public void touched(float x, float y) {
+        for(int i=0; i<optionFrames.size(); i++) {
+            if (optionFrames.get(i).touched(x, y)) {
+                this.optionFrames.get(options.getSelectedOption()).setColor(this.apagado);
+                this.optionFrames.get(i).setColor(this.encendido);
+                this.options.setOption(i);
+            }
+        }
     }
 
-    /**
-     * Devuelve las dimensiones del widget
-     * @return
-     */
-    public Rectangle getBoundaries() {
-        return new Rectangle(x, y, width, height);
-    }
-
-    public boolean getState() {
-        return toggle.getState();
+    public boolean isTouched(int x, int y) {
+        return frame.touched(x,y);
     }
 }
