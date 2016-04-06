@@ -6,11 +6,16 @@ import com.revoltagames.projectsquare.Entities.Border;
 import aurelienribon.tweenengine.TweenAccessor;
 
 /**
- * Created by Truji on 02/04/2015.
+ * Clase que permite a TweenEngine acceder a parámetros de un Borde para poder realizar
+ * animaciones interpoladas.
  */
 public class BorderAccessor implements TweenAccessor<Border> {
 
+    /**
+     * Tipo de interpolación que modifica la posición y/o tamaño de un Borde.
+     */
     public static final int POS_AND_SIZE = 0;
+
     @Override
     public int getValues(Border target, int tweenType, float[] returnValues) {
         switch (tweenType){

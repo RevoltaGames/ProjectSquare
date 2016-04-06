@@ -6,11 +6,12 @@ import com.revoltagames.projectsquare.Entities.Shapes.Square;
 import aurelienribon.tweenengine.TweenAccessor;
 
 /**
- * Created by alejandro on 4/03/15.
+ * Clase que permite a TweenEngine acceder a parámetros de un Square para poder realizar
+ * animaciones interpoladas.
  */
 public class SquareAccessor implements TweenAccessor<Square>{
 
-    /**
+    /* GUIA RAPIDA
      * private TweenManager tweenManager;
      * tweenManager = new TweenManager();
      * en update
@@ -23,8 +24,19 @@ public class SquareAccessor implements TweenAccessor<Square>{
      * Tween.to(cuadradoAanimar, type, duration).target(final).start(tweenManager);
      */
 
+    /**
+     * Tipo de interpolación que modifica la posición y/o tamaño de un Square.
+     */
     public static final int POS_AND_SIZE = 0;
+
+    /**
+     * Tipo de interpolación que modifica el Alpha (transparencia) de un Square.
+     */
     public static final int ALPHA = 1;
+
+    /**
+     * Tipo de interpolación que modifica el color de un Square.
+     */
     public static final int COLOR = 2;
 
     @Override
