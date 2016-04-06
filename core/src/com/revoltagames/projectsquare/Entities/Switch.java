@@ -84,8 +84,6 @@ public class Switch {
 
         isOn = !isOn;
 
-
-
     }
 
     public boolean touched(float tx, float ty) {
