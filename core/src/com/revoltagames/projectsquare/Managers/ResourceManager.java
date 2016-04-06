@@ -41,6 +41,8 @@ public class ResourceManager {
     public static final String TITTLE = "Images/tittle.png";
     public static final String TOUCH = "Images/touchtoplay.png";
     public static final String SHADOW = "Images/sombra.png";
+    public static final String HEART_ON = "Images/hearton.png";
+    public static final String HEART_OFF = "Images/heartoff.png";
 
     private final String[] musica = new String[8];
 
@@ -73,6 +75,8 @@ public class ResourceManager {
         manager.load(TITTLE, Texture.class);
         manager.load(TOUCH, Texture.class);
         manager.load(SHADOW, Texture.class);
+        manager.load(HEART_ON, Texture.class);
+        manager.load(HEART_OFF, Texture.class);
 
         FreeTypeFontLoaderParameter size1Params =
                 new FreeTypeFontLoaderParameter();

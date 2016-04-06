@@ -8,14 +8,16 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.revoltagames.projectsquare.Entities.BackgroundClock;
 import com.revoltagames.projectsquare.Entities.Border;
-import com.revoltagames.projectsquare.Managers.SquaresManager;
+import com.revoltagames.projectsquare.Entities.Shapes.Square;
 import com.revoltagames.projectsquare.Managers.ColorManager;
 import com.revoltagames.projectsquare.Managers.GameStateManager;
 import com.revoltagames.projectsquare.Managers.GestureManager;
 import com.revoltagames.projectsquare.Managers.ResourceManager;
+import com.revoltagames.projectsquare.Managers.SquaresManager;
 import com.revoltagames.projectsquare.ProjectSquare;
 
 import java.util.Random;
+import java.util.Vector;
 
 import aurelienribon.tweenengine.Timeline;
 
@@ -32,7 +34,8 @@ public class Play extends GameState {
     private int swipe = 0;
     private boolean gameOver;
 
-    private int vidas;
+    private int numVidas;
+    private Vector<Square> vidas;
 
     private static Music track;
     private Music move;
@@ -100,8 +103,24 @@ public class Play extends GameState {
         phase = 0;
         phaseScore = 0;
 
-        vidas = 3 - ProjectSquare.settingsManager.dificulty;
-        System.out.println(vidas);
+        numVidas = 3 - ProjectSquare.settingsManager.dificulty;
+
+        float vidaSize = ProjectSquare.WIDTH/15;
+        float vidaGap = ProjectSquare.WIDTH/25;
+        float vidasX = ProjectSquare.WIDTH/2 - (vidaSize + vidaGap);
+        float vidaY = 3*ProjectSquare.HEIGTH/10;
+
+        vidas = new Vector<Square>();
+        for(int i=0; i<numVidas; i++) {
+            Square s = new Square(vidasX + (vidaSize+vidaGap)*i, vidaY, vidaSize);
+            s.setColor(ColorManager.NRED);
+            vidas.add(s);
+        }
+        for(int i=numVidas; i<3; i++) {
+            Square s = new Square(vidasX + (vidaSize+vidaGap)*i, vidaY, vidaSize);
+            s.setColor(ColorManager.ColorClockBack);
+            vidas.add(s);
+        }
 
         font = new BitmapFont(Gdx.files.internal("Fonts/font1.fnt"),
                 Gdx.files.internal("Fonts/font1.png"),
@@ -171,6 +190,7 @@ public class Play extends GameState {
     public void draw() {
 
         clock.draw(shapeR);
+        drawVidas();
 
         drawScore();
 
@@ -180,6 +200,11 @@ public class Play extends GameState {
 
         squaresManager.draw(shapeR, spriteRenderer);
 
+
+    }
+
+    private void drawVidas() {
+        for(Square s: vidas) s.draw(shapeR);
     }
 
 
@@ -216,7 +241,10 @@ public class Play extends GameState {
     }
 
     public void setFail() {
-        if (this.vidas > 0) vidas--;
+        if (this.numVidas > 0) {
+            numVidas--;
+            this.vidas.get(numVidas).setColor(ColorManager.ColorClockBack);
+        }
         else this.gameOver = true;
     }
 }
