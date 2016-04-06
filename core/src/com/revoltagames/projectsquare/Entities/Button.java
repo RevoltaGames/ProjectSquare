@@ -127,8 +127,8 @@ public class Button {
                     font.draw(
                             spRenderer,
                             text,
-                            (width - tBounds.width) / 2,
-                            (height - tBounds.height) / 2
+                            this.shape.getX() - tBounds.width/2,
+                            this.shape.getY() + tBounds.height/2
                     );
                 }
             }

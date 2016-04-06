@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.revoltagames.projectsquare.Entities.Button;
 import com.revoltagames.projectsquare.Entities.Shapes.Square;
 import com.revoltagames.projectsquare.Entities.TextFrame;
+import com.revoltagames.projectsquare.Managers.ColorManager;
 
 import java.util.Vector;
 
@@ -44,7 +45,7 @@ public class NameChooserWidget {
         float letterSize = size / numLeters - (numLeters-1)*gap/numLeters;
         float letterDistance = letterSize + gap;
         float origin = this.x - size/2 + letterSize/2;
-
+        float height = 3*letterSize/4;
 
         letras = new Vector<Character>();
         frames = new Vector<TextFrame>();
@@ -53,9 +54,13 @@ public class NameChooserWidget {
 
         for(int i=0; i< numLeters; i++) {
             letras.add('A');
-            frames.add(new TextFrame(origin + letterDistance*i, this.y, letterSize, String.valueOf(letras.get(i))));
-            nextButtons.add(new Button(new Square(origin + letterDistance*i, this.y + letterSize, letterSize)));
-            previousButtons.add(new Button(new Square(origin + letterDistance*i, this.y - letterSize, letterSize)));
+            frames.add(new TextFrame(origin + letterDistance*i, this.y, letterSize, height, String.valueOf(letras.get(i))));
+            Button b = new Button(new Square(origin + letterDistance*i, this.y + height/2 + letterSize/2, letterSize));
+            b.setColor(ColorManager.NRED);
+            nextButtons.add(b);
+            b = new Button(new Square(origin + letterDistance*i, this.y - (height/2 + letterSize/2), letterSize));
+            b.setColor(ColorManager.NYELLOW);
+            previousButtons.add(b);
         }
     }
 

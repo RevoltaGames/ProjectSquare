@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.revoltagames.projectsquare.Entities.Button;
+import com.revoltagames.projectsquare.Entities.Shapes.Rect;
 import com.revoltagames.projectsquare.Managers.GameStateManager;
 import com.revoltagames.projectsquare.Managers.ResourceManager;
 import com.revoltagames.projectsquare.ProjectSquare;
@@ -16,7 +17,6 @@ import com.revoltagames.projectsquare.widgets.NameChooserWidget;
  */
 public class GameOver extends GameState {
 
-    private String gameOverText;
     private ShapeRenderer renderer;
     private SpriteBatch spriteRenderer;
 
@@ -27,11 +27,13 @@ public class GameOver extends GameState {
     private Button boton2;
 
     private int score;
-    private BitmapFont font;
 
     private Music track;
     
-    private BitmapFont font70;
+    private BitmapFont font;
+    private BitmapFont fontSmallWhite;
+    private BitmapFont fontBig;
+    private BitmapFont fontRed;
 
     private NameChooserWidget nameChooser;
 
@@ -47,18 +49,25 @@ public class GameOver extends GameState {
         if (ProjectSquare.sound)
             track.play();
 
-        gameOverText = "GAME OVER";
-
         nameChooser = new NameChooserWidget(ProjectSquare.WIDTH/2, 2*ProjectSquare.HEIGTH/5, ProjectSquare.WIDTH/2, 3);
 
-        boton2 = new Button(ProjectSquare.WIDTH/2, ProjectSquare.HEIGTH/6);
+
+        font = ProjectSquare.resManager.getFont(4);
+        fontSmallWhite = ProjectSquare.resManager.getFont(1);
+        fontRed = ProjectSquare.resManager.getFont(6);
+        fontBig = ProjectSquare.resManager.getFont(2);
+
+
+        boton2 = new Button(
+            new Rect(
+                ProjectSquare.WIDTH/2,
+                ProjectSquare.HEIGTH/8,
+                ProjectSquare.WIDTH/3,
+                ProjectSquare.WIDTH/9),
+            "back",
+            fontSmallWhite);
         renderer = new ShapeRenderer();
         spriteRenderer = new SpriteBatch();
-        font = new BitmapFont(Gdx.files.internal("Fonts/font1.fnt"),
-                Gdx.files.internal("Fonts/font1.png"),
-                false);
-        font70 = ProjectSquare.resManager.getFont(2);
-        font.scale(1.2f);
     }
 
     @Override
@@ -75,20 +84,21 @@ public class GameOver extends GameState {
     }
 
     private void drawGameOverText() {
-        BitmapFont.TextBounds bounds = font70.getBounds(gameOverText);
+        String gameOver = "GAME OVER";
+        BitmapFont.TextBounds bounds = fontRed.getBounds(gameOver);
         float textX = ProjectSquare.WIDTH / 2 - bounds.width/2;
-        float textY = 4*ProjectSquare.HEIGTH/5 + bounds.height/2;
+        float textY = 9*ProjectSquare.HEIGTH/10 + bounds.height/2;
         spriteRenderer.begin();
-        font70.draw(spriteRenderer,gameOverText, textX, textY);
+        fontRed.draw(spriteRenderer, gameOver, textX, textY);
         spriteRenderer.end();
     }
 
     private void drawScore() {
-        BitmapFont.TextBounds bounds = font70.getBounds(Integer.toString(score));
+        BitmapFont.TextBounds bounds = fontBig.getBounds(Integer.toString(score));
         float textX = ProjectSquare.WIDTH / 2 - bounds.width/2;
-        float textY = 3*ProjectSquare.HEIGTH/5 + bounds.height/2;
+        float textY = 7*ProjectSquare.HEIGTH/10 + bounds.height/2;
         spriteRenderer.begin();
-        font70.draw(spriteRenderer,Integer.toString(score), textX, textY);
+        fontBig.draw(spriteRenderer, Integer.toString(score), textX, textY);
         spriteRenderer.end();
     }
 

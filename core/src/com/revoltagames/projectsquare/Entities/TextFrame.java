@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.revoltagames.projectsquare.Entities.Shapes.Rect;
-import com.revoltagames.projectsquare.Entities.Shapes.Square;
 import com.revoltagames.projectsquare.Managers.ColorManager;
 import com.revoltagames.projectsquare.ProjectSquare;
 
@@ -17,7 +16,7 @@ public class TextFrame extends Rect {
     private BitmapFont font;
 
     /**
-     * Crea un cuadrado en las coordenadas x e y, de tamaño size y de color aleatorio
+     * Crea un cuadrado en las coordenadas x e y, de tamaño size
      *
      * @param x    coordenada horizontal
      * @param y    coordenada vertical
@@ -32,7 +31,7 @@ public class TextFrame extends Rect {
     }
 
     /**
-     * Crea un rectangulo en las coordenadas x e y, de tamaño w x h y de color aleatorio
+     * Crea un rectangulo en las coordenadas x e y, de tamaño w x h
      *
      * @param x    coordenada horizontal
      * @param y    coordenada vertical

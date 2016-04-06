@@ -1,13 +1,12 @@
 package com.revoltagames.projectsquare.GameStates;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.revoltagames.projectsquare.Entities.Clock;
 import com.revoltagames.projectsquare.Entities.Border;
+import com.revoltagames.projectsquare.Entities.Clock;
 import com.revoltagames.projectsquare.Entities.Shapes.Square;
 import com.revoltagames.projectsquare.Managers.ColorManager;
 import com.revoltagames.projectsquare.Managers.GameStateManager;
@@ -16,7 +15,6 @@ import com.revoltagames.projectsquare.Managers.ResourceManager;
 import com.revoltagames.projectsquare.Managers.SquaresManager;
 import com.revoltagames.projectsquare.ProjectSquare;
 
-import java.util.Random;
 import java.util.Vector;
 
 import aurelienribon.tweenengine.Timeline;
@@ -41,7 +39,6 @@ public class Play extends GameState {
     private static Music intro;
     private static Music lifeup;
     private Music move;
-    private static Random rnd = new Random(System.currentTimeMillis());
 
     private int timer;
     private final int timeIncrement;
@@ -52,7 +49,6 @@ public class Play extends GameState {
     private float secondCounter = 0;
 
     private BitmapFont font;
-    private BitmapFont font70;
 
     private SquaresManager squaresManager;
 
@@ -126,12 +122,7 @@ public class Play extends GameState {
             vidas.add(s);
         }
 
-        font = new BitmapFont(Gdx.files.internal("Fonts/font1.fnt"),
-                Gdx.files.internal("Fonts/font1.png"),
-                false);
-        font.scale(1.2f);
-
-        font70 = ProjectSquare.resManager.getFont(1);
+        font = ProjectSquare.resManager.getFont(4);
 
         gameOver = false;
 
@@ -226,13 +217,13 @@ public class Play extends GameState {
     private void drawScore() {
         spriteRenderer.begin();
         BitmapFont.TextBounds timerBound =
-                font70.getBounds(Integer.toString(score));
+                font.getBounds(Integer.toString(score));
         float timerX = ProjectSquare.WIDTH / 2 - timerBound.width / 2;
         float timerY = 4 * ProjectSquare.HEIGTH / 5 + timerBound.height / 2;
 
         Color oldColor = spriteRenderer.getColor();
         spriteRenderer.setColor(Color.LIGHT_GRAY);
-        font70.draw(spriteRenderer, Integer.toString(score), timerX, timerY);
+        font.draw(spriteRenderer, Integer.toString(score), timerX, timerY);
         spriteRenderer.setColor(oldColor);
         spriteRenderer.end();
     }
