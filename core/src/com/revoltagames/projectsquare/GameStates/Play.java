@@ -14,14 +14,9 @@ import com.revoltagames.projectsquare.Managers.GestureManager;
 import com.revoltagames.projectsquare.Managers.ResourceManager;
 import com.revoltagames.projectsquare.Managers.SquaresManager;
 import com.revoltagames.projectsquare.ProjectSquare;
-
 import java.util.Vector;
-
 import aurelienribon.tweenengine.Timeline;
 
-/**
- * Created by caenrique93 on 17/02/15.
- */
 public class Play extends GameState {
 
     private ShapeRenderer shapeR;
@@ -41,10 +36,9 @@ public class Play extends GameState {
     private Music move;
 
     private int timer;
-    private final int timeIncrement;
+    private int timeIncrement;
     private int score;
-    private final int scoreIncrement;
-    private int phase;
+    private int scoreIncrement;
     private int phaseScore;
     private float secondCounter = 0;
 
@@ -60,50 +54,44 @@ public class Play extends GameState {
 
     protected Play(GameStateManager gsm, Border[] borders, Timeline animation) {
         super(gsm);
-        timeIncrement = 15;
-        scoreIncrement = 20;
         this.borders = borders;
         this.bordersAnimation = animation;
-
-        squaresAnimation = Timeline.createSequence();
-        squaresManager.initialAnimation(squaresAnimation);
-    }
-
-    protected Play(GameStateManager gsm) {
-        super(gsm);
-        timeIncrement = 15;
-        scoreIncrement = 20;
-        borders = new Border[4];
-        borders[GestureManager.SW_LEFT - 1] = new Border(GestureManager.SW_LEFT - 1, ColorManager.NBLUE, false);
-        borders[GestureManager.SW_RIGHT - 1] = new Border(GestureManager.SW_RIGHT - 1, ColorManager.NGREEN, false);
-        borders[GestureManager.SW_DOWN - 1] = new Border(GestureManager.SW_DOWN - 1, ColorManager.NYELLOW, false);
-        borders[GestureManager.SW_UP - 1] = new Border(GestureManager.SW_UP - 1, ColorManager.NRED, false);
-        GestureManager.clear();
-
-        animationNotFinished = false;
     }
 
     @Override
     public void init() {
         shapeR = new ShapeRenderer();
         spriteRenderer = new SpriteBatch();
+        squaresManager = new SquaresManager(this);
+        clock = new Clock(timer);
 
-        intro = ProjectSquare.resManager.getSound(ResourceManager.INTROGAME);
-        intro.play();
+        timer = 20;
+        score = 0;
+        phaseScore = 0;
+        timeIncrement = 10;
+        scoreIncrement = 20;
+        gameOver = false;
+
+        squaresAnimation = Timeline.createSequence();
+        squaresManager.initialAnimation(squaresAnimation);
 
         track = ProjectSquare.resManager.getMusic(0);
+        move = ProjectSquare.resManager.getSound(ResourceManager.MOVE);
+        lifeup = ProjectSquare.resManager.getSound(ResourceManager.LIFEUP);
+        intro = ProjectSquare.resManager.getSound(ResourceManager.INTROGAME);
+
+        intro.play();
         track.setLooping(true);
 
-        lifeup = ProjectSquare.resManager.getSound(ResourceManager.LIFEUP);
+        initVidas();
 
-        move = ProjectSquare.resManager.getSound(ResourceManager.MOVE);
+        font = ProjectSquare.resManager.getFont("greyBigFont.ttf");
 
-        timer = 30;
-        score = 0;
-        phase = 0;
-        phaseScore = 0;
+        GestureManager.clear();
+    }
 
-        numVidas = 3 - ProjectSquare.settingsManager.dificulty;
+    private void initVidas() {
+        numVidas = 3 - ProjectSquare.settingsManager.dificulty%3;
 
         float vidaSize = ProjectSquare.WIDTH/15;
         float vidaGap = ProjectSquare.WIDTH/25;
@@ -121,33 +109,20 @@ public class Play extends GameState {
             s.setColor(ColorManager.ColorClockBack);
             vidas.add(s);
         }
-
-        font = ProjectSquare.resManager.getFont("greyBigFont.ttf");
-
-        gameOver = false;
-
-        squaresManager = new SquaresManager(this);
-
-       /* borders = new Border[4];
-        borders[GestureManager.SW_LEFT - 1] = new Border(GestureManager.SW_LEFT - 1, ColorManager.NBLUE);
-        borders[GestureManager.SW_RIGHT - 1] = new Border(GestureManager.SW_RIGHT - 1, ColorManager.NGREEN);
-        borders[GestureManager.SW_DOWN - 1] = new Border(GestureManager.SW_DOWN - 1, ColorManager.NYELLOW);
-        borders[GestureManager.SW_UP - 1] = new Border(GestureManager.SW_UP - 1, ColorManager.NRED);*/
-        GestureManager.clear();
-
-        clock = new Clock(timer);
-
-
     }
 
     @Override
     public void update(float dt) {
+        if (gameOver) {
+            this.gsm.setState(new GameOver(this.gsm, score));
+            return;
+        }
 
         if(!track.isPlaying()&&!intro.isPlaying()){
             track.play();
         }
 
-        if(!intro.isPlaying()&&!lifeup.isPlaying()&&score%20==0&&score!=0){
+        if(!intro.isPlaying()&&!lifeup.isPlaying()&&score%scoreIncrement==0&&score!=0){
             lifeup.play();
         }
 
@@ -164,10 +139,6 @@ public class Play extends GameState {
 
         clock.update(timer, secondCounter);
 
-        if (gameOver) {
-            this.gsm.setState(new GameOver(this.gsm, score));
-        }
-
         secondCounter += dt;
         if (secondCounter >= 1) {
             secondCounter = 0;
@@ -181,7 +152,6 @@ public class Play extends GameState {
             score++;
             phaseScore++;
             if (phaseScore == scoreIncrement) {
-                phase++;
                 timer += timeIncrement;
                 phaseScore = 0;
             }
@@ -192,21 +162,17 @@ public class Play extends GameState {
 
     @Override
     public void draw() {
-
         if(!animationNotFinished) {
             drawScore();
             clock.draw(shapeR);
             drawVidas();
         }
 
-
         for (Border border : borders) {
             border.draw(shapeR);
         }
 
         squaresManager.draw(shapeR, spriteRenderer);
-
-
     }
 
     private void drawVidas() {
@@ -237,10 +203,6 @@ public class Play extends GameState {
     public void dispose() {
         track.stop();
     }
-
-    /*public void setGameOver(boolean gameOver) {
-        this.gameOver = gameOver;
-    }*/
 
     public Border[] getBorders() {
         return borders;

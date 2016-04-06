@@ -3,15 +3,11 @@ package com.revoltagames.projectsquare.GameStates;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.revoltagames.projectsquare.Entities.Shapes.Square;
 import com.revoltagames.projectsquare.Entities.Tween.SpriteAccessor;
-import com.revoltagames.projectsquare.Entities.Tween.SquareAccessor;
 import com.revoltagames.projectsquare.Managers.GameStateManager;
 import com.revoltagames.projectsquare.ProjectSquare;
 
 import aurelienribon.tweenengine.Tween;
-import aurelienribon.tweenengine.TweenManager;
 
 /**
  * Estado de juego que muestra el logo mientras cargan los assets
@@ -56,18 +52,13 @@ public class LoadState extends GameState{
     @Override
     public void draw() {
         renderer.begin();
-            splashScreen.draw(renderer);
-
+        splashScreen.draw(renderer);
         renderer.end();
     }
 
     @Override
-    public void handleInput() {
-
-    }
+    public void handleInput() {}
 
     @Override
-    public void dispose() {
-
-    }
+    public void dispose() {}
 }
