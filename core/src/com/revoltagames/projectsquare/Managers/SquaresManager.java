@@ -1,6 +1,5 @@
-package com.revoltagames.projectsquare.Entities;
+package com.revoltagames.projectsquare.Managers;
 
-import aurelienribon.tweenengine.Timeline;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -8,12 +7,12 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.revoltagames.projectsquare.Entities.Shapes.Square;
 import com.revoltagames.projectsquare.Entities.Tween.SquareAccessor;
 import com.revoltagames.projectsquare.GameStates.Play;
-import com.revoltagames.projectsquare.Managers.GestureManager;
 import com.revoltagames.projectsquare.ProjectSquare;
 
 import java.util.LinkedList;
 import java.util.List;
 
+import aurelienribon.tweenengine.Timeline;
 import aurelienribon.tweenengine.Tween;
 
 /**
@@ -156,18 +155,21 @@ public class SquaresManager {
         
 
 
-       if (!swipedSquares.isEmpty())
-            for (Square swipedSquare : swipedSquares) {
-                if (swipedSquare.atBorder()) {
-                    if (swipedSquare.getColor() != play.getBorders()[swipedSquare.getSwipe() - 1].getColor())
-                        play.setGameOver(true);
-                    else {
-                        swipedSquares.remove(swipedSquare);
-                        numberOfSquares++;
-                    }
-                }
+       if (!swipedSquares.isEmpty()) {
+           System.out.println(swipedSquares.size());
+           for (Square swipedSquare : swipedSquares) {
+               if (swipedSquare.atBorder()) {
+                   if (swipedSquare.getColor() != play.getBorders()[swipedSquare.getSwipe() - 1].getColor()) {
+                           play.setFail();
+                           swipedSquares.remove(swipedSquare);
+                   } else {
+                       swipedSquares.remove(swipedSquare);
+                       numberOfSquares++;
+                   }
+               }
 
-            }
+           }
+       }
 
     }
 
