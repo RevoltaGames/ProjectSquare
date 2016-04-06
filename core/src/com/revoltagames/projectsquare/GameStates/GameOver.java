@@ -13,18 +13,14 @@ import com.revoltagames.projectsquare.ProjectSquare;
 import com.revoltagames.projectsquare.widgets.NameChooserWidget;
 
 /**
- * Created by caenrique93 on 17/02/15.
+ * Estado de GameOver del juego.
  */
 public class GameOver extends GameState {
 
     private ShapeRenderer renderer;
     private SpriteBatch spriteRenderer;
 
-    /*
-    Estos botones son provisionales, cuanto esten las imagenes se usaran
-    los ImageCircularButton
-    */
-    private Button boton2;
+    private Button backButton;
 
     private int score;
 
@@ -58,7 +54,7 @@ public class GameOver extends GameState {
         fontBig = ProjectSquare.resManager.getFont("greyGiantFont.ttf");
 
 
-        boton2 = new Button(
+        backButton = new Button(
             new Rect(
                 ProjectSquare.WIDTH/2,
                 ProjectSquare.HEIGTH/8,
@@ -66,6 +62,7 @@ public class GameOver extends GameState {
                 ProjectSquare.WIDTH/9),
             "back",
             fontSmallWhite);
+
         renderer = new ShapeRenderer();
         spriteRenderer = new SpriteBatch();
     }
@@ -77,12 +74,15 @@ public class GameOver extends GameState {
 
     @Override
     public void draw() {
-        boton2.draw(renderer);
+        backButton.draw(renderer);
         drawScore();
         drawGameOverText();
         nameChooser.draw(renderer, spriteRenderer);
     }
 
+    /**
+     * Dibuja el título de la pantalla de Game Over
+     */
     private void drawGameOverText() {
         String gameOver = "GAME OVER";
         BitmapFont.TextBounds bounds = fontRed.getBounds(gameOver);
@@ -93,6 +93,9 @@ public class GameOver extends GameState {
         spriteRenderer.end();
     }
 
+    /**
+     * Dibuja la puntuación conseguida
+     */
     private void drawScore() {
         BitmapFont.TextBounds bounds = fontBig.getBounds(Integer.toString(score));
         float textX = ProjectSquare.WIDTH / 2 - bounds.width/2;
@@ -106,9 +109,10 @@ public class GameOver extends GameState {
     public void handleInput() {
         if(Gdx.input.justTouched()) {
             nameChooser.touched(Gdx.input.getX(), Gdx.input.getY());
-            if (boton2.touched(Gdx.input.getX(), Gdx.input.getY())) {
+            if (backButton.touched(Gdx.input.getX(), Gdx.input.getY())) {
                 track.stop();
                 gsm.setState(new Menu(this.gsm));
+                return;
             }
         }
     }

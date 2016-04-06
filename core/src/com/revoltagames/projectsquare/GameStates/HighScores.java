@@ -6,13 +6,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.revoltagames.projectsquare.Entities.Score;
 import com.revoltagames.projectsquare.Managers.GameStateManager;
 import com.revoltagames.projectsquare.ProjectSquare;
-
 import java.util.List;
 
-
-/**
- * Created by caenrique93 on 28/02/15.
- */
 public class HighScores extends GameState {
     private List<Score> scores;
     private SpriteBatch renderer;
@@ -67,7 +62,5 @@ public class HighScores extends GameState {
     }
 
     @Override
-    public void dispose() {
-
-    }
+    public void dispose() {}
 }

@@ -35,14 +35,11 @@ public class Menu extends GameState {
     private Border[] borders;
     private BitmapFont font;
 
-    private Texture tittle;
-    private Texture touchtoplay;
     private Texture b_exit;
     private Texture b_settings;
     private Texture b_soundon;
     private Texture b_soundoff;
     private Texture b_scores;
-    private Texture b_shadow;
 
     float buttonsr;
     float buttonsx;
@@ -113,39 +110,17 @@ public class Menu extends GameState {
 
     @Override
     public void draw() {
-        //playB.draw(shapeR);
-        float width = 3*ProjectSquare.WIDTH/4;
-        float height = width/1.9f;
-
-        float twith = ProjectSquare.WIDTH/4;
-        float theight = twith/2.62f;
-
-        /*renderer.begin();
-        renderer.draw(tittle,
-                      ProjectSquare.WIDTH/2 - width/2,
-                      ProjectSquare.HEIGTH/2 + height/1.5f,
-                      width,
-                      height
-                      );
-        renderer.draw(touchtoplay,
-                      ProjectSquare.WIDTH/2 - twith/2,
-                      ProjectSquare.HEIGTH/3 - theight/2,
-                      twith,
-                      theight);
-        renderer.end();*/
-
         drawTitle();
         drawButtons();
 
         for (Border border : borders) {
             border.draw(shapeR);
         }
-
-        /*renderer.begin();
-        font.draw(renderer,puntuacion, ProjectSquare.WIDTH/2 - bounds.width/2, ProjectSquare.HEIGTH - ProjectSquare.HEIGTH/12 - bounds.height/2);
-        renderer.end();*/
     }
 
+    /**
+     * Dibuja los botones de la pantalla de inicio
+     */
     private void drawButtons() {
         soundB.draw(shapeR);
         scoresB.draw(shapeR);
@@ -153,6 +128,9 @@ public class Menu extends GameState {
         exitB.draw(shapeR);
     }
 
+    /**
+     * Dibuja el título de la pantalla de inicio
+     */
     private void drawTitle() {
         BitmapFont.TextBounds bounds = font.getBounds("Project");
         float textX = ProjectSquare.WIDTH / 2 - bounds.width/2;
@@ -170,17 +148,17 @@ public class Menu extends GameState {
     public void handleInput() {
         if (Gdx.input.justTouched()) {
             if (playB.touched(Gdx.input.getX(), Gdx.input.getY())) {
-                track.stop();
 
                 Timeline animation = Timeline.createParallel();
                 for (Border b: borders)
                     b.addAnimation(animation);
                 animation.start(ProjectSquare.tweenManager);
                 gsm.setState(new Play(this.gsm, borders, animation));
-
+                return;
             }
             if (scoresB.touched(Gdx.input.getX(), Gdx.input.getY())) {
                 gsm.push(new HighScores(gsm));
+                return;
             }
             if (soundB.touched(Gdx.input.getX(), Gdx.input.getY())) {
                 ProjectSquare.sound = !ProjectSquare.sound;
@@ -192,13 +170,14 @@ public class Menu extends GameState {
             }
             if (settingsB.touched(Gdx.input.getX(), Gdx.input.getY())){
                 gsm.push(new SettingsState(gsm));
+                return;
             }
         }
     }
 
     @Override
     public void dispose() {
-        System.out.println("saliendo");
+        track.stop();
     }
 }
 
