@@ -28,7 +28,7 @@ public class TextFrame extends Rect {
         super(x, y, size, size);
         super.setColor(ColorManager.ColorClockBack);
         this.text = text;
-        font = ProjectSquare.resManager.getFont(3);
+        font = ProjectSquare.resManager.getFont("greySmallFont");
 
     }
 
@@ -42,7 +42,7 @@ public class TextFrame extends Rect {
         super(x, y, w, h);
         super.setColor(ColorManager.ColorClockBack);
         this.text = text;
-        font = ProjectSquare.resManager.getFont(3);
+        font = ProjectSquare.resManager.getFont("greySmallFont.ttf");
     }
 
     /**
@@ -58,7 +58,7 @@ public class TextFrame extends Rect {
         super(x, y, w, h);
         super.setColor(color);
         this.text = text;
-        font = ProjectSquare.resManager.getFont(3);
+        font = ProjectSquare.resManager.getFont("greySmallFont.ttf");
     }
 
     /**

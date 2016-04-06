@@ -1,6 +1,5 @@
 package com.revoltagames.projectsquare.GameStates;
 
-import aurelienribon.tweenengine.Timeline;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
@@ -15,6 +14,8 @@ import com.revoltagames.projectsquare.Managers.GameStateManager;
 import com.revoltagames.projectsquare.Managers.GestureManager;
 import com.revoltagames.projectsquare.Managers.ResourceManager;
 import com.revoltagames.projectsquare.ProjectSquare;
+
+import aurelienribon.tweenengine.Timeline;
 
 /**
  * Pantalla de Menu del juego
@@ -70,8 +71,6 @@ public class Menu extends GameState {
         b_settings = ProjectSquare.resManager.getImage(ProjectSquare.resManager.B_SETTINGS);
         b_soundoff = ProjectSquare.resManager.getImage(ProjectSquare.resManager.B_VOLUME_OFF);
         b_soundon = ProjectSquare.resManager.getImage(ProjectSquare.resManager.B_VOLUME_ON);
-        tittle = ProjectSquare.resManager.getImage(ProjectSquare.resManager.TITTLE);
-        touchtoplay = ProjectSquare.resManager.getImage(ProjectSquare.resManager.TOUCH);
 
         buttonsr = ProjectSquare.WIDTH/7;
         buttonsx = ProjectSquare.WIDTH/5;
@@ -92,7 +91,7 @@ public class Menu extends GameState {
         borders[GestureManager.SW_DOWN - 1] = new Border(GestureManager.SW_DOWN - 1, ColorManager.NYELLOW, true);
         borders[GestureManager.SW_UP - 1] = new Border(GestureManager.SW_UP - 1, ColorManager.NRED, true);
 
-        font = ProjectSquare.resManager.getFont(4);
+        font = ProjectSquare.resManager.getFont("greyBigFont.ttf");
         renderer = new SpriteBatch();
 
     }

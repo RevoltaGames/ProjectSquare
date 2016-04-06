@@ -122,7 +122,7 @@ public class Play extends GameState {
             vidas.add(s);
         }
 
-        font = ProjectSquare.resManager.getFont(4);
+        font = ProjectSquare.resManager.getFont("greyBigFont.ttf");
 
         gameOver = false;
 

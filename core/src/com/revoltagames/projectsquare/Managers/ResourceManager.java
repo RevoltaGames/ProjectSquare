@@ -14,7 +14,6 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreetypeFontLoader;
 import com.badlogic.gdx.graphics.g2d.freetype.FreetypeFontLoader.FreeTypeFontLoaderParameter;
 
 /**
- * Created by caenrique93 on 18/02/15.
  * Esta clase maneja todos los recursos del juego, desde imagenes,
  * atlases de texturas, sonidos, música, tipos de letras o efectos
  * particulas.
@@ -38,9 +37,6 @@ public class ResourceManager {
     public static final String B_SETTINGS = "Images/settings.png";
     public static final String B_VOLUME_ON = "Images/soundon.png";
     public static final String B_VOLUME_OFF = "Images/soundoff.png";
-    public static final String TITTLE = "Images/tittle.png";
-    public static final String TOUCH = "Images/touchtoplay.png";
-    public static final String SHADOW = "Images/sombra.png";
 
     private final String[] musica = new String[8];
 
@@ -70,23 +66,20 @@ public class ResourceManager {
         manager.load(B_SETTINGS, Texture.class);
         manager.load(B_VOLUME_OFF, Texture.class);
         manager.load(B_VOLUME_ON, Texture.class);
-        manager.load(TITTLE, Texture.class);
-        manager.load(TOUCH, Texture.class);
-        manager.load(SHADOW, Texture.class);
 
         FreeTypeFontLoaderParameter size1Params =
                 new FreeTypeFontLoaderParameter();
         size1Params.fontFileName = "Fonts/forcedSquare.ttf";
         size1Params.fontParameters.size = Gdx.graphics.getHeight()/20;
         size1Params.fontParameters.color = ColorManager.WHITE;
-        manager.load("size1.ttf", BitmapFont.class, size1Params);
+        manager.load("whiteSmallFont.ttf", BitmapFont.class, size1Params);
 
         FreeTypeFontLoaderParameter size2Params =
                 new FreeTypeFontLoaderParameter();
         size2Params.fontFileName = "Fonts/forcedSquare.ttf";
         size2Params.fontParameters.size = Gdx.graphics.getHeight()/5;
         size2Params.fontParameters.color = ColorManager.MID_GREY;
-        manager.load("size2.ttf", BitmapFont.class, size2Params);
+        manager.load("greyGiantFont.ttf", BitmapFont.class, size2Params);
 
 
         FreeTypeFontLoaderParameter size3Params =
@@ -94,7 +87,7 @@ public class ResourceManager {
         size3Params.fontFileName = "Fonts/forcedSquare.ttf";
         size3Params.fontParameters.size = Gdx.graphics.getHeight()/20;
         size3Params.fontParameters.color = ColorManager.MID_GREY;
-        manager.load("size3.ttf", BitmapFont.class, size3Params);
+        manager.load("greySmallFont.ttf", BitmapFont.class, size3Params);
 
 
         FreeTypeFontLoaderParameter size4Params =
@@ -102,28 +95,28 @@ public class ResourceManager {
         size4Params.fontFileName = "Fonts/forcedSquare.ttf";
         size4Params.fontParameters.size = Gdx.graphics.getHeight()/7;
         size4Params.fontParameters.color = ColorManager.MID_GREY;
-        manager.load("square.ttf", BitmapFont.class, size4Params);
+        manager.load("greyBigFont.ttf", BitmapFont.class, size4Params);
 
         FreeTypeFontLoaderParameter size5Params =
                 new FreeTypeFontLoaderParameter();
         size5Params.fontFileName = "Fonts/forcedSquare.ttf";
         size5Params.fontParameters.size = Gdx.graphics.getHeight()/7;
         size5Params.fontParameters.color = ColorManager.NRED;
-        manager.load("squareRed.ttf", BitmapFont.class, size5Params);
+        manager.load("redBigFont.ttf", BitmapFont.class, size5Params);
 
         FreeTypeFontLoaderParameter size6Params =
                 new FreeTypeFontLoaderParameter();
         size6Params.fontFileName = "Fonts/forcedSquare.ttf";
         size6Params.fontParameters.size = Gdx.graphics.getHeight()/12;
         size6Params.fontParameters.color = ColorManager.NRED;
-        manager.load("squareRedMedium.ttf", BitmapFont.class, size6Params);
+        manager.load("redMediumFont.ttf", BitmapFont.class, size6Params);
 
         FreeTypeFontLoaderParameter size7Params =
                 new FreeTypeFontLoaderParameter();
         size7Params.fontFileName = "Fonts/forcedSquare.ttf";
         size7Params.fontParameters.size = Gdx.graphics.getHeight()/12;
         size7Params.fontParameters.color = ColorManager.NBLUE;
-        manager.load("squareBlue.ttf", BitmapFont.class, size7Params);
+        manager.load("blueMediumFont.ttf", BitmapFont.class, size7Params);
 
         musica[0] = "Music/gamesong.mp3";
 
@@ -137,55 +130,55 @@ public class ResourceManager {
 
     }
 
+    /**
+     * @return la textura de la pantalla de inicio
+     */
     public Texture getSplashScreen() {
         return manager.get(SPLASH, Texture.class);
     }
 
+    /**
+     * Método para obtener efectos de sonido.
+     * @param move
+     * @return
+     */
     public Music getSound(String move) {
         return manager.get(move, Music.class);
     }
 
+    /**
+     * Método para obtener música del gestor de recursos.
+     * @param id
+     * @return
+     */
     public Music getMusic(int id) {
         if(manager.isLoaded(musica[id]))
             return manager.get(musica[id], Music.class);
         return null;
     }
 
-    public BitmapFont getFont(int size) {
-        BitmapFont bitFont;
-        switch(size) {
-            case 1:
-                bitFont = manager.get("size1.ttf", BitmapFont.class);
-                break;
-            case 2:
-                bitFont = manager.get("size2.ttf", BitmapFont.class);
-                break;
-            case 3:
-                bitFont = manager.get("size3.ttf", BitmapFont.class);
-                break;
-            case 4:
-                bitFont = manager.get("square.ttf", BitmapFont.class);
-                break;
-            case 5:
-                bitFont = manager.get("squareRed.ttf", BitmapFont.class);
-                break;
-            case 6:
-                bitFont = manager.get("squareRedMedium.ttf", BitmapFont.class);
-                break;
-            case 7:
-                bitFont = manager.get("squareBlue.ttf", BitmapFont.class);
-                break;
-            default:
-                bitFont = manager.get("size1.ttf", BitmapFont.class);
-        }
-        //bitFont.setColor(color);
-        return  bitFont;
+    /**
+     * Método para obtener las tipografías.
+     * @param keyword
+     * @return
+     */
+    public BitmapFont getFont(String keyword) {
+        return manager.get(keyword, BitmapFont.class);
     }
 
+    /**
+     * Método para obtener las imágenes
+     * @param id
+     * @return
+     */
     public Texture getImage(String id) {
         return manager.get(id, Texture.class);
     }
 
+    /**
+     * Método llama al update() del manager para saber si ha terminado de cargar los recursos o no.
+     * @return true si ha terminado de cargar los recursos y false en caso contrario.
+     */
     public boolean update() {
         return manager.update();
     }

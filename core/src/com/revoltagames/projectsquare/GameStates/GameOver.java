@@ -52,10 +52,10 @@ public class GameOver extends GameState {
         nameChooser = new NameChooserWidget(ProjectSquare.WIDTH/2, 2*ProjectSquare.HEIGTH/5, ProjectSquare.WIDTH/2, 3);
 
 
-        font = ProjectSquare.resManager.getFont(4);
-        fontSmallWhite = ProjectSquare.resManager.getFont(1);
-        fontRed = ProjectSquare.resManager.getFont(6);
-        fontBig = ProjectSquare.resManager.getFont(2);
+        font = ProjectSquare.resManager.getFont("greyBigFont.ttf");
+        fontSmallWhite = ProjectSquare.resManager.getFont("whiteSmallFont.ttf");
+        fontRed = ProjectSquare.resManager.getFont("redMediumFont.ttf");
+        fontBig = ProjectSquare.resManager.getFont("greyGiantFont.ttf");
 
 
         boton2 = new Button(

@@ -31,7 +31,7 @@ public class HighScores extends GameState {
     public void init() {
         mesage = "HighScores";
         renderer = new SpriteBatch();
-        font = ProjectSquare.resManager.getFont(7);
+        font = ProjectSquare.resManager.getFont("blueMediumFont.ttf");
         bounds = font.getBounds(mesage);
         textWidth = bounds.width;
         scores = ProjectSquare.settingsManager.getScores();
