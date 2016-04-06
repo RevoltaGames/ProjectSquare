@@ -209,7 +209,7 @@ public class Play extends GameState {
     }
 
     public void setFail() {
-        if (this.numVidas > 0) {
+        if (this.numVidas > 1) {
             numVidas--;
             this.vidas.get(numVidas).setColor(ColorManager.ColorClockBack);
         }
