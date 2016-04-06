@@ -181,7 +181,6 @@ public class Menu extends GameState {
 
             }
             if (scoresB.touched(Gdx.input.getX(), Gdx.input.getY())) {
-                track.stop();
                 gsm.push(new HighScores(gsm));
             }
             if (soundB.touched(Gdx.input.getX(), Gdx.input.getY())) {
