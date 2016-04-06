@@ -65,7 +65,6 @@ public class ProjectSquare extends ApplicationAdapter {
 
     @Override
     public void dispose() {
-        pause();
         Gdx.app.exit();
     }
 
