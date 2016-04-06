@@ -3,6 +3,7 @@ package com.revoltagames.projectsquare.GameStates;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.revoltagames.projectsquare.Entities.Score;
 import com.revoltagames.projectsquare.Managers.GameStateManager;
 import com.revoltagames.projectsquare.ProjectSquare;
 
@@ -13,7 +14,7 @@ import java.util.List;
  * Created by caenrique93 on 28/02/15.
  */
 public class HighScores extends GameState {
-    private List<Integer> scores;
+    private List<Score> scores;
     private SpriteBatch renderer;
     BitmapFont font;
     String mesage;
@@ -48,9 +49,12 @@ public class HighScores extends GameState {
         font.draw(renderer, mesage, ProjectSquare.WIDTH/2 - textWidth/2, 3 * ProjectSquare.HEIGTH / 4 - bounds.height / 2);
         gap = font.getLineHeight();
         for(int i=0;i<5;i++) {
-            String score = scores.get(i).toString();
-            numberBound = font.getBounds(score);
-            font.draw(renderer, score, ProjectSquare.WIDTH/2 - numberBound.width/2, 3*ProjectSquare.HEIGTH/4 - numberBound.height/2 - 2*gap - i*gap);
+            Score sc = scores.get(i);
+            String score = String.valueOf(sc.puntuacion);
+            String name = sc.nombre;
+            String scoreName = score + " " + name;
+            numberBound = font.getBounds(scoreName);
+            font.draw(renderer, scoreName, ProjectSquare.WIDTH/2 - numberBound.width/2, 3*ProjectSquare.HEIGTH/4 - numberBound.height/2 - 2*gap - i*gap);
         }
         renderer.end();
     }

@@ -93,9 +93,9 @@ public class ResourceManager {
 
         FreeTypeFontLoaderParameter size3Params =
                 new FreeTypeFontLoaderParameter();
-        size3Params.fontFileName = "Fonts/dinMedium.ttf";
-        size3Params.fontParameters.size = Gdx.graphics.getHeight()/30;
-        size3Params.fontParameters.color = Color.LIGHT_GRAY;
+        size3Params.fontFileName = "Fonts/forcedSquare.ttf";
+        size3Params.fontParameters.size = Gdx.graphics.getHeight()/20;
+        size3Params.fontParameters.color = ColorManager.MID_GREY;
         manager.load("size3.ttf", BitmapFont.class, size3Params);
 
 

@@ -86,7 +86,7 @@ public class GameOver extends GameState {
     private void drawScore() {
         BitmapFont.TextBounds bounds = font70.getBounds(Integer.toString(score));
         float textX = ProjectSquare.WIDTH / 2 - bounds.width/2;
-        float textY = 3*ProjectSquare.HEIGTH/4 + bounds.height/2;
+        float textY = 3*ProjectSquare.HEIGTH/5 + bounds.height/2;
         spriteRenderer.begin();
         font70.draw(spriteRenderer,Integer.toString(score), textX, textY);
         spriteRenderer.end();
@@ -105,6 +105,6 @@ public class GameOver extends GameState {
 
     @Override
     public void dispose() {
-        ProjectSquare.settingsManager.setNewScore(score);
+        ProjectSquare.settingsManager.setNewScore(this.score, this.nameChooser.getLeters());
     }
 }
