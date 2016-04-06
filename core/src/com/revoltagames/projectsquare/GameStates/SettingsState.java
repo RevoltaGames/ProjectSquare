@@ -43,6 +43,8 @@ public class SettingsState extends GameState {
         if (Gdx.input.justTouched()) {
             if (test.touched(Gdx.input.getX(), Gdx.input.getY()))
                 test.toggle();
+            else
+                this.gsm.pop();
         }
     }
 
