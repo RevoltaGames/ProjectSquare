@@ -161,8 +161,8 @@ public class Border {
         timeline
             .beginSequence()
                 .push(Tween.set(this, BorderAccessor.POS_AND_SIZE).target(vertices_menu[type]))
-                .push(Tween.to(this, BorderAccessor.POS_AND_SIZE, 1).target(vertices_anim[type]))
-                .push(Tween.to(this, BorderAccessor.POS_AND_SIZE, 1).target(vertices_play[type]))
+                .push(Tween.to(this, BorderAccessor.POS_AND_SIZE, 0.5f).target(vertices_anim[type]))
+                .push(Tween.to(this, BorderAccessor.POS_AND_SIZE, 0.5f).target(vertices_play[type]))
             .end();
 
     }
