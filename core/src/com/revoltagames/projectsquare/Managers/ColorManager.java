@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 import java.util.Random;
 
 /**
- * Created by alejandro on 18/02/15.
+ * Colores utilizados en el juego
  */
 public class ColorManager {
 
@@ -73,14 +73,26 @@ public class ColorManager {
         MID_GREY = colores[25] = new MyColor(102, 102, 102, 1);
     }
 
+    /**
+     * Devuelve un color aleatorio de todos los posibles
+     * @return Color aleatorio
+     */
     public static Color randomColor() {
         return colores[rnd.nextInt(22)];
     }
 
+    /**
+     * Devuelve un color aleatorio entre los n primeros
+     * @param n número de colores posibles
+     * @return
+     */
     public static Color randomColor(int n) {
         return colores[rnd.nextInt(n)+21];
     }
 
+    /**
+     * Clase auxiliar para poder escribir los colores en rgb 0-255
+     */
     private static class MyColor extends Color {
         public MyColor(int r, int g, int b, float s) {
             super(r/255f, g/255f, b/255f, s);
