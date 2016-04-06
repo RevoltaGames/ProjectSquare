@@ -162,6 +162,8 @@ public class Menu extends GameState {
             }
             if (soundB.touched(Gdx.input.getX(), Gdx.input.getY())) {
                 ProjectSquare.sound = !ProjectSquare.sound;
+                ProjectSquare.settingsManager.sound = ProjectSquare.sound;
+                ProjectSquare.settingsManager.save();
                 soundChanged = true;
             }
             if (exitB.touched(Gdx.input.getX(), Gdx.input.getY())) {
