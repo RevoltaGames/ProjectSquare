@@ -247,4 +247,8 @@ public class SquaresManager {
                 .target(alpha);
     }
 
+    public Square getLastSwiped() {
+        return swipedSquares.get(0);
+    }
+
 }

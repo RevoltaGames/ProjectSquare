@@ -122,10 +122,6 @@ public class Play extends GameState {
             track.play();
         }
 
-        if(!intro.isPlaying()&&!lifeup.isPlaying()&&score%scoreIncrement==0&&score!=0){
-            lifeup.play();
-        }
-
         if (animationNotFinished) {
             if(bordersAnimation.isFinished() && !squaresAnimation.isStarted()) {
                 squaresAnimation.start(ProjectSquare.tweenManager);
@@ -149,10 +145,15 @@ public class Play extends GameState {
 
         // Acaba de deslizar el cuadrado
         if (swipe != 0) {
-            score++;
-            phaseScore++;
-            if (phaseScore == scoreIncrement) {
-                timer += timeIncrement;
+            if (correctSwipe(swipe, squaresManager.getLastSwiped())){
+                score++;
+                phaseScore++;
+                if (phaseScore == scoreIncrement) {
+                    timer += timeIncrement;
+                    phaseScore = 0;
+                    lifeup.play();
+                }
+            } else {
                 phaseScore = 0;
             }
         }
@@ -214,5 +215,10 @@ public class Play extends GameState {
             this.vidas.get(numVidas).setColor(ColorManager.ColorClockBack);
         }
         else this.gameOver = true;
+    }
+
+    private boolean correctSwipe(int swipe, Square square) {
+        Color b_color = borders[swipe-1].getColor();
+        return square.getColor() == b_color;
     }
 }
