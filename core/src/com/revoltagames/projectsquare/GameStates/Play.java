@@ -184,7 +184,8 @@ public class Play extends GameState {
                     if(!ProjectSquare.settingsManager.godMode && ProjectSquare.settingsManager.time)
                         timer += timeIncrement;
                     phaseScore = 0;
-                    lifeup.play();
+                    if(ProjectSquare.sound)
+                        lifeup.play();
                 }
             } else {
                 phaseScore = 0;
@@ -260,7 +261,8 @@ public class Play extends GameState {
             else if (this.numVidas > 1) {
                 numVidas--;
                 this.vidas.get(numVidas).setColor(ColorManager.ColorClockBack);
-                lifelost.play();
+                if(ProjectSquare.sound)
+                    lifelost.play();
             }
             else this.gameOver = true;
         }
