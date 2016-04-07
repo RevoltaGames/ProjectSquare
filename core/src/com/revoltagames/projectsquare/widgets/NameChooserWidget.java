@@ -3,6 +3,7 @@ package com.revoltagames.projectsquare.widgets;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.revoltagames.projectsquare.Entities.ArrowButton;
 import com.revoltagames.projectsquare.Entities.Button;
 import com.revoltagames.projectsquare.Entities.Shapes.Square;
 import com.revoltagames.projectsquare.Entities.TextFrame;
@@ -55,10 +56,10 @@ public class NameChooserWidget {
         for(int i=0; i< numLeters; i++) {
             letras.add('A');
             frames.add(new TextFrame(origin + letterDistance*i, this.y, letterSize, height, String.valueOf(letras.get(i))));
-            Button b = new Button(new Square(origin + letterDistance*i, this.y + height/2 + letterSize/2, letterSize));
+            Button b = new ArrowButton(new Square(origin + letterDistance*i, this.y + height/2 + letterSize/2, letterSize),0);
             b.setColor(ColorManager.NRED);
             nextButtons.add(b);
-            b = new Button(new Square(origin + letterDistance*i, this.y - (height/2 + letterSize/2), letterSize));
+            b = new ArrowButton(new Square(origin + letterDistance*i, this.y - (height/2 + letterSize/2), letterSize),1);
             b.setColor(ColorManager.NRED);
             previousButtons.add(b);
         }
