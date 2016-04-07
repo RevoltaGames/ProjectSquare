@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.revoltagames.projectsquare.Entities.Button;
 import com.revoltagames.projectsquare.Entities.Shapes.Rect;
+import com.revoltagames.projectsquare.Managers.ColorManager;
 import com.revoltagames.projectsquare.Managers.GameStateManager;
 import com.revoltagames.projectsquare.ProjectSquare;
 import com.revoltagames.projectsquare.widgets.OptionWidget;
@@ -59,7 +60,7 @@ public class SettingsState extends GameState {
         );
         message = "Settings";
 
-        font = ProjectSquare.resManager.getFont("blueMediumFont.ttf");
+        font = ProjectSquare.resManager.getFont("greenMediumFont.ttf");
         bounds = font.getBounds(message);
         textWidth = bounds.width;
 
@@ -73,6 +74,7 @@ public class SettingsState extends GameState {
                 "back",
                 backButtonFont
         );
+        backButton.setColor(ColorManager.NGREEN);
     }
 
     @Override

@@ -114,6 +114,12 @@ public class ResourceManager {
 
         sizeParams = new FreeTypeFontLoaderParameter();
         sizeParams.fontFileName = "Fonts/forcedSquare.ttf";
+        sizeParams.fontParameters.size = Gdx.graphics.getHeight()/12;
+        sizeParams.fontParameters.color = ColorManager.NGREEN;
+        manager.load("greenMediumFont.ttf", BitmapFont.class, sizeParams);
+
+        sizeParams = new FreeTypeFontLoaderParameter();
+        sizeParams.fontFileName = "Fonts/forcedSquare.ttf";
         sizeParams.fontParameters.size = Gdx.graphics.getHeight()/30;
         sizeParams.fontParameters.color = ColorManager.GREY;
         manager.load("greyTinyFont.ttf", BitmapFont.class, sizeParams);
