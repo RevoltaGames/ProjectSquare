@@ -68,56 +68,55 @@ public class ResourceManager {
         manager.load(B_VOLUME_OFF, Texture.class);
         manager.load(B_VOLUME_ON, Texture.class);
 
-        FreeTypeFontLoaderParameter size1Params =
-                new FreeTypeFontLoaderParameter();
-        size1Params.fontFileName = "Fonts/forcedSquare.ttf";
-        size1Params.fontParameters.size = Gdx.graphics.getHeight()/20;
-        size1Params.fontParameters.color = ColorManager.WHITE;
-        manager.load("whiteSmallFont.ttf", BitmapFont.class, size1Params);
+        FreeTypeFontLoaderParameter sizeParams;
 
-        FreeTypeFontLoaderParameter size2Params =
-                new FreeTypeFontLoaderParameter();
-        size2Params.fontFileName = "Fonts/forcedSquare.ttf";
-        size2Params.fontParameters.size = Gdx.graphics.getHeight()/5;
-        size2Params.fontParameters.color = ColorManager.MID_GREY;
-        manager.load("greyGiantFont.ttf", BitmapFont.class, size2Params);
+        sizeParams = new FreeTypeFontLoaderParameter();
+        sizeParams.fontFileName = "Fonts/forcedSquare.ttf";
+        sizeParams.fontParameters.size = Gdx.graphics.getHeight()/20;
+        sizeParams.fontParameters.color = ColorManager.WHITE;
+        manager.load("whiteSmallFont.ttf", BitmapFont.class, sizeParams);
 
+        sizeParams = new FreeTypeFontLoaderParameter();
+        sizeParams.fontFileName = "Fonts/forcedSquare.ttf";
+        sizeParams.fontParameters.size = Gdx.graphics.getHeight()/5;
+        sizeParams.fontParameters.color = ColorManager.MID_GREY;
+        manager.load("greyGiantFont.ttf", BitmapFont.class, sizeParams);
 
-        FreeTypeFontLoaderParameter size3Params =
-                new FreeTypeFontLoaderParameter();
-        size3Params.fontFileName = "Fonts/forcedSquare.ttf";
-        size3Params.fontParameters.size = Gdx.graphics.getHeight()/20;
-        size3Params.fontParameters.color = ColorManager.MID_GREY;
-        manager.load("greySmallFont.ttf", BitmapFont.class, size3Params);
+        sizeParams = new FreeTypeFontLoaderParameter();
+        sizeParams.fontFileName = "Fonts/forcedSquare.ttf";
+        sizeParams.fontParameters.size = Gdx.graphics.getHeight()/20;
+        sizeParams.fontParameters.color = ColorManager.MID_GREY;
+        manager.load("greySmallFont.ttf", BitmapFont.class, sizeParams);
 
+        sizeParams = new FreeTypeFontLoaderParameter();
+        sizeParams.fontFileName = "Fonts/forcedSquare.ttf";
+        sizeParams.fontParameters.size = Gdx.graphics.getHeight()/7;
+        sizeParams.fontParameters.color = ColorManager.MID_GREY;
+        manager.load("greyBigFont.ttf", BitmapFont.class, sizeParams);
 
-        FreeTypeFontLoaderParameter size4Params =
-                new FreeTypeFontLoaderParameter();
-        size4Params.fontFileName = "Fonts/forcedSquare.ttf";
-        size4Params.fontParameters.size = Gdx.graphics.getHeight()/7;
-        size4Params.fontParameters.color = ColorManager.MID_GREY;
-        manager.load("greyBigFont.ttf", BitmapFont.class, size4Params);
+        sizeParams = new FreeTypeFontLoaderParameter();
+        sizeParams.fontFileName = "Fonts/forcedSquare.ttf";
+        sizeParams.fontParameters.size = Gdx.graphics.getHeight()/7;
+        sizeParams.fontParameters.color = ColorManager.NRED;
+        manager.load("redBigFont.ttf", BitmapFont.class, sizeParams);
 
-        FreeTypeFontLoaderParameter size5Params =
-                new FreeTypeFontLoaderParameter();
-        size5Params.fontFileName = "Fonts/forcedSquare.ttf";
-        size5Params.fontParameters.size = Gdx.graphics.getHeight()/7;
-        size5Params.fontParameters.color = ColorManager.NRED;
-        manager.load("redBigFont.ttf", BitmapFont.class, size5Params);
+        sizeParams = new FreeTypeFontLoaderParameter();
+        sizeParams.fontFileName = "Fonts/forcedSquare.ttf";
+        sizeParams.fontParameters.size = Gdx.graphics.getHeight()/12;
+        sizeParams.fontParameters.color = ColorManager.NRED;
+        manager.load("redMediumFont.ttf", BitmapFont.class, sizeParams);
 
-        FreeTypeFontLoaderParameter size6Params =
-                new FreeTypeFontLoaderParameter();
-        size6Params.fontFileName = "Fonts/forcedSquare.ttf";
-        size6Params.fontParameters.size = Gdx.graphics.getHeight()/12;
-        size6Params.fontParameters.color = ColorManager.NRED;
-        manager.load("redMediumFont.ttf", BitmapFont.class, size6Params);
+        sizeParams = new FreeTypeFontLoaderParameter();
+        sizeParams.fontFileName = "Fonts/forcedSquare.ttf";
+        sizeParams.fontParameters.size = Gdx.graphics.getHeight()/12;
+        sizeParams.fontParameters.color = ColorManager.NBLUE;
+        manager.load("blueMediumFont.ttf", BitmapFont.class, sizeParams);
 
-        FreeTypeFontLoaderParameter size7Params =
-                new FreeTypeFontLoaderParameter();
-        size7Params.fontFileName = "Fonts/forcedSquare.ttf";
-        size7Params.fontParameters.size = Gdx.graphics.getHeight()/12;
-        size7Params.fontParameters.color = ColorManager.NBLUE;
-        manager.load("blueMediumFont.ttf", BitmapFont.class, size7Params);
+        sizeParams = new FreeTypeFontLoaderParameter();
+        sizeParams.fontFileName = "Fonts/forcedSquare.ttf";
+        sizeParams.fontParameters.size = Gdx.graphics.getHeight()/30;
+        sizeParams.fontParameters.color = ColorManager.GREY;
+        manager.load("greyTinyFont.ttf", BitmapFont.class, sizeParams);
 
         musica[0] = "Music/gamesong.mp3";
 

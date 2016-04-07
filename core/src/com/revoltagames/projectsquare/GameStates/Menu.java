@@ -34,6 +34,7 @@ public class Menu extends GameState {
 
     private Border[] borders;
     private BitmapFont font;
+    private BitmapFont tinyFont;
 
     private Texture b_exit;
     private Texture b_settings;
@@ -62,6 +63,7 @@ public class Menu extends GameState {
 
         soundChanged = true;
         shapeR = new ShapeRenderer();
+        renderer = new SpriteBatch();
 
         b_exit = ProjectSquare.resManager.getImage(ProjectSquare.resManager.B_EXIT);
         b_scores = ProjectSquare.resManager.getImage(ProjectSquare.resManager.B_SCORES);
@@ -89,7 +91,7 @@ public class Menu extends GameState {
         borders[GestureManager.SW_UP - 1] = new Border(GestureManager.SW_UP - 1, ColorManager.NRED, true);
 
         font = ProjectSquare.resManager.getFont("greyBigFont.ttf");
-        renderer = new SpriteBatch();
+        tinyFont = ProjectSquare.resManager.getFont("greyTinyFont.ttf");
 
     }
 
@@ -116,6 +118,14 @@ public class Menu extends GameState {
         for (Border border : borders) {
             border.draw(shapeR);
         }
+
+        String touchToPlay = "Touch to play";
+        BitmapFont.TextBounds bounds = tinyFont.getBounds(touchToPlay);
+
+        renderer.begin();
+        tinyFont.draw(renderer, touchToPlay, ProjectSquare.WIDTH/2 - bounds.width/2, ProjectSquare.HEIGTH/3);
+        renderer.end();
+
     }
 
     /**
