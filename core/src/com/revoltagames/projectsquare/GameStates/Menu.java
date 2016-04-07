@@ -28,6 +28,8 @@ public class Menu extends GameState {
     private Button playB;
     private Music track;
 
+    private Music select;
+
     private Button soundB;
     private Button scoresB;
     private Button settingsB;
@@ -61,6 +63,9 @@ public class Menu extends GameState {
         if (ProjectSquare.sound) {
             track.play();
         }
+
+        select= ProjectSquare.resManager.getSound(ResourceManager.SELECT);
+        select.setVolume(0.5f);
 
         soundChanged = true;
         shapeR = new ShapeRenderer();
@@ -169,7 +174,8 @@ public class Menu extends GameState {
     public void handleInput() {
         if (Gdx.input.justTouched()) {
             if (playB.touched(Gdx.input.getX(), Gdx.input.getY())) {
-
+                if(ProjectSquare.sound)
+                    select.play();
                 Timeline animation = Timeline.createParallel();
                 for (Border b: borders)
                     b.addAnimation(animation);
@@ -178,20 +184,28 @@ public class Menu extends GameState {
                 return;
             }
             if (scoresB.touched(Gdx.input.getX(), Gdx.input.getY())) {
+                if(ProjectSquare.sound)
+                    select.play();
                 gsm.push(new HighScores(gsm));
                 return;
             }
             if (soundB.touched(Gdx.input.getX(), Gdx.input.getY())) {
+                if(ProjectSquare.sound)
+                    select.play();
                 ProjectSquare.sound = !ProjectSquare.sound;
                 ProjectSquare.settingsManager.sound = ProjectSquare.sound;
                 ProjectSquare.settingsManager.save();
                 soundChanged = true;
             }
             if (exitB.touched(Gdx.input.getX(), Gdx.input.getY())) {
+                if(ProjectSquare.sound)
+                    select.play();
                 dispose();
                 gsm.projectSquare.dispose();
             }
             if (settingsB.touched(Gdx.input.getX(), Gdx.input.getY())){
+                if(ProjectSquare.sound)
+                    select.play();
                 gsm.push(new SettingsState(gsm));
                 return;
             }

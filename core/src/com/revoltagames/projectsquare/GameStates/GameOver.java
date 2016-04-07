@@ -26,7 +26,8 @@ public class GameOver extends GameState {
     private int score;
 
     private Music track;
-    
+    private Music select;
+
     private BitmapFont font;
     private BitmapFont fontSmallWhite;
     private BitmapFont fontBig;
@@ -45,6 +46,9 @@ public class GameOver extends GameState {
 
         if (ProjectSquare.sound)
             track.play();
+
+        select= ProjectSquare.resManager.getSound(ResourceManager.SELECT);
+        select.setVolume(0.5f);
 
         nameChooser = new NameChooserWidget(ProjectSquare.WIDTH/2, 2*ProjectSquare.HEIGTH/5, ProjectSquare.WIDTH/2, 3);
 
@@ -110,8 +114,13 @@ public class GameOver extends GameState {
     @Override
     public void handleInput() {
         if(Gdx.input.justTouched()) {
-            nameChooser.touched(Gdx.input.getX(), Gdx.input.getY());
+            if(nameChooser.touched(Gdx.input.getX(), Gdx.input.getY())){
+                if(ProjectSquare.sound)
+                    select.play();
+            }
             if (backButton.touched(Gdx.input.getX(), Gdx.input.getY())) {
+                if(ProjectSquare.sound)
+                    select.play();
                 track.stop();
                 gsm.setState(new Menu(this.gsm));
                 return;

@@ -28,6 +28,7 @@ public class ResourceManager {
     public static final String LIFEUP = "Music/lifeup.mp3";
     public static final String LIFELOST = "Music/lifelost.mp3";
     public static final String MENU = "Music/menuloop2.mp3";
+    public static final String SELECT = "Music/select.mp3";
     public static final String INTROGAME = "Music/AreUReady.mp3";
     public static final String INTROMENU = "Music/menuinicio.mp3";
 
@@ -129,6 +130,7 @@ public class ResourceManager {
         manager.load(musica[0], Music.class);
         manager.load(MOVE, Music.class);
         manager.load(LIFEUP, Music.class);
+        manager.load(SELECT, Music.class);
         manager.load(LIFELOST, Music.class);
         manager.load(INTROGAME, Music.class);
         manager.load(INTROMENU, Music.class);

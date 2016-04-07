@@ -1,10 +1,12 @@
 package com.revoltagames.projectsquare.GameStates;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.revoltagames.projectsquare.Entities.Score;
 import com.revoltagames.projectsquare.Managers.GameStateManager;
+import com.revoltagames.projectsquare.Managers.ResourceManager;
 import com.revoltagames.projectsquare.ProjectSquare;
 import java.util.List;
 
@@ -17,6 +19,8 @@ public class HighScores extends GameState {
     float gap;
     private float textWidth;
 
+    private Music select;
+
 
     protected HighScores(GameStateManager gsm) {
         super(gsm);
@@ -24,6 +28,8 @@ public class HighScores extends GameState {
 
     @Override
     public void init() {
+        select= ProjectSquare.resManager.getSound(ResourceManager.SELECT);
+        select.setVolume(0.5f);
         mesage = "HighScores";
         renderer = new SpriteBatch();
         font = ProjectSquare.resManager.getFont("blueMediumFont.ttf");
@@ -57,6 +63,8 @@ public class HighScores extends GameState {
     @Override
     public void handleInput() {
         if(Gdx.input.justTouched()) {
+            if(ProjectSquare.sound)
+                select.play();
             gsm.pop();
         }
     }

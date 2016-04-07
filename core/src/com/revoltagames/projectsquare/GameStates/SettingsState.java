@@ -1,6 +1,7 @@
 package com.revoltagames.projectsquare.GameStates;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -8,6 +9,7 @@ import com.revoltagames.projectsquare.Entities.Button;
 import com.revoltagames.projectsquare.Entities.Shapes.Rect;
 import com.revoltagames.projectsquare.Managers.ColorManager;
 import com.revoltagames.projectsquare.Managers.GameStateManager;
+import com.revoltagames.projectsquare.Managers.ResourceManager;
 import com.revoltagames.projectsquare.ProjectSquare;
 import com.revoltagames.projectsquare.widgets.OptionWidget;
 import com.revoltagames.projectsquare.widgets.ToggleWidget;
@@ -22,6 +24,8 @@ public class SettingsState extends GameState {
 
     private ShapeRenderer shapeR;
     private SpriteBatch spriteB;
+
+    private Music select;
 
     private OptionWidget dificultyOption;
     private ToggleWidget godMode;
@@ -44,7 +48,8 @@ public class SettingsState extends GameState {
         shapeR = new ShapeRenderer();
         spriteB = new SpriteBatch();
 
-
+        select= ProjectSquare.resManager.getSound(ResourceManager.SELECT);
+        select.setVolume(0.5f);
 
         godMode = new ToggleWidget(ProjectSquare.WIDTH/2, 6*ProjectSquare.HEIGTH/10, ProjectSquare.settingsManager.godMode, "God mode");
         float widgetHeight = godMode.getBoundaries().getHeight();
@@ -109,14 +114,26 @@ public class SettingsState extends GameState {
             dificultyOption.touched(Gdx.input.getX(), Gdx.input.getY());
             float x = Gdx.input.getX();
             float y = Gdx.input.getY();
-            if (godMode.touched(x,y))
+            if (godMode.touched(x,y)){
                 godMode.toggle();
-            if (time.touched(x,y))
+                if(ProjectSquare.sound)
+                    select.play();
+            }
+            if (time.touched(x,y)){
                 time.toggle();
-            if (lives.touched(x,y))
+                if(ProjectSquare.sound)
+                    select.play();
+            }
+            if (lives.touched(x,y)){
                 lives.toggle();
-            if (backButton.touched(Gdx.input.getX(), Gdx.input.getY()))
+                if(ProjectSquare.sound)
+                    select.play();
+            }
+            if (backButton.touched(Gdx.input.getX(), Gdx.input.getY())){
                 gsm.pop();
+                if(ProjectSquare.sound)
+                    select.play();
+            }
         }
     }
 

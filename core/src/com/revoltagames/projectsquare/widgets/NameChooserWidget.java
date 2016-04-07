@@ -115,7 +115,7 @@ public class NameChooserWidget {
      * @param x coordenada horizontal del punto de toque.
      * @param y coordenada vertical del punto de toque.
      */
-    public void touched(float x, float y) {
+    public boolean touched(float x, float y) {
         for(int i=0; i<this.numLeters; i++) {
             if (nextButtons.get(i).touched(x, y)) {
                 char next = nextLetter(letras.get(i));
@@ -127,5 +127,6 @@ public class NameChooserWidget {
                 letras.set(i, previous);
             }
         }
+        return true;
     }
 }

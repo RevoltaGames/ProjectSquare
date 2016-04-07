@@ -39,6 +39,7 @@ public class Play extends GameState {
     private static Music lifelost;
 
     private Music move;
+    private Music select;
 
     private int timer;
     private int timeIncrement;
@@ -67,6 +68,8 @@ public class Play extends GameState {
     @Override
     public void init() {
         shapeR = new ShapeRenderer();
+        select= ProjectSquare.resManager.getSound(ResourceManager.SELECT);
+        select.setVolume(0.5f);
         spriteRenderer = new SpriteBatch();
         squaresManager = new SquaresManager(this);
         clock = new Clock(timer);
@@ -240,6 +243,8 @@ public class Play extends GameState {
         swipe = GestureManager.getSwipe();
         if (ProjectSquare.settingsManager.godMode && Gdx.input.justTouched()) {
             if (godButton.touched(Gdx.input.getX(), Gdx.input.getY())) {
+                if(ProjectSquare.sound)
+                    select.play();
                 this.gameOver =true;
             }
         }
