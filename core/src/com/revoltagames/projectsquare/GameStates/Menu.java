@@ -2,6 +2,7 @@ package com.revoltagames.projectsquare.GameStates;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -121,6 +122,16 @@ public class Menu extends GameState {
 
         String touchToPlay = "Touch to play";
         BitmapFont.TextBounds bounds = tinyFont.getBounds(touchToPlay);
+
+        Color oldColor = shapeR.getColor();
+        float triangleSize = ProjectSquare.HEIGTH/90;
+        shapeR.setColor(ColorManager.GREY);
+        shapeR.begin(ShapeRenderer.ShapeType.Filled);
+        shapeR.triangle(ProjectSquare.WIDTH/2, ProjectSquare.HEIGTH/3+bounds.height*2 + triangleSize,
+                        ProjectSquare.WIDTH/2 - triangleSize, ProjectSquare.HEIGTH/3+bounds.height*2 - triangleSize,
+                        ProjectSquare.WIDTH/2 + triangleSize, ProjectSquare.HEIGTH/3+bounds.height*2 - triangleSize);
+        shapeR.end();
+        shapeR.setColor(oldColor);
 
         renderer.begin();
         tinyFont.draw(renderer, touchToPlay, ProjectSquare.WIDTH/2 - bounds.width/2, ProjectSquare.HEIGTH/3);
